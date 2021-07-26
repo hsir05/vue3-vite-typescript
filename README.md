@@ -70,3 +70,23 @@ module.exports = {
 
 ### 1-3 git提交约束
 
+```vue
+husky：触发Git Hooks,执行脚本
+lint-staged：检测文件，只对暂存区中有改动的文件进行检测，可以在提交前进行Lint操作
+commitizen：使用规范化的message提交
+commitlint: 检查message是否符合规范
+cz-conventional-changelog：适配器。提供conventional-changelog标准（约定式提交标准）。基于不同需求，也可以使用不同适配器（比如: cz-customizable）。
+
+```
+
+`yarn add husky lint-staged commitizen @commitlint/config-conventional @commitlint/cli  -D`
+
+### 1-4. 提交
+
+```vue
+添加一个脚本就可以编写规范化的提交：
+"scripts": {
+    "cz": "git cz"
+  }
+
+```
