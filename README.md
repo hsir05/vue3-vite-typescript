@@ -90,3 +90,45 @@ cz-conventional-changelog：适配器。提供conventional-changelog标准（约
   }
 
 ```
+
+### 1-5. commitlint
+
+```vue
+配置刚刚介绍到的commitlint，只需要一句命令即可完成配置,它会在项目根目录下面创建一个commitlint.config.js配置文件
+echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
+```
+
+### 1-6. 定义触发hook时要执行的Npm脚本
+
+```vue
+提交前对暂存区的文件进行代码风格语法校验
+对提交的信息进行规范化校验
+  "scripts": {
+    "lint-staged": "lint-staged",
+    "commitlint": "commitlint --config commitlint.config.js -e -V"
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue,md,json}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+
+```
+
+### 1-7. 配置husky通过触发Git Hook执行脚本
+
+```vue
+
+# 设置脚本`prepare`并且立马执行来安装，此时在根目录下会创建一个`.husky`目录
+npm set-script prepare "husky install" && npm run prepare
+
+# 设置`pre-commit`钩子，提交前执行校验
+npx husky add .husky/pre-commit "yarn lint-staged"
+
+# 设置`pre-commit`钩子，提交message执行校验
+npx husky add .husky/commit-msg "yarn commitlint"
+
+```
+
+**此时已经完成配置了，现在团队里面任何成员的提交必须按照严格的规范进行了**
