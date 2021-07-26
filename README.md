@@ -12,6 +12,8 @@ eslint-plugin-prettier：ESLint的插件，集成Prettier的功能
 eslint-plugin-vue：ESLint的插件，增加Vue的检测能力
 ```
 
+`yarn add eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-vue -D`
+
 ### 1-2 .eslintrc.js prettier.config.js文件
 
 项目根目录下添加`.eslintrc.js`和`prettier.config.js`文件
@@ -59,5 +61,12 @@ module.exports = {
 }
 ```
 
+[ESLint Rules](http://eslint.cn/docs/rules/)
+
+[Prettier中文网](https://www.prettier.cn/docs/index.html)
+
+
 **`ctrl+shift+P`调出控制台输入`Reload Window`配置即可生效**
+
+### 1-3 git提交约束
 
