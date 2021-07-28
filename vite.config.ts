@@ -23,8 +23,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     return {
         base: VITE_PUBLIC_PATH,
         root,
+        
         resolve: {
-            alias: {
+            // 忽略后缀名的配置选项, 添加 .vue 选项时要记得原本默认忽略的选项也要手动写入
+            extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+            alias: { 
                 '/@': path.resolve(__dirname, './src'),
                 '/\/#\//': pathResolve('types') + '/',
             }
@@ -45,10 +48,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
         optimizeDeps: {
             include: [
-                // "element-plus",
-                // "element-plus/lib/locale/lang/zh-cn",
-                // "dayjs/locale/zh-cn",
+                '@iconify/iconify',
+                'ant-design-vue/es/locale/zh_CN',
+                'moment/dist/locale/zh-cn',
+                'ant-design-vue/es/locale/en_US',
+                'moment/dist/locale/eu',
             ],
+            exclude: ['vue-demi'],
         },
         build: {
             target: 'es2015',

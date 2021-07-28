@@ -21,8 +21,7 @@
             "esnext"
         ],
         "types": [
-            "vite/client",
-            "jest"
+            "vite/client"
         ],
         "typeRoots": [
             "./node_modules/@types/",
