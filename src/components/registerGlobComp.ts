@@ -1,12 +1,12 @@
 import type { App } from 'vue';
 import less from 'less'
 import '@ant-design-vue/pro-layout/dist/style.css';
-import { Layout, Menu, Button, ConfigProvider, Breadcrumb, Divider } from "ant-design-vue";
+import { Layout, Menu, Button, ConfigProvider, Breadcrumb, Avatar, Tooltip, Divider } from "ant-design-vue";
 
 const Item = Breadcrumb.Item
 
 
-const compList = [Button, Item, Breadcrumb, ConfigProvider, Divider];
+const compList = [Button, Item, Breadcrumb, Tooltip, Avatar, ConfigProvider, Divider];
 
 
 export function registerGlobComp(app: App) {
