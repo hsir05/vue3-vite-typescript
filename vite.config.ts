@@ -1,8 +1,7 @@
 import { UserConfig, ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// import styleImport from 'vite-plugin-style-import'
+import styleImport from 'vite-plugin-style-import'
 import { wrapperEnv } from './build/utils'
-// import dotenv from 'dotenv'
 import path from 'path'
 import { resolve } from 'path';
 import { loadEnv } from 'vite';
@@ -19,11 +18,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     const isBuild = command === 'build';
     console.log(isBuild);
 
-    // const GVA_ENV = dotenv.parse(fs.readFileSync(`.env.${mode}`))
     return {
         base: VITE_PUBLIC_PATH,
         root,
-        
+        define: {
+            'process.env': {}
+        },
         resolve: {
             // 忽略后缀名的配置选项, 添加 .vue 选项时要记得原本默认忽略的选项也要手动写入
             extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
@@ -70,22 +70,29 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             assetsDir: "",
             outDir: `./dist/${process.env.VITE_ENV}`,
         },
+        css: {
+            preprocessorOptions: {
+                less: {
+                    modifyVars: { // 更改主题在这里
+                        'primary-color': '#52c41a',
+                        'link-color': '#1DA57A',
+                        'border-radius-base': '2px'
+                    },
+                    javascriptEnabled: true
+                }
+            }
+        },
         plugins: [
             vue(),
-            // styleImport({
-            //     libs: [{
-            //         libraryName: 'element-plus',
-            //         esModule: true,
-            //         ensureStyleFile: true,
-            //         resolveStyle: (name) => {
-            //             name = name.slice(3)
-            //             return `element-plus/packages/theme-chalk/src/${name}.scss`;
-            //         },
-            //         resolveComponent: (name) => {
-            //             return `element-plus/lib/${name}`;
-            //         },
-            //     }]
-            // })
+            styleImport({
+                libs: [{
+                    libraryName: 'ant-design-vue',
+                    esModule: true,
+                    resolveStyle: (name) => {
+                        return `ant-design-vue/es/${name}/style/css`;
+                    },
+                }]
+            })
         ]
     }
 }

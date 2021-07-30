@@ -1,5 +1,4 @@
 import { UserLayout, BasicLayout } from "/@/layouts/index"
-import Analysis from '/@/views/dashboard/Analysis.vue'
 import { bxAnaalyse } from '/@/core/icons'
 
 const RouteView = {
@@ -9,40 +8,47 @@ const RouteView = {
 
 export const asyncRouterMap = [
     {
-        path: '/',
+        path: '/', 
         name: 'index',
         component: BasicLayout,
         meta: { title: 'menu.home' },
         redirect: '/dashboard/analysis',
         children: [
-            // dashboard
             {
-                path: '/dashboard',
-                name: 'dashboard',
-                redirect: '/dashboard/workplace',
-                component: RouteView,
-                meta: { title: 'menu.dashboard', keepAlive: true, icon: bxAnaalyse + '?inline', permission: ['dashboard'] },
-                children: [
-                    {
-                        path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
-                        name: 'Analysis',
-                        component: () => import('/@/views/dashboard/Analysis.vue'),
-                        meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
-                    },
-                    // 外部链接
-                    {
-                        path: 'https://www.baidu.com/',
-                        name: 'Monitor',
-                        meta: { title: 'menu.dashboard.monitor', target: '_blank' }
-                    },
-                    
-                ]
+                path: '/dashboard/analysis',
+                name: 'Analysis',
+                component: () => import('/@/views/dashboard/Analysis.vue'),
+                meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
             },
+            // dashboard
+            // {
+            //     path: '/dashboard',
+            //     name: 'dashboard',
+            //     redirect: '/dashboard/analysis',
+
+            //     // component: RouteView,
+            //     meta: { title: 'menu.dashboard', keepAlive: true, icon: bxAnaalyse + '?inline', permission: ['dashboard'] },
+            //     children: [
+            //         {
+            //             path: '/dashboard/analysis',
+            //             name: 'Analysis',
+            //             component: () => import('/@/views/dashboard/Analysis.vue'),
+            //             meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
+            //         },
+            //         // 外部链接
+            //         // {
+            //         //     path: 'https://www.baidu.com/',
+            //         //     name: 'Monitor',
+            //         //     meta: { title: 'menu.dashboard.monitor', target: '_blank' }
+            //         // },
+                    
+            //     ]
+            // },
             // Exception
             {
                 path: '/exception',
                 name: 'exception',
-                component: RouteView,
+                // component: RouteView,
                 redirect: '/exception/403',
                 meta: { title: 'menu.exception', icon: 'warning', permission: ['exception'] },
                 children: [
@@ -69,7 +75,7 @@ export const asyncRouterMap = [
         ]
     },
     {
-        path: '*',
+        path: "/:pathMatch(.*)*",
         redirect: '/404',
         hidden: true
     }
@@ -78,10 +84,7 @@ export const asyncRouterMap = [
  * 基础路由
 */
 export const constantRouterMap = [
-    {
-        path: '/',
-        component: Analysis
-    },
+    
     {
         path: '/user',
         component: UserLayout,
@@ -95,9 +98,9 @@ export const constantRouterMap = [
             }
         ]
     },
-
     {
-        path: '/404',
+        path: "/:pathMatch(.*)*",
+        name: "404",
         component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/404.vue')
-    }
+    },
 ]

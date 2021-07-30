@@ -1,11 +1,23 @@
 <template>
-  <router-view />
+  <a-config-provider :locale="locale === 'en' ? enUS : zhCN">
+    <router-view />
+  </a-config-provider>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, ref } from 'vue'
+  import zhCN from 'ant-design-vue/es/locale/zh_CN'
+  import enUS from 'ant-design-vue/es/locale/en_US'
   export default defineComponent({
-    name: 'App'
+    name: 'App',
+    setup() {
+      const locale = ref(zhCN.locale)
+      return {
+        locale,
+        zhCN,
+        enUS
+      }
+    }
   })
 </script>
 
@@ -16,6 +28,6 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    height: 100vh;
   }
 </style>
