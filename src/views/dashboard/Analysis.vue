@@ -1,6 +1,5 @@
 <template>
-  <div class="">analysis</div>
-  <a-button type="primary">Default Button</a-button>
+  <a-button type="primary">Button</a-button>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'

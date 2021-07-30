@@ -39,22 +39,12 @@
     </a-layout-sider>
 
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0" />
+      <Header />
+      <MultipleHeader />
 
-      <a-layout-content style="margin: 0 16px; text-align: left">
-        <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>User</a-breadcrumb-item>
-          <a-breadcrumb-item>Bill</a-breadcrumb-item>
-        </a-breadcrumb>
+      <Content />
 
-        <div :style="{ padding: '24px', background: '#fff', minHeight: 'calc(100vh - 190px)' }">
-          <router-view />
-        </div>
-      </a-layout-content>
-
-      <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
-      </a-layout-footer>
+      <Footer />
     </a-layout>
   </a-layout>
 </template>
@@ -67,13 +57,21 @@
     FileOutlined
   } from '@ant-design/icons-vue'
   import { defineComponent, reactive, toRefs } from 'vue'
+  import MultipleHeader from './MultipleHeader.vue'
+  import Header from './Header.vue'
+  import Content from './Content.vue'
+  import Footer from './Footer.vue'
   export default defineComponent({
     name: 'BaicLayout',
     components: {
       PieChartOutlined,
       DesktopOutlined,
       UserOutlined,
+      MultipleHeader,
       TeamOutlined,
+      Content,
+      Footer,
+      Header,
       FileOutlined
     },
     setup() {
@@ -87,17 +85,25 @@
     }
   })
 </script>
-<style>
+<style lang="less" scoped>
   .logo {
     height: 32px;
     margin: 16px;
     background: rgba(255, 255, 255, 0.3);
   }
 
-  .site-layout .site-layout-background {
-    background: #fff;
+  .site-layout {
+    .site-layout-background {
+      background: @white;
+    }
   }
   [data-theme='dark'] .site-layout .site-layout-background {
-    background: #141414;
+    background: @menuBgColor;
+  }
+
+  .site-layout {
+    .site-layout-background {
+      background: #fff;
+    }
   }
 </style>
