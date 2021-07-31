@@ -13,6 +13,7 @@
  */
 
 export default {
+  collapsed: false,
   navTheme: 'dark', // theme for nav menu
   primaryColor: '#F5222D', // primary color of ant design
   layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`

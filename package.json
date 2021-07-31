@@ -19,6 +19,7 @@
   "dependencies": {
     "@ant-design-vue/pro-layout": "^3.1.0-alpha.4",
     "@iconify/iconify": "^2.0.3",
+    "@vueuse/core": "^5.2.0",
     "ant-design-vue": "^2.2.2",
     "axios": "^0.21.1",
     "global": "^4.4.0",

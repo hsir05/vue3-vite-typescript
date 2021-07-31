@@ -13,6 +13,7 @@
         <a-breadcrumb-item>Bill</a-breadcrumb-item>
       </a-breadcrumb>
     </div>
+
     <div class="h-header-action">
       <a-tooltip placement="bottom">
         <template #title>
@@ -28,6 +29,13 @@
       </a-tooltip>
       <TranslationOutlined class="pd15 h-header-action-item" />
 
+      <a-tooltip :title="getTitle" placement="bottom" :mouse-enter-delay="0.5">
+        <span @click="toggle">
+          <FullscreenOutlined v-if="!isFullscreen" class="pd15 h-header-action-item" />
+          <FullscreenExitOutlined v-else class="pd15 h-header-action-item" />
+        </span>
+      </a-tooltip>
+
       <div class="h-header-action-item" style="display: inline-block">
         <a-avatar class="mr10 avatar ml10" size="small">
           <template #icon><UserOutlined /></template>
@@ -41,7 +49,8 @@
   </a-layout-header>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, unref, computed, toRefs } from 'vue'
+  import { useFullscreen } from '@vueuse/core'
   import {
     MenuUnfoldOutlined,
     UserOutlined,
@@ -49,13 +58,17 @@
     SettingOutlined,
     BellOutlined,
     SearchOutlined,
-    TranslationOutlined
+    TranslationOutlined,
+    FullscreenOutlined,
+    FullscreenExitOutlined
   } from '@ant-design/icons-vue'
 
   export default defineComponent({
     name: 'Header',
     components: {
       MenuUnfoldOutlined,
+      FullscreenOutlined,
+      FullscreenExitOutlined,
       MenuFoldOutlined,
       SettingOutlined,
       BellOutlined,
@@ -64,12 +77,20 @@
       UserOutlined
     },
     setup() {
+      const { toggle, isFullscreen } = useFullscreen()
+      //  const { t } = useI18n();
       const state = reactive({
         collapsed: false,
         selectedKeys: [1]
       })
+      const getTitle = computed(() => {
+        return unref(isFullscreen) ? '退出全屏' : '全屏'
+      })
       return {
-        ...toRefs(state)
+        ...toRefs(state),
+        isFullscreen,
+        toggle,
+        getTitle
       }
     }
   })
