@@ -12,7 +12,7 @@
  *
  */
 
-export default {
+export default { 
   collapsed: false,
   navTheme: 'dark', // theme for nav menu
   primaryColor: '#F5222D', // primary color of ant design
@@ -24,7 +24,7 @@ export default {
   menu: {
     locale: true
   },
-  title: 'Ant Design Pro',
+  title: 'vite-admin',
   pwa: false,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'

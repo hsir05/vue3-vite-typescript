@@ -1,6 +1,6 @@
 <template>
-  <a-layout-content style="margin: 15px; text-align: left">
-    <div :style="{ padding: '10px', background: '#fff', minHeight: 'calc(100vh - 155px)' }">
+  <a-layout-content style="margin: 15px 10px 0; text-align: left">
+    <div :style="{ padding: '10px', background: '#fff', minHeight: 'calc(100vh - 140px)' }">
       <router-view />
     </div>
   </a-layout-content>
