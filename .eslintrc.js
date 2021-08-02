@@ -9,9 +9,11 @@ module.exports = {
     extends: ['plugin:vue/vue3-recommended', 'plugin:prettier/recommended'],
     parserOptions: {
         ecmaVersion: 12,
-        sourceType: 'module'
+        sourceType: 'module',
+        "parser": "babel-eslint",
     },
     rules: {
-        'prettier/prettier': 'error'
+        'prettier/prettier': 'error',
+        'no-console': 'off',
     }
 }

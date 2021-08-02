@@ -8,7 +8,7 @@
       />
       <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
 
-      <Breadcrumb />
+      <LayoutBreadcrumb />
     </div>
 
     <div class="h-header-action">
@@ -48,7 +48,7 @@
 <script lang="ts">
   import { defineComponent, reactive, unref, computed, toRefs } from 'vue'
   import { useFullscreen } from '@vueuse/core'
-  import Breadcrumb from './Breadcrumb.vue'
+  import LayoutBreadcrumb from './Breadcrumb.vue'
   import {
     MenuUnfoldOutlined,
     UserOutlined,
@@ -65,7 +65,7 @@
     name: 'Header',
     components: {
       MenuUnfoldOutlined,
-      Breadcrumb,
+      LayoutBreadcrumb,
       FullscreenOutlined,
       FullscreenExitOutlined,
       MenuFoldOutlined,

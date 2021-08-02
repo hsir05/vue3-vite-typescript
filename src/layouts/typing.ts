@@ -1,5 +1,5 @@
 
-export interface RouteTyping {
+export interface RouteType {
     path: string;
     breadcrumbName: string;
     children?: Array<{
