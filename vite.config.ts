@@ -30,6 +30,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             alias: { 
                 '/@': path.resolve(__dirname, './src'),
                 '/\/#\//': pathResolve('types') + '/',
+                'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
             }
         },
         server: {

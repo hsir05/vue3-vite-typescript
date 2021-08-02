@@ -14,5 +14,5 @@ export function registerGlobComp(app: App) {
     app.component(comp.name || comp.displayName, comp);
   });
 
-    app.use(Layout).use(Menu).use(less);
+    app.use(Layout).use(Menu);
 }
