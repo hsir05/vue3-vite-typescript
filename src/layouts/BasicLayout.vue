@@ -1,7 +1,8 @@
 <template>
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible>
-      <div class="logo" />
+      <div class="logo"> <img src="../assets/logo.png" alt="logo" height="100%" /> vite-admin </div>
+
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
         <a-menu-item key="1">
           <pie-chart-outlined />
@@ -40,6 +41,7 @@
 
     <a-layout>
       <Header />
+
       <MultipleHeader />
 
       <Content />
@@ -89,7 +91,13 @@
   .logo {
     height: 32px;
     margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    font-size: 18px;
+    color: @white;
+    text-align: left;
+    img {
+      height: 100%;
+    }
   }
   .site-layout {
     .site-layout-background {
