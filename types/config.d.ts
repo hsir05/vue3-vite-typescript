@@ -2,17 +2,17 @@
 // declare module 'ant-design-vue/es/locale/en_US';
 export interface ProjectConfig {
     // Storage location of permission related information
-    permissionCacheType: CacheTypeEnum;
+    // permissionCacheType: CacheTypeEnum;
     // Whether to show the configuration button
-    showSettingButton: boolean;
+    // showSettingButton: boolean;
     // Whether to show the theme switch button
     showDarkModeToggle: boolean;
     // Configure where the button is displayed
     settingButtonPosition: SettingButtonPositionEnum;
     // Permission mode
-    permissionMode: PermissionModeEnum;
+    // permissionMode: PermissionModeEnum;
     // Session timeout processing
-    sessionTimeoutProcessing: SessionTimeoutProcessingEnum;
+    // sessionTimeoutProcessing: SessionTimeoutProcessingEnum;
     // Website gray mode, open for possible mourning dates
     grayMode: boolean;
     // Whether to turn on the color weak mode
@@ -35,23 +35,23 @@ export interface ProjectConfig {
     // Multi-tab settings
     multiTabsSetting: MultiTabsSetting;
     // Animation configuration
-    transitionSetting: TransitionSetting;
+    // transitionSetting: TransitionSetting;
     // pageLayout whether to enable keep-alive
-    openKeepAlive: boolean;
+    // openKeepAlive: boolean;
     // Lock screen time
-    lockTime: number;
+    // lockTime: number;
     // Show breadcrumbs
-    showBreadCrumb: boolean;
+    // showBreadCrumb: boolean;
     // Show breadcrumb icon
-    showBreadCrumbIcon: boolean;
+    // showBreadCrumbIcon: boolean;
     // Use error-handler-plugin
-    useErrorHandle: boolean;
+    // useErrorHandle: boolean;
     // Whether to open back to top
-    useOpenBackTop: boolean;
+    // useOpenBackTop: boolean;
     // Is it possible to embed iframe pages
-    canEmbedIFramePage: boolean;
+    // canEmbedIFramePage: boolean;
     // Whether to delete unclosed messages and notify when switching the interface
-    closeMessageOnSwitch: boolean;
+    // closeMessageOnSwitch: boolean;
     // Whether to cancel the http request that has been sent but not responded when switching the interface.
-    removeAllHttpPending: boolean;
+    // removeAllHttpPending: boolean;
 }

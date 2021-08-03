@@ -45,8 +45,7 @@
 
         <span class="user-name">admin</span>
       </div>
-
-      <SettingOutlined class="pd15 h-header-action-item" />
+      <SettingButton />
     </div>
   </a-layout-header>
 </template>
@@ -56,9 +55,9 @@
   // import LayoutBreadcrumb from './Breadcrumb.vue'
   import AppLogo from './AppLogo.vue'
   import LayoutMenu from './Menu.vue'
+  import SettingButton from './setting/index.vue'
   import {
     UserOutlined,
-    SettingOutlined,
     BellOutlined,
     SearchOutlined,
     TranslationOutlined,
@@ -72,9 +71,9 @@
       AppLogo,
       LayoutMenu,
       //   LayoutBreadcrumb,
+      SettingButton,
       FullscreenOutlined,
       FullscreenExitOutlined,
-      SettingOutlined,
       BellOutlined,
       SearchOutlined,
       TranslationOutlined,
@@ -123,14 +122,5 @@
   .user-name {
     font-weight: 500;
     margin-right: 10px;
-  }
-  .h-header-action {
-    font-size: 16px;
-    .h-header-action-item {
-      cursor: pointer;
-      &:hover {
-        background-color: @boderColor;
-      }
-    }
   }
 </style>
