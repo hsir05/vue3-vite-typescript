@@ -3,7 +3,7 @@
     <a-layout-sider v-model:collapsed="collapsed" collapsible>
       <div class="logo"> <img src="../assets/logo.png" alt="logo" height="100%" /> vite-admin </div>
 
-      <Menu />
+      <LayoutMenu :is-horizontal="true" />
     </a-layout-sider>
 
     <a-layout>
@@ -21,14 +21,14 @@
   import { defineComponent, reactive, toRefs } from 'vue'
   import MultipleHeader from './MultipleHeader.vue'
   import Header from './Header.vue'
-  import Menu from './Menu.vue'
+  import LayoutMenu from './Menu.vue'
   import Content from './Content.vue'
   import Footer from './Footer.vue'
   export default defineComponent({
     name: 'BaicLayout',
     components: {
       MultipleHeader,
-      Menu,
+      LayoutMenu,
       Content,
       Footer,
       Header

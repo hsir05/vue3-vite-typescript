@@ -132,3 +132,23 @@ npx husky add .husky/commit-msg "yarn commitlint"
 ```
 
 **此时已经完成配置了，现在团队里面任何成员的提交必须按照严格的规范进行了**
+
+## 2. 添加tsx支持
+
+需要在 vite.config.js 文件中添加如下配置：
+```js
+export default {
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment'
+  }
+}
+```
+重新启动项目如有报错：`h is not defined`,需要在 .jsx 或 .tsx 文件中手动引入 import { h } from 'vue';
+
+```js
+export default {
+  esbuild: {
+    jsxInject: "import { h } from 'vue';"
+}
+ ```

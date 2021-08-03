@@ -6,6 +6,7 @@ import path from 'path'
 import { resolve } from 'path';
 import { loadEnv } from 'vite';
 
+
 function pathResolve(dir: string) {
     return resolve(process.cwd(), '.', dir);
 }
@@ -71,6 +72,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             minify: "esbuild",
             assetsDir: "",
             outDir: `./dist/${process.env.VITE_ENV}`,
+        },
+        esbuild: {
+            jsxInject: "import { h } from 'vue';",
+            jsxFactory: 'h',
+            jsxFragment: 'Fragment'
         },
         css: {
             preprocessorOptions: {

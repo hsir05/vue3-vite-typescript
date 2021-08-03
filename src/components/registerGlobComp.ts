@@ -1,5 +1,4 @@
 import type { App } from 'vue';
-import less from 'less'
 import '@ant-design-vue/pro-layout/dist/style.css';
 import { Layout, Menu, Button, ConfigProvider, Breadcrumb, Avatar, Tooltip, Divider } from "ant-design-vue";
 

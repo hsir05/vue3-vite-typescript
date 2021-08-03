@@ -1,0 +1,1 @@
+export { default as SimpleMenu } from './SimpleMenu.vue';
