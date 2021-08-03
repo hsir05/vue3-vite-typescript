@@ -1,11 +1,6 @@
 <template>
   <a-layout-header class="h-header bb">
-    <AppLogo />
-
-    <LayoutMenu :isHorizontal="true" />
-
-    <!-- 收缩按钮 -->
-    <!-- <div class="h-header-top">
+    <div class="h-header-top">
       <menu-unfold-outlined
         v-if="collapsed"
         class="trigger"
@@ -14,8 +9,8 @@
       <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
 
       <LayoutBreadcrumb />
-    </div> -->
-    <!-- 功能区 -->
+    </div>
+
     <div class="h-header-action">
       <a-tooltip placement="bottom">
         <template #title>
@@ -53,11 +48,11 @@
 <script lang="ts">
   import { defineComponent, reactive, unref, computed, toRefs } from 'vue'
   import { useFullscreen } from '@vueuse/core'
-  // import LayoutBreadcrumb from './Breadcrumb.vue'
-  import AppLogo from './AppLogo.vue'
-  import LayoutMenu from './Menu.vue'
+  import LayoutBreadcrumb from './Breadcrumb.vue'
   import {
+    MenuUnfoldOutlined,
     UserOutlined,
+    MenuFoldOutlined,
     SettingOutlined,
     BellOutlined,
     SearchOutlined,
@@ -69,11 +64,11 @@
   export default defineComponent({
     name: 'Header',
     components: {
-      AppLogo,
-      LayoutMenu,
-      //   LayoutBreadcrumb,
+      MenuUnfoldOutlined,
+      LayoutBreadcrumb,
       FullscreenOutlined,
       FullscreenExitOutlined,
+      MenuFoldOutlined,
       SettingOutlined,
       BellOutlined,
       SearchOutlined,

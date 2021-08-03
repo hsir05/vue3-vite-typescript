@@ -1,10 +1,10 @@
 import { UserLayout, BasicLayout } from "/@/layouts/index"
-import { bxAnaalyse } from '/@/core/icons'
+// import { bxAnaalyse } from '/@/core/icons'
 
-const RouteView = {
-    name: 'RouteView',
-    render: h => h('router-view')
-}
+// const RouteView = {
+//     name: 'RouteView',
+//     render: h => h('router-view')
+// }
 
 export const asyncRouterMap = [
     {

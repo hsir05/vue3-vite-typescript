@@ -19,6 +19,6 @@ declare interface ViteEnv {
     VITE_USE_IMAGEMIN: boolean;
     VITE_GENERATE_UI: string;
 }
-
-// declare module 'ant-design-vue/es/locale/zh_CN';
-// declare module 'ant-design-vue/es/locale/en_US';
+declare type DeepPartial<T> = {
+    [P in keyof T]?: DeepPartial<T[P]>;
+};

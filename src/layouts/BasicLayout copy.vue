@@ -1,37 +1,36 @@
 <template>
   <a-layout style="min-height: 100vh">
-    <!-- <a-layout-sider v-model:collapsed="collapsed" collapsible>
-     <AppLogo />
+    <a-layout-sider v-model:collapsed="collapsed" collapsible>
+      <AppLogo />
 
       <LayoutMenu :isHorizontal="true" />
-    </a-layout-sider> -->
+    </a-layout-sider>
 
-    <!-- <a-layout> -->
-    <Header />
+    <a-layout>
+      <Header />
 
-    <MultipleHeader />
+      <MultipleHeader />
 
-    <Content />
+      <Content />
 
-    <Footer />
-    <!-- </a-layout> -->
+      <Footer />
+    </a-layout>
   </a-layout>
 </template>
 <script lang="ts">
   import { defineComponent, reactive, toRefs } from 'vue'
   import MultipleHeader from './MultipleHeader.vue'
   import Header from './Header.vue'
-  // import AppLogo from './AppLogo.vue'
-  // import LayoutMenu from './Menu.vue'
+  import LayoutMenu from './Menu.vue'
   import Content from './Content.vue'
   import Footer from './Footer.vue'
-
+  import AppLogo from './AppLogo.vue'
   export default defineComponent({
     name: 'BaicLayout',
     components: {
       MultipleHeader,
-      //   AppLogo,
-      //   LayoutMenu,
+      AppLogo,
+      LayoutMenu,
       Content,
       Footer,
       Header
