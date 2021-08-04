@@ -5,7 +5,7 @@
   </span>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, ref } from 'vue'
   import { SettingOutlined } from '@ant-design/icons-vue'
   import SettingDrawer from './SettingDrawer'
   export default defineComponent({
@@ -15,11 +15,13 @@
       SettingDrawer
     },
     setup() {
+      const visible = ref(true)
       function openDrawer(bool: Boolean) {
         console.log(bool)
       }
       return {
-        openDrawer
+        openDrawer,
+        visible
       }
     }
   })
