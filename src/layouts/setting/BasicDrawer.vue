@@ -24,9 +24,6 @@
             ></div>
           </Tooltip>
         </template>
-
-        <!-- <div class="navigation-mode navigation-mode-mix-sidebar" @click="toggleMode()"></div>
-          <div class="navigation-mode navigation-mode-mix" @click="toggleMode()"></div> -->
       </div>
       <Divider>系统主题</Divider>
       <div class="system-theme">
@@ -42,10 +39,21 @@
   </Drawer>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, watch, reactive } from 'vue'
+  import { defineComponent, ref, watch } from 'vue'
   import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
   import { CheckOutlined, CloseOutlined } from '@ant-design/icons-vue'
   import { menuTypeList } from '../enum'
+  const colorList = [
+    'rgb(9, 96, 189)',
+    'rgb(0, 132, 244)',
+    'rgb(0, 150, 136)',
+    'rgb(83, 109, 254)',
+    'rgb(255, 92, 147)',
+    'rgb(238, 79, 18)',
+    'rgb(0, 150, 199)',
+    'rgb(156, 39, 176)',
+    'rgb(255, 152, 0)'
+  ]
   export default defineComponent({
     name: 'SettingDrawer',
     components: {
@@ -57,10 +65,6 @@
       CloseOutlined
     },
     props: {
-      // menuTypeList: {
-      //     type: Array as PropType<typeof menuTypeList>,
-      //     defualt: () => [],
-      // },
       visible: {
         type: Boolean,
         default: () => false
@@ -70,18 +74,6 @@
     setup(props, { emit }) {
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
-
-      const colorList = reactive([
-        'rgb(9, 96, 189)',
-        'rgb(0, 132, 244)',
-        'rgb(0, 150, 136)',
-        'rgb(83, 109, 254)',
-        'rgb(255, 92, 147)',
-        'rgb(238, 79, 18)',
-        'rgb(0, 150, 199)',
-        'rgb(156, 39, 176)',
-        'rgb(255, 152, 0)'
-      ])
 
       const afterVisibleChange = (bool: boolean) => {
         console.log('visibleRef', bool)
