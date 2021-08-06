@@ -1,5 +1,5 @@
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" theme="light" mode="horizontal">
+  <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
         <pie-chart-outlined /> <span>Option 1</span>

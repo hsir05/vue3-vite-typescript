@@ -33,9 +33,9 @@
       ])
       function renderMenu() {
         return !props.isHorizontal ? (
-          <SimpleMenu items={menuData} />
-        ) : (
           <BasicMenu items={menuData} />
+        ) : (
+          <SimpleMenu items={menuData} />
         )
       }
 

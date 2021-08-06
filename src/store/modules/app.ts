@@ -1,5 +1,6 @@
 import type {
     ProjectConfig,
+    HeaderSetting,
 } from '/#/config';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
@@ -8,7 +9,7 @@ import { APP_DARK_MODE_KEY_ } from '/@/enums/cacheEnum';
 import { darkMode } from '/@/settings/designSetting';
 import { ThemeEnum } from '/@/enums/appEnum';
 
-interface AppState {
+interface AppState { 
     darkMode?: ThemeEnum;
     // Page loading status
     pageLoading: boolean;
@@ -35,6 +36,9 @@ export const useAppStore = defineStore({
         getDarkMode(): 'light' | 'dark' | string {
             return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
         },
+        getLayoutMode():string {
+            return this.getProjectConfig.layoutMode;
+        },
 
         // getBeforeMiniInfo(): BeforeMiniState {
         //     return this.beforeMiniInfo;
@@ -44,9 +48,9 @@ export const useAppStore = defineStore({
             return this.projectConfig || ({} as ProjectConfig);
         },
 
-        // getHeaderSetting(): HeaderSetting {
-        //     return this.getProjectConfig.headerSetting;
-        // },
+        getHeaderSetting(): HeaderSetting {
+            return this.getProjectConfig.headerSetting;
+        },
         // getMenuSetting(): MenuSetting {
         //     return this.getProjectConfig.menuSetting;
         // },

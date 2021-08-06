@@ -1,11 +1,34 @@
 // declare module 'ant-design-vue/es/locale/zh_CN';
 // declare module 'ant-design-vue/es/locale/en_US';
+import {
+    ThemeEnum,
+} from '/@/enums/appEnum';
+
+export interface HeaderSetting {
+    bgColor: string;
+    fixed: boolean;
+    show: boolean;
+    theme: ThemeEnum;
+    // Turn on full screen
+    showFullScreen: boolean;
+    // Whether to show the lock screen
+    // useLockPage: boolean;
+    // // Show document button
+    // showDoc: boolean;
+    // // Show message center button
+    // showNotice: boolean;
+    // showSearch: boolean;
+}
+export interface LayoutMode {
+    layoutMode: string
+}
 export interface ProjectConfig {
     // Storage location of permission related information
     // permissionCacheType: CacheTypeEnum;
     // Whether to show the configuration button
     // showSettingButton: boolean;
     // Whether to show the theme switch button
+    layoutMode: string;
     showDarkModeToggle: boolean;
     // Configure where the button is displayed
     settingButtonPosition: SettingButtonPositionEnum;

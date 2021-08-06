@@ -1,45 +1,55 @@
 <template>
-  <a-layout style="min-height: 100vh">
-    <!-- <a-layout-sider v-model:collapsed="collapsed" collapsible>
-     <AppLogo />
+  <Layout style="min-height: 100vh">
+    <LayoutHeader />
+    <LayoutMultipleHeader />
 
-      <LayoutMenu :isHorizontal="true" />
-    </a-layout-sider> -->
-
-    <!-- <a-layout> -->
-    <Header />
-
-    <MultipleHeader />
-
-    <Content />
-
-    <Footer />
-    <!-- </a-layout> -->
-  </a-layout>
+    <Layout>
+      <Layout>
+        <Sider v-model:collapsed="collapsed" collapsible>
+          <AppLogo />
+          <LayoutMenu :isHorizontal="false" />
+        </Sider>
+        <LayoutContent />
+      </Layout>
+      <LayoutFooter />
+    </Layout>
+  </Layout>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue'
-  import MultipleHeader from './MultipleHeader.vue'
-  import Header from './Header.vue'
-  // import AppLogo from './AppLogo.vue'
-  // import LayoutMenu from './Menu.vue'
-  import Content from './Content.vue'
-  import Footer from './Footer.vue'
+  import { defineComponent, reactive, toRefs, unref } from 'vue'
+  import LayoutMultipleHeader from './MultipleHeader.vue'
+  import LayoutHeader from './Header.vue'
+  import { Layout } from 'ant-design-vue'
+
+  import AppLogo from './AppLogo.vue'
+  import LayoutMenu from './Menu.vue'
+
+  import LayoutContent from './Content.vue'
+  import LayoutFooter from './Footer.vue'
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 
   export default defineComponent({
     name: 'BaicLayout',
     components: {
-      MultipleHeader,
-      //   AppLogo,
-      //   LayoutMenu,
-      Content,
-      Footer,
-      Header
+      Layout,
+      Sider: Layout.Sider,
+      LayoutMultipleHeader,
+
+      AppLogo,
+      LayoutMenu,
+
+      LayoutContent,
+      LayoutFooter,
+      LayoutHeader
     },
     setup() {
       const state = reactive({
         collapsed: false
       })
+
+      const { getLayoutMode } = useHeaderSetting()
+      console.log(unref(getLayoutMode))
+
       return {
         ...toRefs(state)
       }
