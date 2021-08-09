@@ -1,10 +1,25 @@
 <template>
-  <div>33</div>
+  <a-menu v-model:selectedKeys="selectedKeys" theme="linght" mode="horizontal">
+    <template v-for="menu in items">
+      <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
+        <pie-chart-outlined /> <span>Option 1</span>
+      </a-menu-item>
+      <a-sub-menu v-else :key="menu.path">
+        <template #title>
+          <span>
+            <team-outlined /> <span>{{ menu.name }}</span>
+          </span>
+        </template>
+        <a-menu-item :key="item.path" v-for="item in menu.children">{{ item.name }}</a-menu-item>
+      </a-sub-menu>
+    </template>
+  </a-menu>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
+  import { defineComponent, PropType, reactive, toRefs } from 'vue'
   import type { Menu as MenuType } from '/@/router/types'
+  import { PieChartOutlined, TeamOutlined } from '@ant-design/icons-vue'
   export default defineComponent({
     name: 'SimpleMenu',
     props: {
@@ -13,6 +28,21 @@
         default: () => []
       }
     },
-    setup() {}
+    components: {
+      PieChartOutlined,
+      TeamOutlined
+    },
+    setup(props) {
+      const state = reactive({
+        selectedKeys: [1]
+      })
+
+      const { items } = toRefs(props)
+      console.log(items)
+
+      return {
+        ...toRefs(state)
+      }
+    }
   })
 </script>

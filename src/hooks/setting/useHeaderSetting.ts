@@ -10,6 +10,6 @@ export function useHeaderSetting(){
 
     return {
         getHeaderTheme,
-        getLayoutMode
+        getLayoutMode,
     } 
 }

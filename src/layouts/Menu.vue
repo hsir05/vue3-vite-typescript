@@ -31,6 +31,7 @@
           meta: { title: 'menu.exception.server-error', permission: ['exception'] }
         }
       ])
+
       function renderMenu() {
         return !props.isHorizontal ? (
           <BasicMenu items={menuData} />

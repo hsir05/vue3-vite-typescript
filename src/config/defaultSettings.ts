@@ -10,10 +10,13 @@
  *
  * storageOptions: {} - Vue-ls 插件配置项 (localStorage/sessionStorage)
  *
- */
+ */ 
 
 export default {
-    collapsed: false,
+    menuSetting: {
+        collapsed: false,
+    },
+    
     isHorizontal: true,
     layoutMode: 'sidebar',
     navTheme: 'dark', // theme for nav menu

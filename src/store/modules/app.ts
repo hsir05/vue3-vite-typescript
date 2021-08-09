@@ -1,6 +1,7 @@
 import type {
     ProjectConfig,
     HeaderSetting,
+    MenuSetting,
 } from '/#/config';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
@@ -51,9 +52,9 @@ export const useAppStore = defineStore({
         getHeaderSetting(): HeaderSetting {
             return this.getProjectConfig.headerSetting;
         },
-        // getMenuSetting(): MenuSetting {
-        //     return this.getProjectConfig.menuSetting;
-        // },
+        getMenuSetting(): MenuSetting {
+            return this.getProjectConfig.menuSetting;
+        },
         // getTransitionSetting(): TransitionSetting {
         //     return this.getProjectConfig.transitionSetting;
         // },
@@ -73,7 +74,7 @@ export const useAppStore = defineStore({
 
         // setBeforeMiniInfo(state: BeforeMiniState): void {
         //     this.beforeMiniInfo = state;
-        // },
+        // }, 
 
         setProjectConfig(config: DeepPartial<ProjectConfig>): void {
             this.projectConfig = deepMerge(this.projectConfig || {}, config);

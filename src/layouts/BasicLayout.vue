@@ -1,22 +1,57 @@
 <template>
   <Layout style="min-height: 100vh">
-    <LayoutHeader />
-    <LayoutMultipleHeader />
-
     <Layout>
+      <LayoutHeader />
       <Layout>
-        <Sider v-model:collapsed="collapsed" collapsible>
+        <Sider v-model:collapsed="getCollapsed" collapsible>
           <AppLogo />
           <LayoutMenu :isHorizontal="false" />
         </Sider>
-        <LayoutContent />
+        <LayoutContent>
+          <LayoutMultipleHeader />
+        </LayoutContent>
       </Layout>
       <LayoutFooter />
     </Layout>
   </Layout>
+
+  <!-- <Layout style="min-height: 100vh">
+        <Sider v-model:collapsed="getCollapsed" collapsible>
+            <AppLogo />
+            <LayoutMenu :isHorizontal="false" />
+        </Sider>
+        <Layout>
+            <Layout>
+                <LayoutHeader />
+                <LayoutContent>
+                    <LayoutMultipleHeader />
+                </LayoutContent>
+            </Layout>
+            <LayoutFooter />
+        </Layout>
+    </Layout> -->
+
+  <!-- <Layout style="min-height: 100vh">
+        <Layout>
+            <Layout>
+                <LayoutHeader >
+                    <template v-slot:appLogo>
+                        <AppLogo  />
+                    </template>
+                    <template v-slot:layoutMenu>
+                        <LayoutMenu  :isHorizontal="true"  />
+                    </template>
+                </LayoutHeader>
+                <LayoutContent>
+                    <LayoutMultipleHeader />
+                </LayoutContent>
+            </Layout>
+            <LayoutFooter />
+        </Layout>
+    </Layout> -->
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, toRefs, unref } from 'vue'
+  import { defineComponent, unref } from 'vue'
   import LayoutMultipleHeader from './MultipleHeader.vue'
   import LayoutHeader from './Header.vue'
   import { Layout } from 'ant-design-vue'
@@ -27,6 +62,7 @@
   import LayoutContent from './Content.vue'
   import LayoutFooter from './Footer.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 
   export default defineComponent({
     name: 'BaicLayout',
@@ -43,15 +79,12 @@
       LayoutHeader
     },
     setup() {
-      const state = reactive({
-        collapsed: false
-      })
-
       const { getLayoutMode } = useHeaderSetting()
       console.log(unref(getLayoutMode))
+      const { getCollapsed } = useMenuSetting()
 
       return {
-        ...toRefs(state)
+        getCollapsed
       }
     }
   })

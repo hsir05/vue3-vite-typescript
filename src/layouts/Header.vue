@@ -1,8 +1,6 @@
 <template>
   <a-layout-header class="h-header bb">
-    <!-- <AppLogo />
-
-    <LayoutMenu :isHorizontal="true" /> -->
+    <slot name="appLogo"></slot>
 
     <!-- 收缩按钮 -->
     <div class="h-header-top">
@@ -15,6 +13,8 @@
 
       <LayoutBreadcrumb />
     </div>
+    <slot name="layoutMenu"></slot>
+
     <!-- 功能区 -->
     <div class="h-header-action">
       <a-tooltip placement="bottom">
@@ -53,8 +53,6 @@
   import { defineComponent, reactive, unref, computed, toRefs } from 'vue'
   import { useFullscreen } from '@vueuse/core'
   import LayoutBreadcrumb from './Breadcrumb.vue'
-  //   import AppLogo from './AppLogo.vue'
-  //   import LayoutMenu from './Menu.vue'
   import SettingButton from './setting/index.vue'
   import {
     UserOutlined,
@@ -70,8 +68,6 @@
   export default defineComponent({
     name: 'Header',
     components: {
-      //   AppLogo,
-      //   LayoutMenu,
       MenuUnfoldOutlined,
       MenuFoldOutlined,
       LayoutBreadcrumb,
@@ -85,7 +81,6 @@
     },
     setup() {
       const { toggle, isFullscreen } = useFullscreen()
-      //  const { t } = useI18n();
       const state = reactive({
         collapsed: false,
         selectedKeys: [1]
