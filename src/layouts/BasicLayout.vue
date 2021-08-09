@@ -1,5 +1,40 @@
 <template>
   <Layout style="min-height: 100vh">
+    <Sider v-model:collapsed="getCollapsed" collapsible v-if="getLayoutMode === 'sidebar'">
+      <AppLogo />
+      <LayoutMenu :isHorizontal="false" />
+    </Sider>
+    <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'">
+      <template #appLogo>
+        <AppLogo />
+      </template>
+      <template #layoutMenu>
+        <LayoutMenu :isHorizontal="true" />
+      </template>
+    </LayoutHeader>
+
+    <Layout>
+      <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'" />
+
+      <Layout v-if="getLayoutMode === 'mix'">
+        <Sider v-model:collapsed="getCollapsed" collapsible v-if="getLayoutMode === 'mix'">
+          <AppLogo />
+          <LayoutMenu :isHorizontal="false" />
+        </Sider>
+
+        <LayoutContent>
+          <LayoutMultipleHeader />
+        </LayoutContent>
+      </Layout>
+
+      <LayoutContent v-else>
+        <LayoutMultipleHeader />
+      </LayoutContent>
+      <LayoutFooter />
+    </Layout>
+  </Layout>
+
+  <!-- <Layout style="min-height: 100vh">
     <Layout>
       <LayoutHeader />
       <Layout>
@@ -13,23 +48,7 @@
       </Layout>
       <LayoutFooter />
     </Layout>
-  </Layout>
-
-  <!-- <Layout style="min-height: 100vh">
-        <Sider v-model:collapsed="getCollapsed" collapsible>
-            <AppLogo />
-            <LayoutMenu :isHorizontal="false" />
-        </Sider>
-        <Layout>
-            <Layout>
-                <LayoutHeader />
-                <LayoutContent>
-                    <LayoutMultipleHeader />
-                </LayoutContent>
-            </Layout>
-            <LayoutFooter />
-        </Layout>
-    </Layout> -->
+    </Layout>-->
 
   <!-- <Layout style="min-height: 100vh">
         <Layout>
@@ -48,10 +67,10 @@
             </Layout>
             <LayoutFooter />
         </Layout>
-    </Layout> -->
+    </Layout>-->
 </template>
 <script lang="ts">
-  import { defineComponent, unref } from 'vue'
+  import { defineComponent } from 'vue'
   import LayoutMultipleHeader from './MultipleHeader.vue'
   import LayoutHeader from './Header.vue'
   import { Layout } from 'ant-design-vue'
@@ -80,11 +99,11 @@
     },
     setup() {
       const { getLayoutMode } = useHeaderSetting()
-      console.log(unref(getLayoutMode))
       const { getCollapsed } = useMenuSetting()
 
       return {
-        getCollapsed
+        getCollapsed,
+        getLayoutMode
       }
     }
   })
