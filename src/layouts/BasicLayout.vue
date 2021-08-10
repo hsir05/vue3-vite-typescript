@@ -2,7 +2,11 @@
   <Layout style="min-height: 100vh">
     <LayoutSider v-if="getLayoutMode === 'sidebar'" />
 
-    <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
+    <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'">
+      <template #appLogo>
+        <AppLogo />
+      </template>
+    </LayoutHeader>
 
     <Layout>
       <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'">

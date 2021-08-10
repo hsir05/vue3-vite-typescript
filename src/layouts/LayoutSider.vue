@@ -1,6 +1,6 @@
 <template>
   <Sider v-model:collapsed="getCollapsed" collapsible>
-    <AppLogo />
+    <AppLogo v-if="getLayoutMode === 'sidebar'" />
     <LayoutMenu :isHorizontal="false" />
   </Sider>
 </template>
