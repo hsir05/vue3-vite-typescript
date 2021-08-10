@@ -77,6 +77,8 @@ export const useAppStore = defineStore({
         // }, 
 
         setProjectConfig(config: DeepPartial<ProjectConfig>): void {
+            console.log(config);
+            
             this.projectConfig = deepMerge(this.projectConfig || {}, config);
             // Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
         },

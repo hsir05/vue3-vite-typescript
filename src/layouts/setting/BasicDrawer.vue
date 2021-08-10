@@ -19,7 +19,11 @@
         <template v-for="item in menuTypeList || []" :key="item.title">
           <Tooltip :title="item.title" placement="bottom">
             <div
-              :class="['navigation-mode', `navigation-mode-${item.type}`]"
+              :class="[
+                'navigation-mode',
+                `navigation-mode-${item.type}`,
+                `${getLayoutMode === item.type ? 'navigation-mode-active' : ''}`
+              ]"
               @click="handler(item)"
             ></div>
           </Tooltip>
@@ -42,7 +46,10 @@
   import { defineComponent, ref, watch } from 'vue'
   import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
   import { CheckOutlined, CloseOutlined } from '@ant-design/icons-vue'
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { menuTypeList } from '../enum'
+
   const colorList = [
     'rgb(9, 96, 189)',
     'rgb(0, 132, 244)',
@@ -78,6 +85,10 @@
       const afterVisibleChange = (bool: boolean) => {
         console.log('visibleRef', bool)
       }
+      const { getLayoutMode } = useHeaderSetting()
+
+      const { settingLayoutMode } = useMenuSetting()
+
       const close = () => {
         visibleRef.value = false
         emit('handleClose', false)
@@ -103,6 +114,7 @@
       }
       const handler = (item) => {
         console.log(item)
+        settingLayoutMode({ layoutMode: item.type })
       }
 
       return {
@@ -115,7 +127,8 @@
         handler,
         handleTheme,
         menuTypeList,
-        handleSwitch
+        handleSwitch,
+        getLayoutMode
       }
     }
   })
@@ -147,6 +160,10 @@
         padding: 12px;
         border: 2px solid #0960bd;
       }
+    }
+    .navigation-mode-active {
+      padding: 12px;
+      border: 2px solid #0960bd;
     }
 
     .navigation-mode-sidebar {

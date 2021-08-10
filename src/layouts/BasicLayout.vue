@@ -1,73 +1,34 @@
 <template>
   <Layout style="min-height: 100vh">
-    <Sider v-model:collapsed="getCollapsed" collapsible v-if="getLayoutMode === 'sidebar'">
-      <AppLogo />
-      <LayoutMenu :isHorizontal="false" />
-    </Sider>
-    <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'">
-      <template #appLogo>
-        <AppLogo />
-      </template>
-      <template #layoutMenu>
-        <LayoutMenu :isHorizontal="true" />
-      </template>
-    </LayoutHeader>
+    <LayoutSider v-if="getLayoutMode === 'sidebar'" />
+
+    <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
 
     <Layout>
-      <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'" />
-
-      <Layout v-if="getLayoutMode === 'mix'">
-        <Sider v-model:collapsed="getCollapsed" collapsible v-if="getLayoutMode === 'mix'">
+      <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'">
+        <template #appLogo v-if="getLayoutMode === 'mix'">
           <AppLogo />
-          <LayoutMenu :isHorizontal="false" />
-        </Sider>
+        </template>
+        <template #layoutMenu v-if="getLayoutMode === 'mix'">
+          <LayoutMenu :isHorizontal="true" />
+        </template>
+      </LayoutHeader>
+
+      <Layout v-if="getLayoutMode !== 'mix'">
+        <LayoutSider v-if="getLayoutMode === 'mix-sidebar'" />
 
         <LayoutContent>
           <LayoutMultipleHeader />
         </LayoutContent>
       </Layout>
 
-      <LayoutContent v-else>
+      <LayoutContent v-if="getLayoutMode === 'mix'">
         <LayoutMultipleHeader />
       </LayoutContent>
+
       <LayoutFooter />
     </Layout>
   </Layout>
-
-  <!-- <Layout style="min-height: 100vh">
-    <Layout>
-      <LayoutHeader />
-      <Layout>
-        <Sider v-model:collapsed="getCollapsed" collapsible>
-          <AppLogo />
-          <LayoutMenu :isHorizontal="false" />
-        </Sider>
-        <LayoutContent>
-          <LayoutMultipleHeader />
-        </LayoutContent>
-      </Layout>
-      <LayoutFooter />
-    </Layout>
-    </Layout>-->
-
-  <!-- <Layout style="min-height: 100vh">
-        <Layout>
-            <Layout>
-                <LayoutHeader >
-                    <template v-slot:appLogo>
-                        <AppLogo  />
-                    </template>
-                    <template v-slot:layoutMenu>
-                        <LayoutMenu  :isHorizontal="true"  />
-                    </template>
-                </LayoutHeader>
-                <LayoutContent>
-                    <LayoutMultipleHeader />
-                </LayoutContent>
-            </Layout>
-            <LayoutFooter />
-        </Layout>
-    </Layout>-->
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'
@@ -77,7 +38,7 @@
 
   import AppLogo from './AppLogo.vue'
   import LayoutMenu from './Menu.vue'
-
+  import LayoutSider from './LayoutSider.vue'
   import LayoutContent from './Content.vue'
   import LayoutFooter from './Footer.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
@@ -87,11 +48,11 @@
     name: 'BaicLayout',
     components: {
       Layout,
-      Sider: Layout.Sider,
       LayoutMultipleHeader,
 
       AppLogo,
       LayoutMenu,
+      LayoutSider,
 
       LayoutContent,
       LayoutFooter,

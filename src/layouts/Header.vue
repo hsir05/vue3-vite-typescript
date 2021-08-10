@@ -3,7 +3,7 @@
     <slot name="appLogo"></slot>
 
     <!-- 收缩按钮 -->
-    <div class="h-header-top">
+    <div class="h-header-top" v-if="getLayoutMode !== 'mix-sideBar'">
       <menu-unfold-outlined
         v-if="collapsed"
         class="trigger"
@@ -54,6 +54,7 @@
   import { useFullscreen } from '@vueuse/core'
   import LayoutBreadcrumb from './Breadcrumb.vue'
   import SettingButton from './setting/index.vue'
+
   import {
     UserOutlined,
     BellOutlined,
@@ -64,7 +65,7 @@
     FullscreenExitOutlined,
     MenuFoldOutlined
   } from '@ant-design/icons-vue'
-
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   export default defineComponent({
     name: 'Header',
     components: {
@@ -81,6 +82,7 @@
     },
     setup() {
       const { toggle, isFullscreen } = useFullscreen()
+      const { getLayoutMode } = useHeaderSetting()
       const state = reactive({
         collapsed: false,
         selectedKeys: [1]
@@ -92,6 +94,7 @@
         ...toRefs(state),
         isFullscreen,
         toggle,
+        getLayoutMode,
         getTitle
       }
     }
