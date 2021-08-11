@@ -1,5 +1,5 @@
 <template>
-  <Sider v-model:collapsed="getCollapsed" collapsible @click="handleCollapsed">
+  <Sider v-model:collapsed="getCollapsed">
     <AppLogo v-if="getLayoutMode === 'sidebar'" />
     <LayoutMenu :isHorizontal="false" />
   </Sider>

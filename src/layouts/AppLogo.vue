@@ -1,7 +1,7 @@
 <template>
   <div :class="['logo', getCollapsed ? 'tc' : '']">
-    <img src="../assets/logo.png" alt="logo" height="100%" />
-    <template v-if="!getCollapsed">vite-admin</template>
+    <img src="../assets/logo.png" alt="logo" class="mr10" height="100%" />
+    <span :class="getCollapsed ? 'hide ' : 'show'">vite-admin</span>
   </div>
 </template>
 <script lang="ts">
@@ -26,11 +26,20 @@
     font-size: 18px;
     color: @white;
     text-align: left;
+    width: 168px;
+    transition: all;
     img {
       height: 100%;
     }
   }
   .tc {
     text-align: center;
+    width: 60px;
+  }
+  .show {
+    display: inline-block;
+  }
+  .hide {
+    display: none;
   }
 </style>
