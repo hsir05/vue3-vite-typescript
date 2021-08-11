@@ -87,7 +87,7 @@
       }
       const { getLayoutMode } = useHeaderSetting()
 
-      const { settingLayoutMode } = useMenuSetting()
+      const { settingLayoutMode, setMenuSetting } = useMenuSetting()
 
       const close = () => {
         visibleRef.value = false
@@ -115,6 +115,7 @@
       const handler = (item) => {
         console.log(item)
         settingLayoutMode({ layoutMode: item.type })
+        setMenuSetting({ collapsed: false })
       }
 
       return {

@@ -1,19 +1,25 @@
 <template>
-  <div :class="['logo', getCollapsed ? 'tc' : '']">
-    <img src="../assets/logo.png" alt="logo" class="mr10" height="100%" />
-    <span :class="getCollapsed ? 'hide ' : 'show'">vite-admin</span>
+  <div :class="['logo', getCollapsed ? 'tc' : '', `logo-${getLayoutMode}`]">
+    <img src="../assets/logo.png" alt="logo" class="mr10" />
+    <span :class="getCollapsed && getLayoutMode !== 'mix-sidebar' ? 'hide ' : 'show'"
+      >vite-admin</span
+    >
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+
   export default defineComponent({
     name: 'AppLogo',
     setup() {
       const { getCollapsed } = useMenuSetting()
+      const { getLayoutMode } = useHeaderSetting()
 
       return {
-        getCollapsed
+        getCollapsed,
+        getLayoutMode
       }
     }
   })
@@ -29,7 +35,7 @@
     width: 168px;
     transition: all;
     img {
-      height: 100%;
+      width: 30px;
     }
   }
   .tc {

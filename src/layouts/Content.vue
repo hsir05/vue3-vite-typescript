@@ -6,6 +6,7 @@
         <router-view />
       </div>
     </a-layout-content>
+    <slot name="footer"></slot>
   </div>
 </template>
 <script lang="ts">

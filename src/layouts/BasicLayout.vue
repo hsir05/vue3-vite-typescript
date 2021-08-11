@@ -20,10 +20,11 @@
 
         <LayoutContent>
           <LayoutMultipleHeader />
+          <template #footer> <LayoutFooter /></template>
         </LayoutContent>
       </Layout>
 
-      <LayoutFooter />
+      <LayoutFooter v-if="getLayoutMode === 'mix'" />
     </Layout>
   </Layout>
 </template>
