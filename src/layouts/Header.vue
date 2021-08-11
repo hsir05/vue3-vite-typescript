@@ -1,15 +1,18 @@
 <template>
   <a-layout-header class="h-header bb">
-    <AppLogo v-if="getLayoutMode !== 'sidebar'" />
+    <div class="h-header-app-logo">
+      <AppLogo v-if="getLayoutMode !== 'sidebar'" />
 
-    <!-- 收缩按钮 -->
-    <div class="h-header-top" v-if="getLayoutMode !== 'mix'">
-      <menu-unfold-outlined v-if="getCollapsed" class="trigger" @click="handleCollapsed" />
-      <menu-fold-outlined v-else class="trigger" @click="handleCollapsed" />
+      <!-- 收缩按钮 -->
+      <div class="h-header-top" v-if="getLayoutMode !== 'mix'">
+        <menu-unfold-outlined v-if="getCollapsed" class="trigger" @click="handleCollapsed" />
+        <menu-fold-outlined v-else class="trigger" @click="handleCollapsed" />
 
-      <LayoutBreadcrumb />
+        <LayoutBreadcrumb />
+      </div>
+
+      <slot name="layoutMenu"></slot>
     </div>
-    <slot name="layoutMenu"></slot>
 
     <!-- 功能区 -->
     <div class="h-header-action">
@@ -127,5 +130,8 @@
   .user-name {
     font-weight: 500;
     margin-right: 10px;
+  }
+  .h-header-app-logo {
+    display: inline-flex;
   }
 </style>

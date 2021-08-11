@@ -1,5 +1,11 @@
 <template>
-  <div :class="['logo', getCollapsed ? 'tc' : '', `logo-${getLayoutMode}`]">
+  <div
+    :class="[
+      'logo',
+      getCollapsed && getLayoutMode !== 'mix-sidebar' ? 'tc' : '',
+      `logo-${getLayoutMode}`
+    ]"
+  >
     <img src="../assets/logo.png" alt="logo" class="mr10" />
     <span :class="getCollapsed && getLayoutMode !== 'mix-sidebar' ? 'hide ' : 'show'"
       >vite-admin</span

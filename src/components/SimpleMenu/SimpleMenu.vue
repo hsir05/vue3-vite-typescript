@@ -1,5 +1,5 @@
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" theme="linght" mode="horizontal">
+  <a-menu v-model:selectedKeys="selectedKeys" theme="linght" mode="horizontal" class="mw">
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
         <pie-chart-outlined /> <span>Option 1</span>
@@ -46,3 +46,8 @@
     }
   })
 </script>
+<style lang="less">
+  .mw {
+    min-width: 440px;
+  }
+</style>
