@@ -2,33 +2,26 @@
   <Layout style="min-height: 100vh">
     <LayoutSider v-if="getLayoutMode === 'sidebar'" />
 
-    <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'">
-      <template #appLogo>
-        <AppLogo />
-      </template>
-    </LayoutHeader>
+    <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
 
     <Layout>
       <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'">
-        <template #appLogo v-if="getLayoutMode === 'mix'">
-          <AppLogo />
-        </template>
         <template #layoutMenu v-if="getLayoutMode === 'mix'">
           <LayoutMenu :isHorizontal="true" />
         </template>
       </LayoutHeader>
 
-      <Layout v-if="getLayoutMode !== 'mix'">
+      <LayoutContent v-if="getLayoutMode === 'mix'">
+        <LayoutMultipleHeader />
+      </LayoutContent>
+
+      <Layout v-else>
         <LayoutSider v-if="getLayoutMode === 'mix-sidebar'" />
 
         <LayoutContent>
           <LayoutMultipleHeader />
         </LayoutContent>
       </Layout>
-
-      <LayoutContent v-if="getLayoutMode === 'mix'">
-        <LayoutMultipleHeader />
-      </LayoutContent>
 
       <LayoutFooter />
     </Layout>
@@ -40,7 +33,6 @@
   import LayoutHeader from './Header.vue'
   import { Layout } from 'ant-design-vue'
 
-  import AppLogo from './AppLogo.vue'
   import LayoutMenu from './Menu.vue'
   import LayoutSider from './LayoutSider.vue'
   import LayoutContent from './Content.vue'
@@ -54,7 +46,6 @@
       Layout,
       LayoutMultipleHeader,
 
-      AppLogo,
       LayoutMenu,
       LayoutSider,
 

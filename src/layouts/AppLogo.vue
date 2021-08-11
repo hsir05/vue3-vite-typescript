@@ -1,10 +1,21 @@
 <template>
-  <div class="logo"> <img src="../assets/logo.png" alt="logo" height="100%" /> vite-admin </div>
+  <div :class="['logo', getCollapsed ? 'tc' : '']">
+    <img src="../assets/logo.png" alt="logo" height="100%" />
+    <template v-if="!getCollapsed">vite-admin</template>
+  </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   export default defineComponent({
-    name: 'AppLogo'
+    name: 'AppLogo',
+    setup() {
+      const { getCollapsed } = useMenuSetting()
+
+      return {
+        getCollapsed
+      }
+    }
   })
 </script>
 <style lang="less">
@@ -18,5 +29,8 @@
     img {
       height: 100%;
     }
+  }
+  .tc {
+    text-align: center;
   }
 </style>

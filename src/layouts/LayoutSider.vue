@@ -1,11 +1,11 @@
 <template>
-  <Sider v-model:collapsed="getCollapsed" collapsible>
+  <Sider v-model:collapsed="getCollapsed" collapsible @click="handleCollapsed">
     <AppLogo v-if="getLayoutMode === 'sidebar'" />
     <LayoutMenu :isHorizontal="false" />
   </Sider>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, unref } from 'vue'
   import { Layout } from 'ant-design-vue'
   import AppLogo from './AppLogo.vue'
   import LayoutMenu from './Menu.vue'
@@ -20,11 +20,15 @@
       Sider: Layout.Sider
     },
     setup() {
-      const { getCollapsed } = useMenuSetting()
+      const { getCollapsed, setMenuSetting } = useMenuSetting()
       const { getLayoutMode } = useHeaderSetting()
 
+      const handleCollapsed = () => {
+        setMenuSetting({ collapsed: !unref(getCollapsed) })
+      }
       return {
         getCollapsed,
+        handleCollapsed,
         getLayoutMode
       }
     }

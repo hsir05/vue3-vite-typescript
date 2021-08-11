@@ -1,15 +1,11 @@
 <template>
   <a-layout-header class="h-header bb">
-    <slot name="appLogo"></slot>
+    <AppLogo v-if="getLayoutMode !== 'sidebar'" />
 
     <!-- 收缩按钮 -->
-    <div class="h-header-top" v-if="getLayoutMode !== 'mix-sideBar'">
-      <menu-unfold-outlined
-        v-if="collapsed"
-        class="trigger"
-        @click="() => (collapsed = !collapsed)"
-      />
-      <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+    <div class="h-header-top" v-if="getLayoutMode !== 'mix'">
+      <menu-unfold-outlined v-if="getCollapsed" class="trigger" @click="handleCollapsed" />
+      <menu-fold-outlined v-else class="trigger" @click="handleCollapsed" />
 
       <LayoutBreadcrumb />
     </div>
@@ -54,7 +50,7 @@
   import { useFullscreen } from '@vueuse/core'
   import LayoutBreadcrumb from './Breadcrumb.vue'
   import SettingButton from './setting/index.vue'
-
+  import AppLogo from './AppLogo.vue'
   import {
     UserOutlined,
     BellOutlined,
@@ -66,6 +62,7 @@
     MenuFoldOutlined
   } from '@ant-design/icons-vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   export default defineComponent({
     name: 'Header',
     components: {
@@ -73,6 +70,7 @@
       MenuFoldOutlined,
       LayoutBreadcrumb,
       SettingButton,
+      AppLogo,
       FullscreenOutlined,
       FullscreenExitOutlined,
       BellOutlined,
@@ -84,15 +82,20 @@
       const { toggle, isFullscreen } = useFullscreen()
       const { getLayoutMode } = useHeaderSetting()
       const state = reactive({
-        collapsed: false,
         selectedKeys: [1]
       })
       const getTitle = computed(() => {
         return unref(isFullscreen) ? '退出全屏' : '全屏'
       })
+      const { getCollapsed, setMenuSetting } = useMenuSetting()
+      const handleCollapsed = () => {
+        setMenuSetting({ collapsed: !unref(getCollapsed) })
+      }
       return {
         ...toRefs(state),
         isFullscreen,
+        getCollapsed,
+        handleCollapsed,
         toggle,
         getLayoutMode,
         getTitle
