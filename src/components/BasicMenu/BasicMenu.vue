@@ -2,15 +2,19 @@
   <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
-        <pie-chart-outlined /> <span>Option 1</span>
+        <router-link :to="menu.path"
+          ><pie-chart-outlined /> <span>{{ menu.name }}</span></router-link
+        >
       </a-menu-item>
-      <a-sub-menu v-else :key="menu.path">
+      <a-sub-menu v-else :key="menu.path + 1">
         <template #title>
           <span>
             <team-outlined /> <span>{{ menu.name }}</span>
           </span>
         </template>
-        <a-menu-item :key="item.path" v-for="item in menu.children">{{ item.name }}</a-menu-item>
+        <a-menu-item :key="item.path" v-for="item in menu.children"
+          ><router-link :to="item.path"> {{ item.name }}</router-link></a-menu-item
+        >
       </a-sub-menu>
     </template>
   </a-menu>

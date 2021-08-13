@@ -10,7 +10,6 @@
 
         <LayoutBreadcrumb />
       </div>
-
       <slot name="layoutMenu"></slot>
     </div>
 

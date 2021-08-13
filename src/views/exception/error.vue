@@ -1,10 +1,10 @@
 <template>
-  <a-button type="primary"> Back Home </a-button>
+  <router-view />
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
   export default defineComponent({
-    name: 'Exception403'
+    name: 'Error'
   })
 </script>

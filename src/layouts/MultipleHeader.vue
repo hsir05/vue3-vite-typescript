@@ -1,7 +1,7 @@
 <template>
   <div class="multiple-header pt5 pb5">
     <div class="ml10">
-      <a-button type="primary" size="small">Normal</a-button>
+      <a-button type="primary" size="small">分析页</a-button>
     </div>
     <div class="mr10 multiple-header-icon">
       <a-divider type="vertical" />

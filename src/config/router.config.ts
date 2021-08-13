@@ -1,85 +1,54 @@
 import { UserLayout, BasicLayout } from "/@/layouts/index"
 // import { bxAnaalyse } from '/@/core/icons'
+import type { AppRouteModule } from '/@/router/types';
 
-// const RouteView = {
-//     name: 'RouteView',
-//     render: h => h('router-view')
-// }
-
-export const asyncRouterMap = [
-    {
-        path: '/', 
-        name: 'index',
-        component: BasicLayout,
-        meta: { title: 'menu.home' },
-        redirect: '/dashboard/analysis',
-        children: [
-            {
-                path: '/dashboard/analysis',
-                name: 'Analysis',
-                component: () => import('/@/views/dashboard/Analysis.vue'),
-                meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
-            },
-            // dashboard
-            // {
-            //     path: '/dashboard',
-            //     name: 'dashboard',
-            //     redirect: '/dashboard/analysis',
-
-            //     // component: RouteView,
-            //     meta: { title: 'menu.dashboard', keepAlive: true, icon: bxAnaalyse + '?inline', permission: ['dashboard'] },
-            //     children: [
-            //         {
-            //             path: '/dashboard/analysis',
-            //             name: 'Analysis',
-            //             component: () => import('/@/views/dashboard/Analysis.vue'),
-            //             meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
-            //         },
-            //         // 外部链接
-            //         // {
-            //         //     path: 'https://www.baidu.com/',
-            //         //     name: 'Monitor',
-            //         //     meta: { title: 'menu.dashboard.monitor', target: '_blank' }
-            //         // },
-                    
-            //     ]
-            // },
-            // Exception
-            {
-                path: '/exception',
-                name: 'exception',
-                // component: RouteView,
-                redirect: '/exception/403',
-                meta: { title: 'menu.exception', icon: 'warning', permission: ['exception'] },
-                children: [
-                    {
-                        path: '/exception/403',
-                        name: 'Exception403',
-                        component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/403.vue'),
-                        meta: { title: 'menu.exception.not-permission', permission: ['exception'] }
-                    },
-                    {
-                        path: '/exception/404',
-                        name: 'Exception404',
-                        component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/404.vue'),
-                        meta: { title: 'menu.exception.not-find', permission: ['exception'] }
-                    },
-                    {
-                        path: '/exception/500',
-                        name: 'Exception500',
-                        component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/500.vue'),
-                        meta: { title: 'menu.exception.server-error', permission: ['exception'] }
-                    }
-                ]
-            },
-        ]
+export const asyncRouterMap: AppRouteModule = {
+    path: '/',
+    name: 'index',
+    component: BasicLayout,
+    meta: {
+        orderNo: 10,
+        icon: 'ion:grid-outline',
+        title: 'dashboard',
     },
-    {
-        path: "/:pathMatch(.*)*",
-        redirect: '/404',
-        hidden: true
-    }
-]
+    redirect: '/dashboard/analysis',
+    children: [
+        {
+            path: '/dashboard/analysis',
+            name: '分析页',
+            component: () => import('/@/views/dashboard/Analysis.vue'),
+            meta: { title: 'menu.dashboard.analysis' }
+        },
+        // Exception
+        {
+            path: '/exception/403',
+            name: 'exception',
+            redirect: '/exception/403',
+            component: () => import('/@/views/exception/error.vue'),
+            meta: { title: 'menu.exception', icon: 'warning' },
+            children: [
+                {
+                    path: '/exception/403',
+                    name: '403',
+                    component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/403.vue'),
+                    meta: { title: 'menu.exception.not-permission' }
+                },
+                {
+                    path: '/exception/404',
+                    name: '404',
+                    component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/404.vue'),
+                    meta: { title: 'menu.exception.not-find' }
+                },
+                {
+                    path: '/exception/500',
+                    name: '500',
+                    component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/500.vue'),
+                    meta: { title: 'menu.exception.server-error' }
+                }
+            ]
+        },
+    ]
+}
 /**
  * 基础路由
 */
