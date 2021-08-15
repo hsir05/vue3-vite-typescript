@@ -2,7 +2,7 @@
   <a-menu v-model:selectedKeys="selectedKeys" theme="linght" mode="horizontal">
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
-        <pie-chart-outlined /> <span>Option 1</span>
+        <pie-chart-outlined /> <span>{{ menu.name }}</span>
       </a-menu-item>
       <a-sub-menu :key="menu.path + 1" v-else>
         <template #title>
