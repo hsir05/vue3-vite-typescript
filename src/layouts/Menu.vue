@@ -10,8 +10,6 @@
     },
     setup(props) {
       const menuData = getMenus()
-      console.log('2222', menuData)
-
       function renderMenu() {
         return !props.isHorizontal ? (
           <BasicMenu items={menuData} />

@@ -14,6 +14,7 @@
   import { defineComponent, ref } from 'vue'
   import type { RouteLocationMatched } from 'vue-router'
   import { RouteType } from './typing'
+  import { getBreadcrumb } from '/@/router/index'
   // import { REDIRECT_NAME } from '/@/router/constant';
   // import { useRouter } from 'vue-router';
 
@@ -32,14 +33,6 @@
             {
               path: '/general',
               breadcrumbName: 'General'
-            },
-            {
-              path: '/layout',
-              breadcrumbName: 'Layout'
-            },
-            {
-              path: '/navigation',
-              breadcrumbName: 'Navigation'
             }
           ]
         },
@@ -48,6 +41,10 @@
           breadcrumbName: 'second'
         }
       ])
+
+      const breadCrumb = getBreadcrumb()
+      console.log(breadCrumb)
+
       // const { currentRoute } = useRouter();
 
       // watchEffect(async () => {
