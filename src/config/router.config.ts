@@ -21,7 +21,7 @@ export const asyncRouterMap: AppRouteModule = {
         },
         // Exception
         {
-            path: '/exception/403',
+            path: '/exception',
             name: 'exception',
             redirect: '/exception/403',
             component: () => import('/@/views/exception/error.vue'),
@@ -49,7 +49,7 @@ export const asyncRouterMap: AppRouteModule = {
         },
     ]
 }
-/**
+/** 
  * 基础路由
 */
 export const constantRouterMap = [
