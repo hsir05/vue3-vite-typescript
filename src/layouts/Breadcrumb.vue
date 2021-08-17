@@ -7,7 +7,7 @@
   </a-breadcrumb>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, toRaw, computed } from 'vue'
+  import { defineComponent, toRaw, computed } from 'vue'
   import type { RouteLocationMatched } from 'vue-router'
   import { RouteType } from './typing'
   import { getBreadcrumb } from '/@/router/index'
@@ -17,31 +17,6 @@
   export default defineComponent({
     name: 'LayoutBreadcrumb',
     setup() {
-      let routes = reactive<RouteType[]>([
-        {
-          path: 'index',
-          breadcrumbName: 'home'
-        },
-        {
-          path: 'first',
-          breadcrumbName: 'first',
-          children: [
-            {
-              path: '/general',
-              breadcrumbName: 'General'
-            },
-            {
-              path: 'second',
-              breadcrumbName: 'second'
-            }
-          ]
-        },
-        {
-          path: 'second',
-          breadcrumbName: 'second'
-        }
-      ])
-
       const route = useRoute()
 
       const basePath = '/exception'
@@ -72,7 +47,7 @@
         }
         return routes
       }
-      routes = getBreadcrumbList()
+      const routes = getBreadcrumbList()
 
       const routesList = computed(() => getBreadcrumbList())
 

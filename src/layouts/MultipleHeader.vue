@@ -1,8 +1,26 @@
 <template>
-  <div class="multiple-header pt5 pb5">
+  <div class="multiple-header">
     <div class="ml10">
-      <a-button type="primary" size="small">分析页</a-button>
+      <Tabs
+        type="editable-card"
+        size="small"
+        :animated="false"
+        :hideAdd="true"
+        :tabBarGutter="3"
+        :activeKey="activeKeyRef"
+        @change="handleChange"
+        @edit="handleEdit"
+      >
+        <TabPane>
+          <template #tab>
+            <TabContent />
+          </template>
+        </TabPane>
+      </Tabs>
+
+      <!-- <router-link to="/dashboard/analysis"><a-button type="primary" size="small">分析页</a-button></router-link> -->
     </div>
+
     <div class="mr10 multiple-header-icon">
       <a-divider type="vertical" />
       <RedoOutlined class="multiple-icon-item" />
@@ -16,6 +34,8 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
+  import { Tabs } from 'ant-design-vue'
+  import TabContent from './TabContent.vue'
   import {
     RedoOutlined,
     DownOutlined,
@@ -25,15 +45,37 @@
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
+      TabContent,
       RedoOutlined,
       FullscreenOutlined,
       DownOutlined,
-      FullscreenExitOutlined
+      FullscreenExitOutlined,
+      Tabs,
+      TabPane: Tabs.TabPane
     },
     setup() {
+      const activeKeyRef = ref('')
       const isTabsExtra = ref(false)
+      // const go = useGo();
+
+      function handleChange(activeKey: any) {
+        activeKeyRef.value = activeKey
+        // go(activeKey, false);
+      }
+      function handleEdit(targetKey: string) {
+        console.log(targetKey)
+
+        // if (unref(unClose)) {
+        // return;
+        // }
+
+        // tabStore.closeTabByKey(targetKey, router);
+      }
       return {
-        isTabsExtra
+        isTabsExtra,
+        handleChange,
+        activeKeyRef,
+        handleEdit
       }
     }
   })
@@ -43,6 +85,8 @@
     .flexed();
     cursor: pointer;
     background-color: @white;
+    padding-top: 2px;
+    padding-bottom: 2px;
     .multiple-header-icon {
       color: @iconColor;
     }
@@ -50,6 +94,23 @@
       &:hover {
         color: @iconHoverColor;
       }
+    }
+    .ant-tabs-bar {
+      margin: 0;
+      border-bottom: 0;
+    }
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+      border-color: #f0f0f0;
+    }
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+      height: 28px;
+      line-height: 28px;
+      font-size: 12px;
+      color: #333;
+      padding: 0 10px;
+    }
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-nav-container {
+      height: 29px;
     }
   }
 </style>

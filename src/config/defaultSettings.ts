@@ -16,7 +16,9 @@ export default {
     menuSetting: {
         collapsed: false,
     },
-    
+    multiTabsSetting: {
+        cache:true
+    },
     isHorizontal: true,
     layoutMode: 'sidebar',
     navTheme: 'dark', // theme for nav menu
