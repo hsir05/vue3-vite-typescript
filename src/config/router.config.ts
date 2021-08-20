@@ -16,7 +16,8 @@ export const asyncRouterMap: AppRouteModule = {
             path: '/dashboard/analysis',
             name: '分析页',
             component: () => import('../views/dashboard/analysis/index.vue'),
-            meta: { title: 'menu.dashboard.analysis' }
+            // meta: { title: 'menu.dashboard.analysis' }
+            meta: { title: '分析页' }
         },
         // Exception
         {
@@ -30,19 +31,19 @@ export const asyncRouterMap: AppRouteModule = {
                     path: '/exception/403',
                     name: '403',
                     component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/403.vue'),
-                    meta: { title: 'menu.exception.not-permission' }
+                    meta: { title: '403' }
                 },
                 {
                     path: '/exception/404',
                     name: '404',
                     component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/404.vue'),
-                    meta: { title: 'menu.exception.not-find' }
+                    meta: { title: '404' }
                 },
                 {
                     path: '/exception/500',
                     name: '500',
                     component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/500.vue'),
-                    meta: { title: 'menu.exception.server-error' }
+                    meta: { title: '500' }
                 }
             ]
         },

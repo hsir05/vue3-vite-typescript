@@ -14,9 +14,9 @@ export function initAffixTabs(): string[]{
             if (route.meta && route.meta.affix){
                 tabs.push(toRaw(route))
             }
-        })
+        }) 
         return tabs;
-    }
+    } 
 
     function addAffixTabs(): void {
         const affixTabs = filterAffixTabs(router.getRoutes() as unknown as RouteLocationNormalized[])

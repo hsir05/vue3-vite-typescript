@@ -55,7 +55,6 @@ export const useMultipleTabStore = defineStore({
             } else {
                 this.tabList.push(route);
             }
-
         }
     }
 })

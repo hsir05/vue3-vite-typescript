@@ -1,10 +1,29 @@
 <template>
-  <router-link to="/dashboard/analysis" class="tab-content">分析页</router-link>
+  <router-link to="/dashboard/analysis" class="tab-content">{{ getTitle }}</router-link>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
+  import type { PropType } from 'vue'
+  import type { RouteLocationNormalized } from 'vue-router'
+
   export default defineComponent({
-    name: 'TabContent'
+    name: 'TabContent',
+    props: {
+      tabItem: {
+        type: Object as PropType<RouteLocationNormalized>,
+        default: null
+      },
+      isExtra: Boolean
+    },
+    setup(props) {
+      const getTitle = computed(() => {
+        const { tabItem: { meta } = {} } = props
+        return meta && (meta.title as string)
+      })
+      return {
+        getTitle
+      }
+    }
   })
 </script>
 <style lang="less">

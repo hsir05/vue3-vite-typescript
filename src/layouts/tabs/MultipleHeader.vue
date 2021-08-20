@@ -44,6 +44,7 @@
   } from '@ant-design/icons-vue'
   import { useMultipleTabStore } from '/@/store/modules/multipleTab'
   import { initAffixTabs } from './useMultipleTabs'
+  import { listenerRouteChange } from '/@/router/routeChange'
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
@@ -64,6 +65,34 @@
       // const go = useGo();
       const tabStore = useMultipleTabStore()
 
+      listenerRouteChange((route) => {
+        console.log(unref(route))
+        tabStore.addTab(unref(route))
+
+        // const { name } = route;
+        // if (name === REDIRECT_NAME || !route || !userStore.getToken) {
+        //   return;
+        // }
+
+        // const { path, fullPath, meta = {} } = route;
+        // const { currentActiveMenu, hideTab } = meta as RouteMeta;
+        // const isHide = !hideTab ? null : currentActiveMenu;
+        // const p = isHide || fullPath || path;
+        // if (activeKeyRef.value !== p) {
+        //   activeKeyRef.value = p as string;
+        // }
+
+        // if (isHide) {
+        //   const findParentRoute = router
+        //     .getRoutes()
+        //     .find((item) => item.path === currentActiveMenu);
+
+        //   findParentRoute && tabStore.addTab(findParentRoute as unknown as RouteLocationNormalized);
+        // } else {
+        //   tabStore.addTab(unref(route));
+        // }
+      })
+
       function handleChange(activeKey: any) {
         activeKeyRef.value = activeKey
         // go(activeKey, false);
@@ -71,6 +100,8 @@
       const getTabsState = computed(() => {
         return tabStore.getTabList.filter((item) => !item.meta?.hideTab)
       })
+      console.log('getTabsState')
+      console.log(unref(getTabsState))
 
       const unClose = computed(() => unref(getTabsState).length === 1)
 
