@@ -11,14 +11,14 @@
         @change="handleChange"
         @edit="handleEdit"
       >
-        <TabPane>
-          <template #tab>
-            <TabContent />
-          </template>
-        </TabPane>
+        <template v-for="item in getTabsState" :key="item.query ? item.fullPath : item.path">
+          <TabPane :closable="!(item && item.meta && item.meta.affix)">
+            <template #tab>
+              <TabContent :tabItem="item" />
+            </template>
+          </TabPane>
+        </template>
       </Tabs>
-
-      <!-- <router-link to="/dashboard/analysis"><a-button type="primary" size="small">分析页</a-button></router-link> -->
     </div>
 
     <div class="mr10 multiple-header-icon">
@@ -33,7 +33,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent, ref, computed, unref } from 'vue'
   import { Tabs } from 'ant-design-vue'
   import TabContent from './TabContent.vue'
   import {
@@ -42,6 +42,8 @@
     FullscreenOutlined,
     FullscreenExitOutlined
   } from '@ant-design/icons-vue'
+  import { useMultipleTabStore } from '/@/store/modules/multipleTab'
+  import { initAffixTabs } from './useMultipleTabs'
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
@@ -56,18 +58,28 @@
     setup() {
       const activeKeyRef = ref('')
       const isTabsExtra = ref(false)
+      const affixTextList = initAffixTabs()
+      console.log(affixTextList)
+
       // const go = useGo();
+      const tabStore = useMultipleTabStore()
 
       function handleChange(activeKey: any) {
         activeKeyRef.value = activeKey
         // go(activeKey, false);
       }
+      const getTabsState = computed(() => {
+        return tabStore.getTabList.filter((item) => !item.meta?.hideTab)
+      })
+
+      const unClose = computed(() => unref(getTabsState).length === 1)
+
       function handleEdit(targetKey: string) {
         console.log(targetKey)
 
-        // if (unref(unClose)) {
-        // return;
-        // }
+        if (unref(unClose)) {
+          return
+        }
 
         // tabStore.closeTabByKey(targetKey, router);
       }
@@ -75,7 +87,8 @@
         isTabsExtra,
         handleChange,
         activeKeyRef,
-        handleEdit
+        handleEdit,
+        getTabsState
       }
     }
   })

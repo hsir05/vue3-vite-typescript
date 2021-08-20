@@ -30,7 +30,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import LayoutMultipleHeader from './MultipleHeader.vue'
+  import LayoutMultipleHeader from './tabs/MultipleHeader.vue'
   import LayoutHeader from './Header.vue'
   import { Layout } from 'ant-design-vue'
 

@@ -1,5 +1,4 @@
 import { UserLayout, BasicLayout } from "/@/layouts/index"
-// import { bxAnaalyse } from '/@/core/icons'
 import type { AppRouteModule } from '/@/router/types';
 
 export const asyncRouterMap: AppRouteModule = {
@@ -16,7 +15,7 @@ export const asyncRouterMap: AppRouteModule = {
         {
             path: '/dashboard/analysis',
             name: '分析页',
-            component: () => import('/@/views/dashboard/Analysis.vue'),
+            component: () => import('../views/dashboard/analysis/index.vue'),
             meta: { title: 'menu.dashboard.analysis' }
         },
         // Exception
