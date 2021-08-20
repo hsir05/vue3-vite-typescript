@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/dashboard/analysis" class="tab-content">{{ getTitle }}</router-link>
+  <router-link :to="getPath" class="tab-content">{{ getTitle }}</router-link>
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
@@ -20,8 +20,13 @@
         const { tabItem: { meta } = {} } = props
         return meta && (meta.title as string)
       })
+      const getPath = computed(() => {
+        const { tabItem: { path } = {} } = props
+        return path
+      })
       return {
-        getTitle
+        getTitle,
+        getPath
       }
     }
   })

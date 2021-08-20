@@ -66,7 +66,6 @@
       const tabStore = useMultipleTabStore()
 
       listenerRouteChange((route) => {
-        console.log(unref(route))
         tabStore.addTab(unref(route))
 
         // const { name } = route;
@@ -100,9 +99,6 @@
       const getTabsState = computed(() => {
         return tabStore.getTabList.filter((item) => !item.meta?.hideTab)
       })
-      console.log('getTabsState')
-      console.log(unref(getTabsState))
-
       const unClose = computed(() => unref(getTabsState).length === 1)
 
       function handleEdit(targetKey: string) {
