@@ -17,7 +17,7 @@ export const asyncRouterMap: AppRouteModule = {
             name: '分析页',
             component: () => import('../views/dashboard/analysis/index.vue'),
             // meta: { title: 'menu.dashboard.analysis' }
-            meta: { title: '分析页' }
+            meta: { title: '分析页', affix: true }
         },
         // Exception
         {

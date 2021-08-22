@@ -67,7 +67,7 @@
 
       listenerRouteChange((route) => {
         tabStore.addTab(unref(route))
-
+        activeKeyRef.value = route.path
         // const { name } = route;
         // if (name === REDIRECT_NAME || !route || !userStore.getToken) {
         //   return;
@@ -93,6 +93,8 @@
       })
 
       function handleChange(activeKey: any) {
+        console.log(activeKey)
+
         activeKeyRef.value = activeKey
         // go(activeKey, false);
       }
@@ -151,6 +153,12 @@
     }
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-nav-container {
       height: 29px;
+    }
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+      background-color: #1890ff;
+      .tab-content {
+        color: white;
+      }
     }
   }
 </style>
