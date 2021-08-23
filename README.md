@@ -30,8 +30,8 @@ module.exports = {
   },
   extends: ['plugin:vue/vue3-recommended', 'plugin:prettier/recommended'],
   parserOptions: {
-    ecmaVersion: 12,
-    sourceType: 'module'
+    ecmaVersion: 12, // es版本
+    sourceType: 'module' // 指定源码所在位置 scripte/module
   },
   rules: {
     'prettier/prettier': 'error'
@@ -136,6 +136,7 @@ npx husky add .husky/commit-msg "yarn commitlint"
 ## 2. 添加tsx支持
 
 需要在 vite.config.js 文件中添加如下配置：
+
 ```js
 export default {
   esbuild: {
@@ -144,6 +145,7 @@ export default {
   }
 }
 ```
+
 重新启动项目如有报错：`h is not defined`,需要在 .jsx 或 .tsx 文件中手动引入 import { h } from 'vue';
 
 ```js

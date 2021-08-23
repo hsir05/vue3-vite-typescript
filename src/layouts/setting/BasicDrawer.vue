@@ -29,7 +29,7 @@
           </Tooltip>
         </template>
       </div>
-      <Divider>系统主题</Divider>
+      <!-- <Divider>系统主题</Divider>
       <div class="system-theme">
         <span
           class="system-theme-item"
@@ -38,7 +38,7 @@
           :style="{ backgroundColor: color }"
           :key="index"
         ></span>
-      </div>
+      </div> -->
     </div>
   </Drawer>
 </template>

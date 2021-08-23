@@ -49,6 +49,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
                 }
             }
         },
+        // 是否需要预编译-vite预编译核心函数
         optimizeDeps: {
             include: [
                 '@iconify/iconify',

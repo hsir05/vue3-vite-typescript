@@ -1,7 +1,6 @@
 import { computed } from 'vue';
 import { useAppStore } from '/@/store/modules/app';
-import type { ProjectConfig } from '/#/config';
-import type { MenuSetting } from '/#/config';
+import type { ProjectConfig, MenuSetting } from '/#/config';
 type RootSetting = Omit<
     ProjectConfig,
     'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'

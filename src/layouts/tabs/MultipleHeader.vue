@@ -68,28 +68,6 @@
       listenerRouteChange((route) => {
         tabStore.addTab(unref(route))
         activeKeyRef.value = route.path
-        // const { name } = route;
-        // if (name === REDIRECT_NAME || !route || !userStore.getToken) {
-        //   return;
-        // }
-
-        // const { path, fullPath, meta = {} } = route;
-        // const { currentActiveMenu, hideTab } = meta as RouteMeta;
-        // const isHide = !hideTab ? null : currentActiveMenu;
-        // const p = isHide || fullPath || path;
-        // if (activeKeyRef.value !== p) {
-        //   activeKeyRef.value = p as string;
-        // }
-
-        // if (isHide) {
-        //   const findParentRoute = router
-        //     .getRoutes()
-        //     .find((item) => item.path === currentActiveMenu);
-
-        //   findParentRoute && tabStore.addTab(findParentRoute as unknown as RouteLocationNormalized);
-        // } else {
-        //   tabStore.addTab(unref(route));
-        // }
       })
 
       function handleChange(activeKey: any) {
