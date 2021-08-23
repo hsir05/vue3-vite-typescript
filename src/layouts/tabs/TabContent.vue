@@ -1,26 +1,27 @@
 <template>
-  <Dropdown trigger="contextmenu">
-    <router-link :to="getPath" class="tab-content">{{ getTitle }}</router-link>
+  <Dropdown :trigger="getTrigger">
+    <router-link :to="getPath" class="tab-content" v-if="getIsTabs">{{ getTitle }}</router-link>
+    <slot></slot>
     <template #overlay>
       <Menu>
-        <MenuItem><RedoOutlined />重新加载</MenuItem>
-        <MenuItem><CloseOutlined />关闭标签页</MenuItem>
+        <MenuItem> <RedoOutlined />重新加载 </MenuItem>
+        <MenuItem> <CloseOutlined />关闭标签页 </MenuItem>
         <MenuDivider />
-        <MenuItem
-          ><VerticalAlignTopOutlined style="transform: rotate(-90deg)" />关闭右侧标签</MenuItem
-        >
-        <MenuItem
-          ><VerticalAlignBottomOutlined style="transform: rotate(-90deg)" />关闭左侧标签</MenuItem
-        >
+        <MenuItem>
+          <VerticalAlignTopOutlined style="transform: rotate(-90deg)" />关闭右侧标签页
+        </MenuItem>
+        <MenuItem>
+          <VerticalAlignBottomOutlined style="transform: rotate(-90deg)" />关闭左侧标签页
+        </MenuItem>
         <MenuDivider />
-        <MenuItem><PicCenterOutlined />关闭其他标签页</MenuItem>
-        <MenuItem><MinusOutlined />关闭全部标签页</MenuItem>
+        <MenuItem> <PicCenterOutlined />关闭其他标签页 </MenuItem>
+        <MenuItem> <MinusOutlined />关闭全部标签页 </MenuItem>
       </Menu>
     </template>
   </Dropdown>
 </template>
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed, unref } from 'vue'
   import type { PropType } from 'vue'
   import { Dropdown, Menu } from 'ant-design-vue'
   import type { RouteLocationNormalized } from 'vue-router'
@@ -58,13 +59,21 @@
         const { tabItem: { meta } = {} } = props
         return meta && (meta.title as string)
       })
+      const getTrigger = computed((): ('contextmenu' | 'click' | 'hover')[] =>
+        unref(getIsTabs) ? ['contextmenu'] : ['click']
+      )
+
+      const getIsTabs = computed(() => !props.isExtra)
+
       const getPath = computed(() => {
         const { tabItem: { path } = {} } = props
         return path
       })
       return {
         getTitle,
-        getPath
+        getPath,
+        getIsTabs,
+        getTrigger
       }
     }
   })

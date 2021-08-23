@@ -23,9 +23,13 @@
 
     <div class="mr10 multiple-header-icon">
       <a-divider type="vertical" />
-      <RedoOutlined class="multiple-icon-item" />
+      <RedoOutlined class="multiple-icon-item" :spin="loading" @click="handleRedo" />
+
       <a-divider type="vertical" />
-      <DownOutlined class="multiple-icon-item" />
+      <TabContent :tabItem="$route" isExtra>
+        <DownOutlined class="multiple-icon-item" />
+      </TabContent>
+
       <a-divider type="vertical" />
       <FullscreenExitOutlined v-if="isTabsExtra" />
       <FullscreenOutlined v-else class="multiple-icon-item" />
@@ -57,6 +61,7 @@
       TabPane: Tabs.TabPane
     },
     setup() {
+      const loading = ref(false)
       const activeKeyRef = ref('')
       const isTabsExtra = ref(false)
       const affixTextList = initAffixTabs()
@@ -90,11 +95,22 @@
 
         // tabStore.closeTabByKey(targetKey, router);
       }
+
+      const handleRedo = () => {
+        loading.value = true
+
+        setTimeout(() => {
+          loading.value = false
+        }, 1200)
+      }
+
       return {
+        handleRedo,
         isTabsExtra,
         handleChange,
         activeKeyRef,
         handleEdit,
+        loading,
         getTabsState
       }
     }

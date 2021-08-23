@@ -19,10 +19,12 @@
   "dependencies": {
     "@ant-design-vue/pro-layout": "^3.1.0-alpha.4",
     "@iconify/iconify": "^2.0.3",
+    "@types/echarts": "^4.9.10",
     "@vueuse/core": "^5.2.0",
     "ant-design-vue": "^2.2.2",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
+    "echarts": "^5.1.2",
     "global": "^4.4.0",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",

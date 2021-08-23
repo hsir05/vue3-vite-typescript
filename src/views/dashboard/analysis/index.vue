@@ -1,14 +1,17 @@
 <template>
   <div class="p-4">
     <GrowCard :loading="loading" class="enter-y" />
+    <LineChart :loading="loading" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
   import GrowCard from './components/GrowCard.vue'
+  import LineChart from './components/LineChart.vue'
   export default defineComponent({
     components: {
-      GrowCard
+      GrowCard,
+      LineChart
     },
     setup() {
       const loading = ref(true)
