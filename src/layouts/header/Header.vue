@@ -21,20 +21,17 @@
         </template>
         <SearchOutlined class="pd15 h-header-action-item" />
       </a-tooltip>
+
       <a-tooltip placement="bottom">
         <template #title>
           <span>消息</span>
         </template>
         <BellOutlined class="pd15 h-header-action-item" />
       </a-tooltip>
+
       <TranslationOutlined class="pd15 h-header-action-item" />
 
-      <a-tooltip :title="getTitle" placement="bottom" :mouse-enter-delay="0.5">
-        <span @click="toggle">
-          <FullscreenOutlined v-if="!isFullscreen" class="pd15 h-header-action-item" />
-          <FullscreenExitOutlined v-else class="pd15 h-header-action-item" />
-        </span>
-      </a-tooltip>
+      <FullScreen />
 
       <div class="h-header-action-item" style="display: inline-block">
         <a-avatar class="mr10 avatar ml10" size="small">
@@ -48,23 +45,21 @@
   </a-layout-header>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, unref, computed, toRefs } from 'vue'
-  import { useFullscreen } from '@vueuse/core'
-  import LayoutBreadcrumb from './Breadcrumb.vue'
-  import SettingButton from './setting/index.vue'
-  import AppLogo from './AppLogo.vue'
+  import { defineComponent, reactive, unref, toRefs } from 'vue'
+  import LayoutBreadcrumb from '../Breadcrumb.vue'
+  import SettingButton from '../setting/index.vue'
+  import AppLogo from '../AppLogo.vue'
   import {
     UserOutlined,
     BellOutlined,
     SearchOutlined,
     TranslationOutlined,
-    FullscreenOutlined,
     MenuUnfoldOutlined,
-    FullscreenExitOutlined,
     MenuFoldOutlined
   } from '@ant-design/icons-vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import FullScreen from './components/fullScreen/index.vue'
   export default defineComponent({
     name: 'Header',
     components: {
@@ -73,34 +68,27 @@
       LayoutBreadcrumb,
       SettingButton,
       AppLogo,
-      FullscreenOutlined,
-      FullscreenExitOutlined,
+      FullScreen,
       BellOutlined,
       SearchOutlined,
       TranslationOutlined,
       UserOutlined
     },
     setup() {
-      const { toggle, isFullscreen } = useFullscreen()
       const { getLayoutMode } = useHeaderSetting()
       const state = reactive({
         selectedKeys: [1]
       })
-      const getTitle = computed(() => {
-        return unref(isFullscreen) ? '退出全屏' : '全屏'
-      })
+
       const { getCollapsed, setMenuSetting } = useMenuSetting()
       const handleCollapsed = () => {
         setMenuSetting({ collapsed: !unref(getCollapsed) })
       }
       return {
         ...toRefs(state),
-        isFullscreen,
         getCollapsed,
         handleCollapsed,
-        toggle,
-        getLayoutMode,
-        getTitle
+        getLayoutMode
       }
     }
   })
