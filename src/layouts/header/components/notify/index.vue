@@ -14,9 +14,7 @@
               {{ item.name }}
               <span v-if="item.list.length !== 0">({{ item.list.length }})</span>
             </template>
-            <!-- 绑定title-click事件的通知列表中标题是“可点击”的-->
             <NoticeList :list="item.list" v-if="item.key === '1'" @title-click="onNoticeClick" />
-            <NoticeList :list="item.list" v-else />
           </TabPane>
         </template>
       </Tabs>

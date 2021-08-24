@@ -153,6 +153,9 @@
       .tab-content {
         color: white;
       }
+      .ant-tabs-close-x {
+        color: white;
+      }
     }
   }
 </style>

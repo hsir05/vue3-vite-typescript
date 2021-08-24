@@ -1,6 +1,6 @@
 <template>
   <Dropdown :trigger="getTrigger">
-    <router-link :to="getPath" class="tab-content" v-if="getIsTabs">{{ getTitle }}</router-link>
+    <router-link :to="getPath" class="tab-content" v-if="getIsTabs">{{ getTitle }} </router-link>
     <slot></slot>
     <template #overlay>
       <Menu>
