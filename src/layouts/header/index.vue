@@ -22,12 +22,7 @@
         <SearchOutlined class="pd15 h-header-action-item" />
       </a-tooltip>
 
-      <a-tooltip placement="bottom">
-        <template #title>
-          <span>消息</span>
-        </template>
-        <BellOutlined class="pd15 h-header-action-item" />
-      </a-tooltip>
+      <Notify />
 
       <TranslationOutlined class="pd15 h-header-action-item" />
 
@@ -51,7 +46,6 @@
   import AppLogo from '../AppLogo.vue'
   import {
     UserOutlined,
-    BellOutlined,
     SearchOutlined,
     TranslationOutlined,
     MenuUnfoldOutlined,
@@ -60,6 +54,7 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import FullScreen from './components/fullScreen/index.vue'
+  import Notify from './components/notify/index.vue'
   export default defineComponent({
     name: 'Header',
     components: {
@@ -69,7 +64,7 @@
       SettingButton,
       AppLogo,
       FullScreen,
-      BellOutlined,
+      Notify,
       SearchOutlined,
       TranslationOutlined,
       UserOutlined

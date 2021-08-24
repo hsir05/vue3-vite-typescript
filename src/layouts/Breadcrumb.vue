@@ -11,15 +11,12 @@
   import type { RouteLocationMatched } from 'vue-router'
   import { RouteType } from './typing'
   import { getBreadcrumb } from '/@/router/index'
-  // import { REDIRECT_NAME } from '/@/router/constant';
   import { useRoute } from 'vue-router'
-  // import type { AppRouteModule } from '/@/router/types';
   export default defineComponent({
     name: 'LayoutBreadcrumb',
     setup() {
       const route = useRoute()
 
-      const basePath = '/exception'
       const breadCrumb = getBreadcrumb()
 
       function getBreadcrumbList() {
@@ -47,8 +44,6 @@
         }
         return routes
       }
-      const routes = getBreadcrumbList()
-
       const routesList = computed(() => getBreadcrumbList())
 
       function hasRedirect(routes: RouteLocationMatched[], route: RouteLocationMatched) {
@@ -58,10 +53,7 @@
         return true
       }
       return {
-        basePath,
-        routes,
         routesList,
-        breadCrumb,
         hasRedirect
       }
     }

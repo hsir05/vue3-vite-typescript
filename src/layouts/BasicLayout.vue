@@ -31,7 +31,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import LayoutMultipleHeader from './tabs/MultipleHeader.vue'
-  import LayoutHeader from './header/Header.vue'
+  import LayoutHeader from './header/index.vue'
   import { Layout } from 'ant-design-vue'
 
   import LayoutMenu from './Menu.vue'
