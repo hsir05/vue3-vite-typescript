@@ -1,4 +1,4 @@
-# Vue 3 + Typescript + Vite
+# Vue 3 + Vite + vue-route + Typescript +  + axios + antd design + less
 
 ## 1. 规范管理
 
@@ -95,7 +95,7 @@ cz-conventional-changelog：适配器。提供conventional-changelog标准（约
 
 ```vue
 配置刚刚介绍到的commitlint，只需要一句命令即可完成配置,它会在项目根目录下面创建一个commitlint.config.js配置文件
-echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
+module.exports = { extends: ['@commitlint/config-conventional'] };
 ```
 
 ### 1-6. 定义触发hook时要执行的Npm脚本

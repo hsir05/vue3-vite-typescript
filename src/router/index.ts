@@ -3,8 +3,6 @@ import type { RouteRecordRaw,  } from 'vue-router';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { isArray } from '../utils/is';
 import { asyncRouterMap } from '/@/config/router.config'
-// import type { AppRouteModule } from '/@/router/types';
-
 import type { AppRouteModule } from '/@/router/types';
 
 export const asyncRoutes = [asyncRouterMap];
@@ -15,7 +13,7 @@ export const router = createRouter({
     history: createWebHashHistory(),
     routes: asyncRoutes as unknown as RouteRecordRaw[],
     strict: true,
-    scrollBehavior: () => ({ left: 0, top: 0 }),
+    scrollBehavior: () => ({ left: 0, top: 0 }), // 管理组件滚动行为
 });
    
 export const getMenus = () => {
