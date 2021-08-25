@@ -7,12 +7,8 @@
         <MenuItem> <RedoOutlined />重新加载 </MenuItem>
         <MenuItem> <CloseOutlined />关闭标签页 </MenuItem>
         <MenuDivider />
-        <MenuItem>
-          <VerticalAlignTopOutlined style="transform: rotate(-90deg)" />关闭右侧标签页
-        </MenuItem>
-        <MenuItem>
-          <VerticalAlignBottomOutlined style="transform: rotate(-90deg)" />关闭左侧标签页
-        </MenuItem>
+        <MenuItem> <VerticalAlignTopOutlined :rotate="-90" />关闭右侧标签页 </MenuItem>
+        <MenuItem> <VerticalAlignBottomOutlined :rotate="-90" />关闭左侧标签页 </MenuItem>
         <MenuDivider />
         <MenuItem> <PicCenterOutlined />关闭其他标签页 </MenuItem>
         <MenuItem> <MinusOutlined />关闭全部标签页 </MenuItem>

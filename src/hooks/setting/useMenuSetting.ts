@@ -5,7 +5,7 @@ type RootSetting = Omit<
     ProjectConfig,
     'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
 >;
-
+ 
 export function useMenuSetting() {
     const appStore = useAppStore();
 

@@ -34,7 +34,7 @@ export const useMultipleTabStore = defineStore({
             const { path, name, fullPath, params, query } = getRawRoute(route);
             if (path === PageEnum.ERROR_PAGE || !name ){
                 return 
-            }
+            } 
 
             let updateIndex = -1;
             // Existing pages, do not add tabs repeatedly
@@ -55,7 +55,7 @@ export const useMultipleTabStore = defineStore({
             } else {
                 this.tabList.push(route);
             }
-        }
+        } 
     }
 })
 
