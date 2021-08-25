@@ -1,17 +1,15 @@
 <template>
   <Dropdown :trigger="getTrigger">
-    <router-link :to="getPath" class="tab-content" v-if="getIsTabs">{{ getTitle }} </router-link>
+    <router-link :to="getPath" class="tab-content" v-if="getIsTabs">{{ getTitle }}</router-link>
     <slot></slot>
     <template #overlay>
       <Menu>
-        <MenuItem> <RedoOutlined />重新加载 </MenuItem>
-        <MenuItem> <CloseOutlined />关闭标签页 </MenuItem>
-        <MenuDivider />
-        <MenuItem> <VerticalAlignTopOutlined :rotate="-90" />关闭右侧标签页 </MenuItem>
-        <MenuItem> <VerticalAlignBottomOutlined :rotate="-90" />关闭左侧标签页 </MenuItem>
-        <MenuDivider />
-        <MenuItem> <PicCenterOutlined />关闭其他标签页 </MenuItem>
-        <MenuItem> <MinusOutlined />关闭全部标签页 </MenuItem>
+        <template v-for="(item, index) in getDropMenuList" :key="item.text">
+          <MenuItem><MyIcon :type="item.icon" />{{ item.text }} </MenuItem>
+          <MenuDivider
+            v-if="index % 2 !== 0 && getDropMenuList && index !== getDropMenuList.length - 1"
+          />
+        </template>
       </Menu>
     </template>
   </Dropdown>
@@ -21,36 +19,35 @@
   import type { PropType } from 'vue'
   import { Dropdown, Menu } from 'ant-design-vue'
   import type { RouteLocationNormalized } from 'vue-router'
-  import {
-    RedoOutlined,
-    CloseOutlined,
-    PicCenterOutlined,
-    MinusOutlined,
-    VerticalAlignTopOutlined,
-    VerticalAlignBottomOutlined
-  } from '@ant-design/icons-vue'
+  import type { DropMenu } from './typing'
+  import { TabContentProps } from './types'
+  import { useTabDropdown } from './useTabDropdown'
+  import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
     name: 'TabContent',
     components: {
       Dropdown,
-      PicCenterOutlined,
-      MinusOutlined,
-      RedoOutlined,
-      CloseOutlined,
-      VerticalAlignTopOutlined,
-      VerticalAlignBottomOutlined,
       Menu,
       MenuItem: Menu.Item,
-      MenuDivider: Menu.Divider
+      MenuDivider: Menu.Divider,
+      MyIcon
     },
     props: {
       tabItem: {
         type: Object as PropType<RouteLocationNormalized>,
         default: null
       },
-      isExtra: Boolean
+      isExtra: Boolean,
+      dropMenuList: {
+        type: Array as PropType<(DropMenu & Recordable)[]>,
+        default: () => []
+      }
     },
     setup(props) {
+      const getIsTabs = computed(() => !props.isExtra)
+
+      const { getDropMenuList } = useTabDropdown(props as TabContentProps, getIsTabs)
+
       const getTitle = computed(() => {
         const { tabItem: { meta } = {} } = props
         return meta && (meta.title as string)
@@ -58,8 +55,6 @@
       const getTrigger = computed((): ('contextmenu' | 'click' | 'hover')[] =>
         unref(getIsTabs) ? ['contextmenu'] : ['click']
       )
-
-      const getIsTabs = computed(() => !props.isExtra)
 
       const getPath = computed(() => {
         const { tabItem: { path } = {} } = props
@@ -69,7 +64,8 @@
         getTitle,
         getPath,
         getIsTabs,
-        getTrigger
+        getTrigger,
+        getDropMenuList
       }
     }
   })

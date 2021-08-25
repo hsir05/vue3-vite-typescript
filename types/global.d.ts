@@ -2,7 +2,7 @@
 declare type Recordable<T = any> = Record<string, T>;
 
 declare module '@ant-design-vue/pro-layout';
-
+declare type Nullable<T> = T | null;
 declare interface ViteEnv {
     VITE_PORT: number;
     VITE_USE_MOCK: boolean;
