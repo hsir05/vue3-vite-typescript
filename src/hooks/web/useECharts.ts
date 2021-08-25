@@ -3,6 +3,7 @@ import type { Ref } from 'vue';
 import { nextTick, unref, watch } from 'vue';
 import * as echarts from "echarts";
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+
 export function useECharts(elRef: Ref<HTMLDivElement>){
     let chartInstance: echarts.ECharts | null = null;
 
@@ -16,7 +17,7 @@ export function useECharts(elRef: Ref<HTMLDivElement>){
             resize()
         }
     } 
-    function resize() {
+    function resize():void{
         chartInstance?.resize();
     }
 
