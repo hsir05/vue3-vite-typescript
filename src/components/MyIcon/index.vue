@@ -20,7 +20,7 @@
       },
       fontSize: {
         type: String,
-        default: () => '18px'
+        default: () => '16px'
       },
       svg: {
         type: String,

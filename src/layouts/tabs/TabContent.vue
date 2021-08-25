@@ -4,11 +4,9 @@
     <slot></slot>
     <template #overlay>
       <Menu>
-        <template v-for="(item, index) in getDropMenuList" :key="item.text">
+        <template v-for="item in getDropMenuList" :key="item.text">
           <MenuItem><MyIcon :type="item.icon" />{{ item.text }} </MenuItem>
-          <MenuDivider
-            v-if="index % 2 !== 0 && getDropMenuList && index !== getDropMenuList.length - 1"
-          />
+          <MenuDivider v-if="item.divider" />
         </template>
       </Menu>
     </template>

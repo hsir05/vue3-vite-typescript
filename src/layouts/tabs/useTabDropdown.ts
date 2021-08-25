@@ -6,7 +6,7 @@ import { RouteLocationNormalized, useRouter } from 'vue-router';
 import type { TabContentProps } from './types';
 
 interface DropMenu {
-    onClick?: ()=>void;
+    onClick?: () => void;
     to?: string;
     icon?: string;
     event: string | number;
@@ -15,7 +15,7 @@ interface DropMenu {
     divider?: boolean;
 }
 
-export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: ComputedRef<boolean>){
+export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: ComputedRef<boolean>) {
 
     const tabStore = useMultipleTabStore();
     const state = reactive({
