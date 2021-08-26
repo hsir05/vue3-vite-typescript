@@ -70,7 +70,7 @@ export const constantRouterMap = [
     },
     {
         path: "/:pathMatch(.*)*",
-        name: "404",
+        name: "error-404",
         component: () => import(/* webpackChunkName: "fail" */ '/@/views/exception/404.vue')
     },
 ]

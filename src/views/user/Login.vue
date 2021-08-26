@@ -65,7 +65,7 @@
         console.log(values, formState)
         loading.value = true
         setTimeout(() => {
-          router.push('/dashboard/analysis')
+          router.replace('/dashboard/analysis')
         }, 1200)
       }
       const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {

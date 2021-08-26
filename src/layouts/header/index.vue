@@ -26,20 +26,14 @@
 
     <!-- 功能区 -->
     <div class="h-header-action">
-      <!-- 搜素 -->
-      <a-tooltip placement="bottom">
-        <template #title>
-          <span>搜索</span>
-        </template>
-        <MyIcon type="icon-search" class="pd15 h-header-action-item" />
-      </a-tooltip>
+      <!-- 搜索 -->
+      <AppSearch />
       <!-- 通知 -->
       <Notify />
       <!-- 国际化 -->
-      <MyIcon type="icon-311-TranslationOutlined" class="pd15 h-header-action-item" />
+      <TranslationDropDown />
       <!-- 全屏 -->
       <FullScreen />
-
       <UserDropDown />
 
       <SettingButton />
@@ -54,8 +48,10 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-  import FullScreen from './components/fullScreen/index.vue'
-  import Notify from './components/notify/index.vue'
+  import FullScreen from './components/FullScreen/index.vue'
+  import Notify from './components/Notify/index.vue'
+  import AppSearch from './components/AppSearch/index.vue'
+  import TranslationDropDown from './components/TranslationDropDown/index.vue'
   import UserDropDown from './components/UserDropDown/index.vue'
   export default defineComponent({
     name: 'Header',
@@ -65,8 +61,10 @@
       AppLogo,
       FullScreen,
       Notify,
+      AppSearch,
       MyIcon,
-      UserDropDown
+      UserDropDown,
+      TranslationDropDown
     },
     setup() {
       const { getLayoutMode } = useHeaderSetting()
