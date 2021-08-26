@@ -3,7 +3,7 @@
     <router-link :to="getPath" class="tab-content" v-if="getIsTabs">{{ getTitle }}</router-link>
     <slot></slot>
     <template #overlay>
-      <Menu>
+      <Menu style="width: 160px">
         <template v-for="item in getDropMenuList" :key="item.text">
           <MenuItem><MyIcon :type="item.icon" />{{ item.text }} </MenuItem>
           <MenuDivider v-if="item.divider" />

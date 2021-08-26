@@ -1,6 +1,8 @@
 <template>
-  <div id="userLayout">
-    <router-view />
+  <div id="userLayout" class="user-layout">
+    <div class="mian-wrap">
+      <router-view />
+    </div>
 
     <div class="footer">
       <div class="links">
@@ -14,6 +16,12 @@
 </template>
 
 <style lang="scss">
+  .user-layout {
+    height: 100vh;
+  }
+  .mian-wrap {
+    height: calc(100vh - 120px);
+  }
   .footer {
     // position: absolute;
     width: 100%;

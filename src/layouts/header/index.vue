@@ -5,9 +5,20 @@
 
       <!-- 收缩按钮 -->
       <div class="h-header-top" v-if="getLayoutMode !== 'mix'">
-        <menu-unfold-outlined v-if="getCollapsed" class="trigger" @click="handleCollapsed" />
-        <menu-fold-outlined v-else class="trigger" @click="handleCollapsed" />
-
+        <MyIcon
+          type="icon-unfold"
+          v-if="getCollapsed"
+          class="trigger"
+          @click="handleCollapsed"
+          style="font-size: 22px"
+        />
+        <MyIcon
+          type="icon-fold1"
+          v-else
+          class="trigger"
+          @click="handleCollapsed"
+          style="font-size: 22px"
+        />
         <LayoutBreadcrumb />
       </div>
       <slot name="layoutMenu"></slot>
@@ -15,26 +26,22 @@
 
     <!-- 功能区 -->
     <div class="h-header-action">
+      <!-- 搜素 -->
       <a-tooltip placement="bottom">
         <template #title>
           <span>搜索</span>
         </template>
-        <SearchOutlined class="pd15 h-header-action-item" />
+        <MyIcon type="icon-search" class="pd15 h-header-action-item" />
       </a-tooltip>
-
+      <!-- 通知 -->
       <Notify />
-
-      <TranslationOutlined class="pd15 h-header-action-item" />
-
+      <!-- 国际化 -->
+      <MyIcon type="icon-311-TranslationOutlined" class="pd15 h-header-action-item" />
+      <!-- 全屏 -->
       <FullScreen />
 
-      <div class="h-header-action-item" style="display: inline-block">
-        <a-avatar class="mr10 avatar ml10" size="small">
-          <template #icon><UserOutlined /></template>
-        </a-avatar>
+      <UserDropDown />
 
-        <span class="user-name">admin</span>
-      </div>
       <SettingButton />
     </div>
   </a-layout-header>
@@ -44,30 +51,22 @@
   import LayoutBreadcrumb from '../Breadcrumb.vue'
   import SettingButton from '../setting/index.vue'
   import AppLogo from '../AppLogo.vue'
-  import {
-    UserOutlined,
-    SearchOutlined,
-    TranslationOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined
-  } from '@ant-design/icons-vue'
+  import MyIcon from '/@/components/MyIcon/index.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import FullScreen from './components/fullScreen/index.vue'
   import Notify from './components/notify/index.vue'
+  import UserDropDown from './components/UserDropDown/index.vue'
   export default defineComponent({
     name: 'Header',
     components: {
-      MenuUnfoldOutlined,
-      MenuFoldOutlined,
       LayoutBreadcrumb,
       SettingButton,
       AppLogo,
       FullScreen,
       Notify,
-      SearchOutlined,
-      TranslationOutlined,
-      UserOutlined
+      MyIcon,
+      UserDropDown
     },
     setup() {
       const { getLayoutMode } = useHeaderSetting()
