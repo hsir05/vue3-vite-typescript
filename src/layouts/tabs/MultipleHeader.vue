@@ -23,16 +23,16 @@
 
     <div class="mr10 multiple-header-icon">
       <a-divider type="vertical" />
-      <RedoOutlined class="multiple-icon-item" :spin="loading" @click="handleRedo" />
+      <MyIcon type="icon-shuaxin" class="multiple-icon-item" :spin="loading" @click="handleRedo" />
 
       <a-divider type="vertical" />
       <TabContent :tabItem="$route" isExtra>
-        <DownOutlined class="multiple-icon-item" />
+        <MyIcon type="icon-down-arrow-line" class="multiple-icon-item" style="font-size: 22px" />
       </TabContent>
 
       <a-divider type="vertical" />
-      <FullscreenExitOutlined v-if="isTabsExtra" />
-      <FullscreenOutlined v-else class="multiple-icon-item" />
+      <MyIcon type="icon-feiquanping" v-if="isTabsExtra" />
+      <MyIcon type="icon-fullscreen-" v-else class="multiple-icon-item" />
     </div>
   </div>
 </template>
@@ -40,23 +40,15 @@
   import { defineComponent, ref, computed, unref } from 'vue'
   import { Tabs } from 'ant-design-vue'
   import TabContent from './TabContent.vue'
-  import {
-    RedoOutlined,
-    DownOutlined,
-    FullscreenOutlined,
-    FullscreenExitOutlined
-  } from '@ant-design/icons-vue'
   import { useMultipleTabStore } from '/@/store/modules/multipleTab'
   import { initAffixTabs } from './useMultipleTabs'
   import { listenerRouteChange } from '/@/router/routeChange'
+  import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
       TabContent,
-      RedoOutlined,
-      FullscreenOutlined,
-      DownOutlined,
-      FullscreenExitOutlined,
+      MyIcon,
       Tabs,
       TabPane: Tabs.TabPane
     },

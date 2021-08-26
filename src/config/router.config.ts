@@ -15,17 +15,18 @@ export const asyncRouterMap: AppRouteModule = {
         {
             path: '/dashboard/analysis',
             name: '分析页',
+            icon: "icon-analysis_icon",
             component: () => import('../views/dashboard/analysis/index.vue'),
-            // meta: { title: 'menu.dashboard.analysis' }
             meta: { title: '分析页', affix: true }
         },
         // Exception
         {
             path: '/exception',
             name: 'exception',
+            icon: 'icon-exception',
             redirect: '/exception/403',
             component: () => import('/@/views/exception/error.vue'),
-            meta: { title: 'menu.exception', icon: 'warning' },
+            meta: { title: 'menu.exception', },
             children: [
                 {
                     path: '/exception/403',

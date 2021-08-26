@@ -45,6 +45,7 @@ export interface MenuModule {
 // @ts-ignore
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
     name: string;
+    icon?: string;
     meta: RouteMeta;
     component?: Component | string;
     components?: Component;

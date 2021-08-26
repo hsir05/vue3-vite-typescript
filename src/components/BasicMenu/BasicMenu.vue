@@ -3,13 +3,13 @@
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
         <router-link :to="menu.path"
-          ><pie-chart-outlined /> <span>{{ menu.name }}</span></router-link
+          ><MyIcon :type="menu.icon" /><span>{{ menu.name }}</span></router-link
         >
       </a-menu-item>
       <a-sub-menu v-else :key="menu.path + 1">
         <template #title>
           <span>
-            <team-outlined /> <span>{{ menu.name }}</span>
+            <MyIcon :type="menu.icon" /> <span>{{ menu.name }}</span>
           </span>
         </template>
         <a-menu-item :key="item.path" v-for="item in menu.children"
@@ -21,13 +21,12 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, toRefs, PropType } from 'vue'
-  import { PieChartOutlined, TeamOutlined } from '@ant-design/icons-vue'
   import type { Menu as MenuType } from '/@/router/types'
+  import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
     name: 'Menu',
     components: {
-      PieChartOutlined,
-      TeamOutlined
+      MyIcon
     },
     props: {
       items: {
