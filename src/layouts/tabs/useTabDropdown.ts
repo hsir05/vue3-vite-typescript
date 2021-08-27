@@ -35,15 +35,15 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
         const { meta } = unref(getTargetTab);
         const { path } = unref(currentRoute);
 
-        // Refresh button
+        // Refresh button 
         const curItem = state.current;
         const index = state.currentIndex;
-        const refreshDisabled = curItem ? curItem.path !== path : true;
+        const refreshDisabled = curItem ? unref(curItem.path) !== path : true;
         // Close left
         const closeLeftDisabled = index === 0;
 
         const disabled = tabStore.getTabList.length === 1;
-
+ 
         // Close right
         const closeRightDisabled =
             index === tabStore.getTabList.length - 1 && tabStore.getLastDragEndIndex >= 0;
@@ -92,5 +92,18 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
         return dropMenuList;
     });
 
-    return { getDropMenuList }
+    function handleContextMenu(tabItem: RouteLocationNormalized) {
+        return (e: Event) => {
+            if (!tabItem) {
+                return;
+            }
+            e?.preventDefault();
+            const index = tabStore.getTabList.findIndex((tab) => tab.path === tabItem.path);
+            state.current = tabItem;
+            state.currentIndex = index;
+        };
+    }
+
+    return { getDropMenuList, handleContextMenu }
 }
+

@@ -1,11 +1,23 @@
 <template>
   <Dropdown :trigger="getTrigger">
-    <router-link :to="getPath" class="tab-content" v-if="getIsTabs">{{ getTitle }}</router-link>
-    <slot></slot>
+    <router-link :to="getPath" class="tab-content" @contextmenu="handleContext" v-if="getIsTabs">{{
+      getTitle
+    }}</router-link>
+
+    <MyIcon
+      type="icon-down-arrow-line"
+      @click="handleContext"
+      class="multiple-icon-item"
+      v-else
+      style="font-size: 22px"
+    />
+
     <template #overlay>
       <Menu style="width: 160px">
         <template v-for="item in getDropMenuList" :key="item.text">
-          <MenuItem><MyIcon :type="item.icon" />{{ item.text }} </MenuItem>
+          <MenuItem :disabled="item.disabled"
+            ><MyIcon :type="item.icon" />{{ item.text }}
+          </MenuItem>
           <MenuDivider v-if="item.divider" />
         </template>
       </Menu>
@@ -17,7 +29,6 @@
   import type { PropType } from 'vue'
   import { Dropdown, Menu } from 'ant-design-vue'
   import type { RouteLocationNormalized } from 'vue-router'
-  import type { DropMenu } from './typing'
   import { TabContentProps } from './types'
   import { useTabDropdown } from './useTabDropdown'
   import MyIcon from '/@/components/MyIcon/index.vue'
@@ -35,21 +46,21 @@
         type: Object as PropType<RouteLocationNormalized>,
         default: null
       },
-      isExtra: Boolean,
-      dropMenuList: {
-        type: Array as PropType<(DropMenu & Recordable)[]>,
-        default: () => []
-      }
+      isExtra: Boolean
     },
     setup(props) {
       const getIsTabs = computed(() => !props.isExtra)
 
-      const { getDropMenuList } = useTabDropdown(props as TabContentProps, getIsTabs)
+      const { getDropMenuList, handleContextMenu } = useTabDropdown(
+        props as TabContentProps,
+        getIsTabs
+      )
 
       const getTitle = computed(() => {
         const { tabItem: { meta } = {} } = props
         return meta && (meta.title as string)
       })
+
       const getTrigger = computed((): ('contextmenu' | 'click' | 'hover')[] =>
         unref(getIsTabs) ? ['contextmenu'] : ['click']
       )
@@ -58,12 +69,18 @@
         const { tabItem: { path } = {} } = props
         return path
       })
+
+      function handleContext(e) {
+        props.tabItem && handleContextMenu(props.tabItem)(e)
+      }
+
       return {
         getTitle,
         getPath,
         getIsTabs,
         getTrigger,
-        getDropMenuList
+        getDropMenuList,
+        handleContext
       }
     }
   })

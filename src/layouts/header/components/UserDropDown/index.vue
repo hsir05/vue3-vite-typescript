@@ -10,7 +10,7 @@
     </div>
 
     <template #overlay>
-      <Menu style="width: 150px">
+      <Menu style="width: 135px">
         <MenuItem @click="handleQuit"> <MyIcon type="icon-exit" />退出系统 </MenuItem>
       </Menu>
     </template>

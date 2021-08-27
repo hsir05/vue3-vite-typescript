@@ -3,6 +3,7 @@
     <div class="logo-wrap">
       <img src="../../assets/logo.png" style="height: 100%" alt="" />
     </div>
+    <h2>vite-admin 管理系统</h2>
     <Form
       class="user-layout-login"
       :model="formState"
@@ -10,23 +11,35 @@
       @finishFailed="handleFinishFailed"
     >
       <FormItem>
-        <Input v-model:value="formState.user" placeholder="Username">
+        <Input v-model:value="formState.user" size="large" placeholder="Username">
           <template #prefix>
             <MyIcon type="icon-user" />
           </template>
         </Input>
       </FormItem>
       <FormItem>
-        <Input v-model:value="formState.password" type="password" placeholder="Password">
+        <Input
+          v-model:value="formState.password"
+          size="large"
+          :type="isShow ? 'text' : 'password'"
+          placeholder="Password"
+        >
           <template #prefix>
             <MyIcon type="icon-mima1" />
           </template>
+          <template #suffix>
+            <MyIcon :type="isShow ? 'icon-eye1' : 'icon-eye'" @click="handlePass" />
+          </template>
         </Input>
       </FormItem>
+
+      <div class="checked mb10"><Checkbox v-model:checked="checked">记住密码</Checkbox></div>
+
       <FormItem>
         <a-button
           class="submit-btn"
           type="primary"
+          size="large"
           html-type="submit"
           :loading="loading"
           :disabled="formState.user === '' || formState.password === ''"
@@ -37,7 +50,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { Form, Input } from 'ant-design-vue'
+  import { Form, Input, Checkbox } from 'ant-design-vue'
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
   import { defineComponent, reactive, ref, UnwrapRef } from 'vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
@@ -52,11 +65,14 @@
       Form,
       FormItem: Form.Item,
       MyIcon,
+      Checkbox,
       Input
     },
     setup() {
       const router = useRouter()
       const loading = ref(false)
+      const isShow = ref(false)
+      const checked = ref(false)
       const formState: UnwrapRef<FormState> = reactive({
         user: '',
         password: ''
@@ -66,14 +82,20 @@
         loading.value = true
         setTimeout(() => {
           router.replace('/dashboard/analysis')
-        }, 1200)
+        }, 800)
       }
       const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
         console.log(errors)
       }
+      function handlePass() {
+        isShow.value = !isShow.value
+      }
       return {
         formState,
         loading,
+        checked,
+        isShow,
+        handlePass,
         handleFinish,
         handleFinishFailed
       }
@@ -85,7 +107,7 @@
     min-width: 260px;
     width: 368px;
     margin: 0 auto;
-    transform: translateY(70%);
+    transform: translateY(30%);
     border: 1px solid #e5e5e5;
     padding: 15px;
     border-radius: 5px;
@@ -95,6 +117,9 @@
     .logo-wrap {
       height: 100px;
       padding: 20px 0;
+    }
+    .checked {
+      text-align: left;
     }
   }
 </style>

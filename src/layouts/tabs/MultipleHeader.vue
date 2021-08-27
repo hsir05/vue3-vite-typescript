@@ -26,9 +26,7 @@
       <MyIcon type="icon-shuaxin" class="multiple-icon-item" :spin="loading" @click="handleRedo" />
 
       <a-divider type="vertical" />
-      <TabContent :tabItem="$route" isExtra>
-        <MyIcon type="icon-down-arrow-line" class="multiple-icon-item" style="font-size: 22px" />
-      </TabContent>
+      <TabContent :tabItem="$route" isExtra />
 
       <a-divider type="vertical" />
       <MyIcon type="icon-feiquanping" v-if="isTabsExtra" />
@@ -68,8 +66,6 @@
       })
 
       function handleChange(activeKey: any) {
-        console.log(activeKey)
-
         activeKeyRef.value = activeKey
         // go(activeKey, false);
       }
