@@ -62,7 +62,7 @@
     "vite": "^2.4.3",
     "vite-plugin-style-import": "^1.0.1",
     "vite-plugin-svg-icons": "^1.0.4",
-    "vue-tsc": "^0.0.24"
+    "vue-tsc": "^0.3.0"
   },
   "config": {
     "commitizen": {

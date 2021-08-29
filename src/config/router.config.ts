@@ -48,6 +48,24 @@ export const asyncRouterMap: AppRouteModule = {
                 }
             ]
         },
+       
+    ]
+}
+export const redirectRouterMap: AppRouteModule = {
+    path: '/',
+    name: 'index',
+    component: BasicLayout,
+    meta: {
+        title: 'dashboard',
+    },
+    children: [
+        {
+            path: '/redirect',
+            name: 'redirect',
+            icon: "icon-analysis_icon",
+            meta: { title: 'redirect' },
+            component: () => import(/* webpackChunkName: "user" */ '/@/views/system/redirect.vue')
+        },
     ]
 }
 /** 
@@ -65,9 +83,10 @@ export const constantRouterMap = [
                 path: 'login',
                 name: 'login',
                 component: () => import(/* webpackChunkName: "user" */ '/@/views/user/Login.vue')
-            }
+            },
         ]
     },
+    
     {
         path: "/:pathMatch(.*)*",
         name: "error-404",

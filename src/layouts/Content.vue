@@ -14,6 +14,8 @@
   export default defineComponent({
     name: 'Content',
     components: {},
-    setup() {}
+    setup() {
+      return {}
+    }
   })
 </script>
