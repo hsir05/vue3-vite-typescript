@@ -14,8 +14,6 @@
     inheritAttrs: false,
     props,
     setup(props, { slots }) {
-      // const isMobile = ref(false);
-
       const appStore = useAppStore()
 
       handleRestoreState()

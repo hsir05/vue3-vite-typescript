@@ -1,5 +1,6 @@
 import { BasicLayout } from "/@/layouts/index"
 import type { AppRouteModule } from '/@/router/types';
+import { t } from '/@/hooks/web/useI18n';
 
 export const asyncRouterMap: AppRouteModule = {
     path: '/',
@@ -13,8 +14,8 @@ export const asyncRouterMap: AppRouteModule = {
     redirect: '/dashboard/analysis',
     children: [
         {
-            path: '/dashboard/analysis',
-            name: '分析页',
+            path: '/dashboard/analysis', 
+            name: t('dashboard'),
             icon: "icon-analysis_icon",
             component: () => import('../views/dashboard/analysis/index.vue'),
             meta: { title: '分析页', affix: true }

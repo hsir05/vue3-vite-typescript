@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider :locale="locale === 'en' ? enUS : zhCN">
+  <a-config-provider :locale="getAntdLocale">
     <AppProvider>
       <router-view />
     </AppProvider>
@@ -7,19 +7,16 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent } from 'vue'
   import { AppProvider } from '/@/components/Application'
-  import zhCN from 'ant-design-vue/es/locale/zh_CN'
-  import enUS from 'ant-design-vue/es/locale/en_US'
+  import { useLocale } from '/@/locales/useLocale'
   export default defineComponent({
     name: 'App',
     components: { AppProvider },
     setup() {
-      const locale = ref(zhCN.locale)
+      const { getAntdLocale } = useLocale()
       return {
-        locale,
-        zhCN,
-        enUS
+        getAntdLocale
       }
     }
   })

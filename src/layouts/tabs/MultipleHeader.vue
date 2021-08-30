@@ -39,7 +39,7 @@
   import { Tabs } from 'ant-design-vue'
   import TabContent from './TabContent.vue'
   import { useMultipleTabStore } from '/@/store/modules/multipleTab'
-  import { initAffixTabs } from './useMultipleTabs'
+  //   import { initAffixTabs } from './useMultipleTabs'
   import { listenerRouteChange } from '/@/router/routeChange'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useRouter } from 'vue-router'
@@ -56,8 +56,8 @@
       const router = useRouter()
       const activeKeyRef = ref('')
       const isTabsExtra = ref(false)
-      const affixTextList = initAffixTabs()
-      console.log(affixTextList)
+      //   const affixTextList = initAffixTabs()
+      //   console.log(affixTextList)
 
       const tabStore = useMultipleTabStore()
 
@@ -81,7 +81,6 @@
         if (unref(unClose)) {
           return
         }
-
         // tabStore.closeTabByKey(targetKey, router);
       }
 

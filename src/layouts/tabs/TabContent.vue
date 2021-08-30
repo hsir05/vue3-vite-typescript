@@ -77,8 +77,6 @@
       }
 
       function handleContext(e) {
-        console.log(22222)
-
         props.tabItem && handleContextMenu(props.tabItem)(e)
       }
 
