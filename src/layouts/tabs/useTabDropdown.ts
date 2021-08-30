@@ -18,6 +18,7 @@ interface DropMenu {
 export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: ComputedRef<boolean>) {
 
     const tabStore = useMultipleTabStore();
+    const router =useRouter();
     const state = reactive({
         current: null as Nullable<RouteLocationNormalized>,
         currentIndex: 0,
@@ -104,6 +105,40 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
         };
     }
 
-    return { getDropMenuList, handleContextMenu }
+    function refreshPage(){
+        tabStore.refreshPage(router)
+    }
+
+    function handleMenuEvent(menu: DropMenu): void {
+        const { event } = menu;
+        switch (event) {
+            case MenuEventEnum.REFRESH_PAGE:
+                // refresh page
+                refreshPage();
+                break;
+            // Close current
+            // case MenuEventEnum.CLOSE_CURRENT:
+            //     close(tabContentProps.tabItem);
+            //     break;
+            // // Close left
+            // case MenuEventEnum.CLOSE_LEFT:
+            //     closeLeft();
+            //     break;
+            // // Close right
+            // case MenuEventEnum.CLOSE_RIGHT:
+            //     closeRight();
+            //     break;
+            // // Close other
+            // case MenuEventEnum.CLOSE_OTHER:
+            //     closeOther();
+            //     break;
+            // // Close all
+            // case MenuEventEnum.CLOSE_ALL:
+            //     closeAll();
+            //     break;
+        }
+    }
+
+    return { getDropMenuList, handleContextMenu, handleMenuEvent }
 }
 

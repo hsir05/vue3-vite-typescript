@@ -1,4 +1,4 @@
-import { UserLayout, BasicLayout } from "/@/layouts/index"
+import { BasicLayout } from "/@/layouts/index"
 import type { AppRouteModule } from '/@/router/types';
 
 export const asyncRouterMap: AppRouteModule = {
@@ -48,20 +48,10 @@ export const asyncRouterMap: AppRouteModule = {
                 }
             ]
         },
-       
-    ]
-}
-export const redirectRouterMap: AppRouteModule = {
-    path: '/',
-    name: 'index',
-    component: BasicLayout,
-    meta: {
-        title: 'dashboard',
-    },
-    children: [
+        //redirect
         {
-            path: '/redirect',
-            name: 'redirect',
+            path: '/redirect/:path(.*)',
+            name: 'Redirect',
             icon: "icon-analysis_icon",
             meta: { title: 'redirect' },
             component: () => import(/* webpackChunkName: "user" */ '/@/views/system/redirect.vue')
@@ -72,19 +62,10 @@ export const redirectRouterMap: AppRouteModule = {
  * 基础路由
 */
 export const constantRouterMap = [
-    
     {
-        path: '/user',
-        component: UserLayout,
-        redirect: '/user/login',
-        hidden: true,
-        children: [
-            {
-                path: 'login',
-                name: 'login',
-                component: () => import(/* webpackChunkName: "user" */ '/@/views/user/Login.vue')
-            },
-        ]
+        path: '/login',
+        name: 'login',
+        component: () => import(/* webpackChunkName: "user" */ '../views/user/login.vue')
     },
     
     {

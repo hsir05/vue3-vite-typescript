@@ -2,10 +2,10 @@ import type { App } from 'vue';
 import type { RouteRecordRaw,  } from 'vue-router';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { isArray } from '../utils/is';
-import { asyncRouterMap, constantRouterMap, redirectRouterMap } from '/@/config/router.config'
+import { asyncRouterMap, constantRouterMap } from '/@/config/router.config'
 import type { AppRouteModule } from '/@/router/types';
 
-export const asyncRoutes = [asyncRouterMap, ...constantRouterMap, redirectRouterMap];
+export const asyncRoutes = [asyncRouterMap, ...constantRouterMap, ];
 
 export const PARENT_LAYOUT_NAME = 'ParentLayout';
 
@@ -17,7 +17,8 @@ export const router = createRouter({
 });
    
 export const getMenus = () => {
-    return asyncRouterMap.children
+    let routes = asyncRouterMap.children?.filter(item => item.path !== '/redirect')
+    return routes
 };
 
 export const getBreadcrumb = () => {

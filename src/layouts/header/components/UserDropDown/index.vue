@@ -33,7 +33,7 @@
     setup() {
       const router = useRouter()
       function handleQuit() {
-        router.replace('/user/login')
+        router.replace('/login')
       }
 
       return {

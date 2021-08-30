@@ -1,9 +1,11 @@
-import type { RouteLocationNormalized } from 'vue-router';
+import type { RouteLocationNormalized, Router } from 'vue-router';
 import { toRaw } from 'vue';
 import { PageEnum } from '/@/enums/pageEnum';
+import { REDIRECT_NAME } from '/@/router/constant';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { getRawRoute } from '/@/utils';
+import { useRedo } from '/@/hooks/web/usePage'
 // import projectSetting from '/@/config/defaultSettings';
 
 export interface MultipleTabState {
@@ -32,7 +34,7 @@ export const useMultipleTabStore = defineStore({
     actions: {
         addTab(route: RouteLocationNormalized){
             const { path, name, fullPath, params, query } = getRawRoute(route);
-            if (path === PageEnum.ERROR_PAGE || !name ){
+            if (path === PageEnum.ERROR_PAGE || !name || name === REDIRECT_NAME){
                 return 
             } 
 
@@ -55,7 +57,12 @@ export const useMultipleTabStore = defineStore({
             } else {
                 this.tabList.push(route);
             }
-        } 
+        },
+        async refreshPage(route: Router) {
+            const redo = useRedo(route);
+            await redo();
+           
+        }
     }
 })
 

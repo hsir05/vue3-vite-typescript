@@ -143,6 +143,9 @@
       }
       .ant-tabs-close-x {
         color: white;
+        &:hover {
+          color: white;
+        }
       }
     }
   }

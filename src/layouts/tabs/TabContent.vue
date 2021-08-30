@@ -1,8 +1,8 @@
 <template>
   <Dropdown :trigger="getTrigger">
-    <router-link :to="getPath" class="tab-content" @contextmenu="handleContext" v-if="getIsTabs">{{
-      getTitle
-    }}</router-link>
+    <router-link :to="getPath" class="tab-content" @contextmenu="handleContext" v-if="getIsTabs">
+      {{ getTitle }}
+    </router-link>
 
     <MyIcon
       type="icon-down-arrow-line"
@@ -15,8 +15,9 @@
     <template #overlay>
       <Menu style="width: 160px">
         <template v-for="item in getDropMenuList" :key="item.text">
-          <MenuItem :disabled="item.disabled"
-            ><MyIcon :type="item.icon" />{{ item.text }}
+          <MenuItem :disabled="item.disabled" @click="handleClickMenu(item)">
+            <MyIcon :type="item.icon" />
+            {{ item.text }}
           </MenuItem>
           <MenuDivider v-if="item.divider" />
         </template>
@@ -30,6 +31,7 @@
   import { Dropdown, Menu } from 'ant-design-vue'
   import type { RouteLocationNormalized } from 'vue-router'
   import { TabContentProps } from './types'
+  import type { DropMenu } from './typing'
   import { useTabDropdown } from './useTabDropdown'
   import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
@@ -51,7 +53,7 @@
     setup(props) {
       const getIsTabs = computed(() => !props.isExtra)
 
-      const { getDropMenuList, handleContextMenu } = useTabDropdown(
+      const { getDropMenuList, handleContextMenu, handleMenuEvent } = useTabDropdown(
         props as TabContentProps,
         getIsTabs
       )
@@ -70,6 +72,20 @@
         return path
       })
 
+      function handleClickMenu(item: DropMenu) {
+        handleMenuEvent(item)
+        //  const DropMenuList:DropMenu[] | undefined = unref(getDropMenuList)
+        //  if (DropMenuList) {
+        //     const { event } = item
+        //     const menu = DropMenuList.find((item) => `${item.event}` === `${event}`);
+        //     console.log(menu);
+        //     console.log(item);
+
+        //     // emit('menuEvent', menu);
+        //     // item.onClick?.();
+        //  }
+      }
+
       function handleContext(e) {
         props.tabItem && handleContextMenu(props.tabItem)(e)
       }
@@ -80,7 +96,8 @@
         getIsTabs,
         getTrigger,
         getDropMenuList,
-        handleContext
+        handleContext,
+        handleClickMenu
       }
     }
   })
