@@ -74,19 +74,11 @@
 
       function handleClickMenu(item: DropMenu) {
         handleMenuEvent(item)
-        //  const DropMenuList:DropMenu[] | undefined = unref(getDropMenuList)
-        //  if (DropMenuList) {
-        //     const { event } = item
-        //     const menu = DropMenuList.find((item) => `${item.event}` === `${event}`);
-        //     console.log(menu);
-        //     console.log(item);
-
-        //     // emit('menuEvent', menu);
-        //     // item.onClick?.();
-        //  }
       }
 
       function handleContext(e) {
+        console.log(22222)
+
         props.tabItem && handleContextMenu(props.tabItem)(e)
       }
 

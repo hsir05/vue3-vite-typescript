@@ -42,6 +42,7 @@
   import { initAffixTabs } from './useMultipleTabs'
   import { listenerRouteChange } from '/@/router/routeChange'
   import MyIcon from '/@/components/MyIcon/index.vue'
+  import { useRouter } from 'vue-router'
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
@@ -52,12 +53,12 @@
     },
     setup() {
       const loading = ref(false)
+      const router = useRouter()
       const activeKeyRef = ref('')
       const isTabsExtra = ref(false)
       const affixTextList = initAffixTabs()
       console.log(affixTextList)
 
-      // const go = useGo();
       const tabStore = useMultipleTabStore()
 
       listenerRouteChange((route) => {
@@ -86,7 +87,7 @@
 
       const handleRedo = () => {
         loading.value = true
-
+        tabStore.refreshPage(router)
         setTimeout(() => {
           loading.value = false
         }, 1200)

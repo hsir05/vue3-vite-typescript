@@ -3,7 +3,7 @@
     <slot></slot>
     <a-layout-content style="margin: 15px 10px 0; text-align: left">
       <div :style="{ padding: '10px', background: '#fff', minHeight: 'calc(100vh - 140px)' }">
-        <router-view />
+        <router-view :key="routerViewKey" />
       </div>
     </a-layout-content>
     <slot name="footer"></slot>
@@ -15,7 +15,9 @@
     name: 'Content',
     components: {},
     setup() {
-      return {}
+      return {
+        routerViewKey: new Date().getTime()
+      }
     }
   })
 </script>

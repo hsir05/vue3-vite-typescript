@@ -19,7 +19,7 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
 
     const tabStore = useMultipleTabStore();
     const router =useRouter();
-    const state = reactive({
+    const state = reactive({ 
         current: null as Nullable<RouteLocationNormalized>,
         currentIndex: 0,
     });
@@ -139,6 +139,6 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
         }
     }
 
-    return { getDropMenuList, handleContextMenu, handleMenuEvent }
+    return { getDropMenuList, handleContextMenu, handleMenuEvent, refreshPage }
 }
 
