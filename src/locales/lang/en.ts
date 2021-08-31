@@ -1,8 +1,5 @@
-// import { genMessage } from '../helper';
 import antdLocale from 'ant-design-vue/es/locale/en_US';
-// import momentLocale from 'moment/dist/locale/en-us';
-
-// const modules = import.meta.globEager('./en/**/*.ts');
+import common from './en/common'
 export default {
     message: {
         dashboard: 'Dashboard',
@@ -10,6 +7,8 @@ export default {
         "403": "403",
         "404": "404",
         "500": "500",
+        login: 'Login',
+        ...common,
         antdLocale,
     },
     //   momentLocale: null,

@@ -34,6 +34,7 @@
   import type { DropMenu } from './typing'
   import { useTabDropdown } from './useTabDropdown'
   import MyIcon from '/@/components/MyIcon/index.vue'
+  import { useI18n } from '/@/hooks/web/useI18n'
   export default defineComponent({
     name: 'TabContent',
     components: {
@@ -51,6 +52,7 @@
       isExtra: Boolean
     },
     setup(props) {
+      const { t } = useI18n()
       const getIsTabs = computed(() => !props.isExtra)
 
       const { getDropMenuList, handleContextMenu, handleMenuEvent } = useTabDropdown(
@@ -60,7 +62,7 @@
 
       const getTitle = computed(() => {
         const { tabItem: { meta } = {} } = props
-        return meta && (meta.title as string)
+        return meta && t(meta.title as string)
       })
 
       const getTrigger = computed((): ('contextmenu' | 'click' | 'hover')[] =>

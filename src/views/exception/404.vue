@@ -1,7 +1,7 @@
 <template>
   <Result status="404" title="404" sub-title="Sorry, the page you visited does not exist.">
     <template #extra>
-      <a-button type="primary" @click="handle"> Back Home</a-button>
+      <a-button type="primary" @click="handle">{{ t('backToHome') }}</a-button>
     </template>
   </Result>
 </template>
@@ -10,6 +10,7 @@
   import { defineComponent } from 'vue'
   import { Result } from 'ant-design-vue'
   import { useRouter } from 'vue-router'
+  import { useI18n } from '/@/hooks/web/useI18n'
   export default defineComponent({
     name: 'Exception404',
     components: {
@@ -17,12 +18,13 @@
     },
     setup() {
       const router = useRouter()
-
+      const { t } = useI18n()
       const handle = () => {
         router.push('/dashboard/analysis')
       }
       return {
-        handle
+        handle,
+        t
       }
     }
   })

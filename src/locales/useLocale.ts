@@ -7,7 +7,6 @@ import { i18n, loadLocalePool, setHtmlPageLang } from './setupI18n';
  
 import { useLocaleStoreWithOut } from '/@/store/modules/locale';
 import { unref, computed } from 'vue';
-// import { loadLocalePool, setHtmlPageLang } from './helper';
 
 interface LangModule {
   message: Recordable;

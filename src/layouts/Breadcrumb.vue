@@ -1,8 +1,8 @@
 <template>
   <a-breadcrumb :routes="routesList">
     <template #itemRender="{ route, routes }">
-      <span v-if="!hasRedirect(routes, route)">{{ route.breadcrumbName }}</span>
-      <router-link v-else :to="`${route.path}`">{{ route.breadcrumbName }}</router-link>
+      <span v-if="!hasRedirect(routes, route)">{{ t(route.breadcrumbName) }}</span>
+      <router-link v-else :to="`${route.path}`">{{ t(route.breadcrumbName) }}</router-link>
     </template>
   </a-breadcrumb>
 </template>
@@ -12,11 +12,12 @@
   import { RouteType } from './typing'
   import { getBreadcrumb } from '/@/router/index'
   import { useRoute } from 'vue-router'
+  import { useI18n } from '/@/hooks/web/useI18n'
   export default defineComponent({
     name: 'LayoutBreadcrumb',
     setup() {
       const route = useRoute()
-
+      const { t } = useI18n()
       const breadCrumb = getBreadcrumb()
 
       function getBreadcrumbList() {
@@ -54,7 +55,8 @@
       }
       return {
         routesList,
-        hasRedirect
+        hasRedirect,
+        t
       }
     }
   })

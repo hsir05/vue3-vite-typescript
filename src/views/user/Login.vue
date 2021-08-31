@@ -43,7 +43,7 @@
           html-type="submit"
           :loading="loading"
           :disabled="formState.user === '' || formState.password === ''"
-          >登录</a-button
+          >{{ t('login') }}</a-button
         >
       </FormItem>
     </Form>
@@ -55,6 +55,7 @@
   import { defineComponent, reactive, ref, UnwrapRef } from 'vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useRouter } from 'vue-router'
+  import { useI18n } from '/@/hooks/web/useI18n'
   interface FormState {
     user: string
     password: string
@@ -73,6 +74,7 @@
       const loading = ref(false)
       const isShow = ref(false)
       const checked = ref(false)
+      const { t } = useI18n()
       const formState: UnwrapRef<FormState> = reactive({
         user: '',
         password: ''
@@ -95,6 +97,7 @@
         loading,
         checked,
         isShow,
+        t,
         handlePass,
         handleFinish,
         handleFinishFailed

@@ -13,7 +13,8 @@ export default {
   chooseText: '请选择',
 
   redo: '刷新',
-  back: '返回',
+    back: '返回',
+    backToHome: '返回首页',
 
   light: '亮色主题',
   dark: '黑暗主题',

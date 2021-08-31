@@ -14,6 +14,7 @@ export default {
 
   redo: 'Refresh',
   back: 'Back',
+    backToHome: 'Back Home',
 
   light: 'Light',
   dark: 'Dark',
