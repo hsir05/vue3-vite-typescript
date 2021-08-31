@@ -109,17 +109,19 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
         tabStore.refreshPage(router)
     }
 
+    function close(tabItem: RouteLocationNormalized) {
+        tabStore.closeTab(tabItem, router)
+    }
+
     function handleMenuEvent(menu: DropMenu): void {
         const { event } = menu;
         switch (event) {
             case MenuEventEnum.REFRESH_PAGE:
-                // refresh page
                 refreshPage();
                 break;
-            // Close current
-            // case MenuEventEnum.CLOSE_CURRENT:
-            //     close(tabContentProps.tabItem);
-            //     break;
+            case MenuEventEnum.CLOSE_CURRENT:
+                close(tabContentProps.tabItem);
+                break;
             // // Close left
             // case MenuEventEnum.CLOSE_LEFT:
             //     closeLeft();

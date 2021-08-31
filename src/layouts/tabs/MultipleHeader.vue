@@ -76,12 +76,10 @@
       const unClose = computed(() => unref(getTabsState).length === 1)
 
       function handleEdit(targetKey: string) {
-        console.log(targetKey)
-
         if (unref(unClose)) {
           return
         }
-        // tabStore.closeTabByKey(targetKey, router);
+        tabStore.closeTabByKey(targetKey, router)
       }
 
       const handleRedo = () => {
