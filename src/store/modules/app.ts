@@ -1,6 +1,7 @@
 import type {
     ProjectConfig,
     HeaderSetting,
+    TransitionSetting,
     MenuSetting,
 } from '/#/config';
 import { defineStore } from 'pinia';
@@ -12,26 +13,27 @@ import { ThemeEnum } from '/@/enums/appEnum';
 
 interface AppState { 
     darkMode?: ThemeEnum;
+    selectedKeys: String[];
     // Page loading status
     pageLoading: boolean;
-    // project config
     projectConfig: ProjectConfig | null;
     
-    // When the window shrinks, remember some states, and restore these states when the window is restored
-    // beforeMiniInfo: BeforeMiniState;
 }
-// let timeId: TimeoutHandle;
 
 export const useAppStore = defineStore({
     id: 'app',
     state: (): AppState => ({
         darkMode: undefined,
         pageLoading: false,
+        selectedKeys: ['/dashboard/analysis'],
         // projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
         projectConfig: null,
         // beforeMiniInfo: {},
-    }),
+    }), 
     getters: {
+        getSelectedKeys(): String[]{
+            return this.selectedKeys
+        },
         getPageLoading(): boolean {
             return this.pageLoading;
         },
@@ -41,29 +43,23 @@ export const useAppStore = defineStore({
         getLayoutMode():string {
             return this.getProjectConfig.layoutMode;
         },
-
-        // getBeforeMiniInfo(): BeforeMiniState {
-        //     return this.beforeMiniInfo;
-        // },
-
+        getTransitionSetting(): TransitionSetting {
+            return this.getProjectConfig.transitionSetting;
+        },
         getProjectConfig(): ProjectConfig {
             return this.projectConfig || ({} as ProjectConfig);
         },
-
         getHeaderSetting(): HeaderSetting {
             return this.getProjectConfig.headerSetting;
         },
         getMenuSetting(): MenuSetting {
             return this.getProjectConfig.menuSetting;
         },
-        // getTransitionSetting(): TransitionSetting {
-        //     return this.getProjectConfig.transitionSetting;
-        // },
-        // getMultiTabsSetting(): MultiTabsSetting {
-        //     return this.getProjectConfig.multiTabsSetting;
-        // },
     },
     actions: {
+        setSelectedKeys(setSelectedKeys: String[]):void{
+            this.selectedKeys = setSelectedKeys;
+        },
         setPageLoading(loading: boolean): void {
             this.pageLoading = loading;
         },

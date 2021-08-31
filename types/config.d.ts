@@ -3,7 +3,16 @@
 import {
     ThemeEnum,
 } from '/@/enums/appEnum';
-
+export interface TransitionSetting {
+    //  Whether to open the page switching animation
+    enable: boolean;
+    // Route basic switching animation
+    basicTransition: RouterTransitionEnum;
+    // Whether to open page switching loading
+    openPageLoading: boolean;
+    // Whether to open the top progress bar
+    openNProgress: boolean;
+}
 export interface LocaleSetting {
     showPicker: boolean;
     // Current language
@@ -38,6 +47,8 @@ export interface MenuSetting {
 export interface ProjectConfig {
     // Storage location of permission related information
     permissionCacheType: CacheTypeEnum;
+    
+    layoutMode: string;
     // Whether to show the configuration button
     showSettingButton: boolean;
     // Whether to show the theme switch button

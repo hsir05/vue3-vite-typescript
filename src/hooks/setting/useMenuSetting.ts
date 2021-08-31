@@ -11,16 +11,23 @@ export function useMenuSetting() {
 
     const getCollapsed = computed(() => appStore.getMenuSetting.collapsed);
 
+    const selectedKeys = computed(() => appStore.getSelectedKeys)
+
     function settingLayoutMode(setting: Partial<RootSetting>){
         appStore.setProjectConfig(setting)
     }
     function setMenuSetting(menuSetting: Partial<MenuSetting>): void {
         appStore.setProjectConfig({ menuSetting });
     }
+    function setSelectedKeys(selectedKeys: String[]) {
+        appStore.setSelectedKeys(selectedKeys)
+    }
     
     return {
         getCollapsed,
+        selectedKeys,
         settingLayoutMode,
-        setMenuSetting
+        setMenuSetting,
+        setSelectedKeys
     }
 }  

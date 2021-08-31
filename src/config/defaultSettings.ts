@@ -1,3 +1,6 @@
+import {
+    RouterTransitionEnum,
+} from '/@/enums/appEnum';
 /**
  * 项目默认配置项
  * primaryColor - 默认主题色, 如果修改颜色不生效，请清理 localStorage
@@ -18,6 +21,21 @@ export default {
     },
     multiTabsSetting: {
         cache:true
+    },
+    transitionSetting: {
+        //  Whether to open the page switching animation
+        // The disabled state will also disable pageLoadinng
+        enable: true,
+
+        // Route basic switching animation
+        basicTransition: RouterTransitionEnum.FADE_SIDE,
+
+        // Whether to open page switching loading
+        // Only open when enable=true
+        openPageLoading: true,
+
+        // Whether to open the top progress bar
+        openNProgress: false,
     },
     isHorizontal: true,
     layoutMode: 'sidebar',
