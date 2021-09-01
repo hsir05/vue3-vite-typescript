@@ -74,7 +74,6 @@
   [data-theme='dark'] .site-layout .site-layout-background {
     background: @menuBgColor;
   }
-
   .site-layout {
     .site-layout-background {
       background: #fff;

@@ -29,14 +29,11 @@ function setI18nLanguage(locale: LocaleType) {
 export function useLocale() {
   const localeStore = useLocaleStoreWithOut();
   const getLocale = computed(() => localeStore.getLocale);
-//   const getShowLocalePicker = computed(() => localeStore.getShowPicker);
 
   const getAntdLocale = computed((): any => {
     return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale ?? {};
   });
 
-  // Switching the language will change the locale of useI18n
-  // And submit to configuration modification
   async function changeLocale(locale: LocaleType) {
     const globalI18n = i18n.global;
     const currentLocale = unref(globalI18n.locale);

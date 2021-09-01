@@ -24,7 +24,7 @@ export const useLocaleStore = defineStore({
             this.localInfo = { ...this.localInfo, ...info };
         },
         initLocale() {
-            this.setLocaleInfo({
+            this.setLocaleInfo({ 
                 ...localeSetting,
                 ...this.localInfo,
             });

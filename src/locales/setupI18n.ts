@@ -2,7 +2,6 @@ import type { App } from 'vue';
 import type { I18n, I18nOptions } from 'vue-i18n';
 
 import { createI18n } from 'vue-i18n';
-// import { setHtmlPageLang, setLoadLocalePool } from './helper';
 import { localeSetting } from '/@/settings/localeSetting';
 import { useLocaleStoreWithOut } from '/@/store/modules/locale';
 import type { LocaleType } from '/#/config';
@@ -35,19 +34,18 @@ async function createI18nOptions(): Promise<I18nOptions> {
     return {
         legacy: false,
         locale,
-        fallbackLocale: fallback,
-        messages: {
+        fallbackLocale: fallback, // 预设的语言环境。
+        messages: { //本地化的语言环境信息
             [locale]: message,
         },
-        availableLocales: availableLocales,
-        sync: true, //If you don’t want to inherit locale from global scope, you need to set sync of i18n component option to false.
-        silentTranslationWarn: true, // true - warning off
+        availableLocales: availableLocales, // messages 中的可用语言环境列表。
+        sync: true, //是否将根级别语言环境与组件本地化语言环境同步
+        silentTranslationWarn: true, // 是否取消本地化失败时输出的警告
         missingWarn: false,
-        silentFallbackWarn: true,
+        silentFallbackWarn: true, // 如果为 true，则仅在根本没有可用的转换时生成警告，而不是在回退时
     };
 }
 
-// setup i18n instance with glob
 export async function setupI18n(app: App) {
     const options = await createI18nOptions();
     i18n = createI18n(options) as I18n;
