@@ -1,6 +1,8 @@
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useAppStore } from '/@/store/modules/app';
 import type { ProjectConfig, MenuSetting } from '/#/config';
+import { useRoute } from 'vue-router'
+
 type RootSetting = Omit<
     ProjectConfig,
     'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
@@ -8,6 +10,12 @@ type RootSetting = Omit<
  
 export function useMenuSetting() {
     const appStore = useAppStore();
+    const route = useRoute()
+    
+    watch(() => route.path, (path) => {
+        appStore.setSelectedKeys([path])
+    })
+
 
     const getCollapsed = computed(() => appStore.getMenuSetting.collapsed);
 
