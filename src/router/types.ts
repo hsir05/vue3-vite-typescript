@@ -1,4 +1,3 @@
-import { RoleEnum } from '/@/enums/roleEnum';
 import type { RouteRecordRaw, RouteMeta } from 'vue-router';
 import { defineComponent } from 'vue';
 
@@ -19,8 +18,6 @@ export interface Menu {
     icon?: string;
 
     path: string;
-
-    // path contains param, auto assignment.
     paramPath?: string;
 
     disabled?: boolean;
@@ -28,8 +25,6 @@ export interface Menu {
     children?: Menu[];
 
     orderNo?: number;
-
-    roles?: RoleEnum[];
 
     meta?: Partial<RouteMeta>;
 

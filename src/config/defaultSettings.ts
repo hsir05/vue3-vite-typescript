@@ -23,28 +23,19 @@ export default {
         cache:true
     },
     transitionSetting: {
-        //  Whether to open the page switching animation
-        // The disabled state will also disable pageLoadinng
         enable: true,
-
-        // Route basic switching animation
         basicTransition: RouterTransitionEnum.FADE_SIDE,
-
-        // Whether to open page switching loading
-        // Only open when enable=true
         openPageLoading: true,
-
-        // Whether to open the top progress bar
         openNProgress: false,
     },
     isHorizontal: true,
     layoutMode: 'sidebar',
-    navTheme: 'dark', // theme for nav menu
-    primaryColor: '#F5222D', // primary color of ant design
-    layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
-    contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
-    fixedHeader: false, // sticky header
-    fixSiderbar: false, // sticky siderbar
+    navTheme: 'dark', 
+    primaryColor: '#F5222D', 
+    layout: 'sidemenu',
+    contentWidth: 'Fluid', 
+    fixedHeader: false, 
+    fixSiderbar: false,
     colorWeak: false,
     menu: {
         locale: true

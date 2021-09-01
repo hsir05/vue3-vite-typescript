@@ -6,8 +6,12 @@
 
     <template #overlay>
       <Menu style="width: 150px" v-model:selectedKeys="selectedKeys">
-        <MenuItem @click="handleTanslation('zh_CN')" key="zh">简体中文</MenuItem>
-        <MenuItem @click="handleTanslation('en')" key="en">English</MenuItem>
+        <MenuItem
+          v-for="item in localeList"
+          @click="handleTanslation(item.event)"
+          :key="item.event"
+          >{{ item.text }}</MenuItem
+        >
       </Menu>
     </template>
   </Dropdown>
@@ -18,6 +22,7 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
   import type { LocaleType } from '/#/config'
   import { useLocale } from '/@/locales/useLocale'
+  import { localeList } from '/@/settings/localeSetting'
   export default defineComponent({
     name: 'TranslationDropDown',
     components: {
@@ -27,7 +32,7 @@
       Dropdown
     },
     setup() {
-      const selectedKeys = ref<string[]>(['zh'])
+      const selectedKeys = ref<string[]>(['zh_CN'])
 
       function handleTanslation(translant: string) {
         selectedKeys.value = [translant]
@@ -44,15 +49,12 @@
         // props.reload && location.reload();
       }
 
-      // watchEffect(() => {
-      //     selectedKeys.value = [unref(getLocale)];
-      // });
-
       const { changeLocale, getLocale } = useLocale()
 
       return {
         selectedKeys,
-        handleTanslation
+        handleTanslation,
+        localeList
       }
     }
   })

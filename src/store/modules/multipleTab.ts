@@ -6,15 +6,12 @@ import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { getRawRoute } from '/@/utils';
 import { useRedo } from '/@/hooks/web/usePage'
-// import projectSetting from '/@/config/defaultSettings';
 
 export interface MultipleTabState {
     cacheTabList: Set<string>;
     tabList: RouteLocationNormalized[];
     lastDragEndIndex: number;
 }
-
-// const cacheTab = projectSetting.multiTabsSetting.cache;
 
 export const useMultipleTabStore = defineStore({
     id: 'app-multiple-tab',

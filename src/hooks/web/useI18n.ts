@@ -36,14 +36,10 @@ export function useI18n(namespace?: string): { t: I18nGlobalTranslation; } {
   const tFn: I18nGlobalTranslation = (key: string, ...arg: any[]) => {
     if (!key) return '';
       return t(key, ...(arg as I18nTranslationRestParameters));
-    //   return t(getKey(namespace, key), ...(arg as I18nTranslationRestParameters));
   };
   return {
     ...methods,
     t: tFn,
   };
 }
- 
-// 为什么要编写此函数？
-// 主要用于配合vscode i18nn ally插件。此功能仅用于路由和菜单。请在其他地方使用useI18n
-export const t = (key: string) => key;
+

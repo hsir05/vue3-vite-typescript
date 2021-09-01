@@ -4,9 +4,6 @@
   import { prefixCls } from '/@/settings/designSetting'
   import defaultSettings from '/@/config/defaultSettings'
   const props = {
-    /**
-     * class style prefix
-     */
     prefixCls: { type: String, default: prefixCls }
   }
   export default defineComponent({

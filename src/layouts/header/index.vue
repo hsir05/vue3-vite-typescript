@@ -48,11 +48,11 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-  import FullScreen from './components/FullScreen/index.vue'
+  import FullScreen from './components/FullScreen.vue'
   import Notify from './components/Notify/index.vue'
-  import AppSearch from './components/AppSearch/index.vue'
-  import TranslationDropDown from './components/TranslationDropDown/index.vue'
-  import UserDropDown from './components/UserDropDown/index.vue'
+  import AppSearch from './components/AppSearch.vue'
+  import TranslationDropDown from './components/TranslationDropDown.vue'
+  import UserDropDown from './components/UserDropDown.vue'
   export default defineComponent({
     name: 'Header',
     components: {

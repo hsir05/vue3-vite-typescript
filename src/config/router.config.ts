@@ -1,6 +1,5 @@
 import { BasicLayout } from "/@/layouts/index"
 import type { AppRouteModule } from '/@/router/types';
-import { t } from '/@/hooks/web/useI18n';
 
 export const asyncRouterMap: AppRouteModule = {
     path: '/',
@@ -15,9 +14,9 @@ export const asyncRouterMap: AppRouteModule = {
     children: [
         {
             path: '/dashboard/analysis', 
-            name: t('dashboard'),
+            name: 'dashboard',
             icon: "icon-analysis_icon",
-            component: () => import('../views/dashboard/analysis/index.vue'),
+            component: () => import('../views/dashboard/index.vue'),
             meta: { title: 'dashboard', affix: true }
         },
         // Exception
@@ -68,7 +67,6 @@ export const constantRouterMap = [
         name: 'login',
         component: () => import(/* webpackChunkName: "user" */ '../views/user/login.vue')
     },
-    
     {
         path: "/:pathMatch(.*)*",
         name: "error-404",
