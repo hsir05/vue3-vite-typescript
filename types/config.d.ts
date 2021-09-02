@@ -1,4 +1,5 @@
 import { ThemeEnum } from '/@/enums/appEnum';
+
 export interface TransitionSetting {
     enable: boolean;
     basicTransition: RouterTransitionEnum;

@@ -2,7 +2,6 @@ function trim(string: string) {
     return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 }
 
-/* istanbul ignore next */
 export function hasClass(el: Element, cls: string) {
     if (!el || !cls) return false;
     if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
@@ -32,7 +31,6 @@ export function addClass(el: Element, cls: string) {
     }
 }
 
-/* istanbul ignore next */
 export function removeClass(el: Element, cls: string) {
     if (!el || !cls) return;
     const classes = cls.split(' ');

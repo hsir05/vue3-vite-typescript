@@ -11,8 +11,6 @@ import {
  * fixSiderbar - 固定左侧菜单栏 ： boolean
  * contentWidth - 内容区布局： 流式 |  固定
  *
- * storageOptions: {} - Vue-ls 插件配置项 (localStorage/sessionStorage)
- *
  */ 
 
 export default {

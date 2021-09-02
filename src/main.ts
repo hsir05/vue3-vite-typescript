@@ -15,9 +15,7 @@ async function bootstrap() {
     registerGlobComp(app)
     await setupI18n(app);
     setupRouter(app)
-
     setupRouterGuard(router);
-    
     await router.isReady();
 
     app.mount('#app', true);

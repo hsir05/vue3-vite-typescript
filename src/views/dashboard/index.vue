@@ -9,17 +9,19 @@
   import GrowCard from './components/GrowCard.vue'
   import LineChart from './components/LineChart.vue'
   export default defineComponent({
+    name: 'Dashboard',
     components: {
       GrowCard,
       LineChart
     },
     setup() {
       const loading = ref(true)
-
       setTimeout(() => {
         loading.value = false
       }, 1500)
-      return { loading }
+      return {
+        loading
+      }
     }
   })
 </script>

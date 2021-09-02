@@ -5,8 +5,8 @@ import { isArray } from '../utils/is';
 import { asyncRouterMap, constantRouterMap } from '/@/config/router.config'
 import type { AppRouteModule } from '/@/router/types';
 import { REDIRECT_NAME } from './constant'
-export const asyncRoutes = [asyncRouterMap, ...constantRouterMap, ];
-
+export const asyncRoutes = [asyncRouterMap, ...constantRouterMap ];
+ 
 export const PARENT_LAYOUT_NAME = 'ParentLayout';
 
 export const router = createRouter({

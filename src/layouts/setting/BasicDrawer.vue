@@ -29,16 +29,6 @@
           </Tooltip>
         </template>
       </div>
-      <!-- <Divider>系统主题</Divider>
-      <div class="system-theme">
-        <span
-          class="system-theme-item"
-          v-for="(color, index) in colorList"
-          @click="handleTheme(color)"
-          :style="{ backgroundColor: color }"
-          :key="index"
-        ></span>
-      </div> -->
     </div>
   </Drawer>
 </template>

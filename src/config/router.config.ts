@@ -1,6 +1,8 @@
 import { BasicLayout } from "/@/layouts/index"
 import type { AppRouteModule } from '/@/router/types';
 
+export const defaultHomePath = '/dashboard';
+
 export const asyncRouterMap: AppRouteModule = {
     path: '/',
     name: 'index',
@@ -10,10 +12,10 @@ export const asyncRouterMap: AppRouteModule = {
         icon: 'ion:grid-outline',
         title: 'dashboard',
     },
-    redirect: '/dashboard/analysis',
+    redirect: '/dashboard',
     children: [
         {
-            path: '/dashboard/analysis', 
+            path: '/dashboard', 
             name: 'dashboard',
             icon: "icon-analysis_icon",
             component: () => import('../views/dashboard/index.vue'),

@@ -16,10 +16,9 @@ interface DropMenu {
 }
 
 export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: ComputedRef<boolean>) {
-
     const tabStore = useMultipleTabStore();
-    const router =useRouter();
-    const state = reactive({ 
+    const router = useRouter();
+    const state = reactive({
         current: null as Nullable<RouteLocationNormalized>,
         currentIndex: 0,
     });
@@ -36,16 +35,13 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
         const { meta } = unref(getTargetTab);
         const { path } = unref(currentRoute);
 
-        // Refresh button 
         const curItem = state.current;
         const index = state.currentIndex;
         const refreshDisabled = curItem ? unref(curItem.path) !== path : true;
-        // Close left
         const closeLeftDisabled = index === 0;
 
         const disabled = tabStore.getTabList.length === 1;
- 
-        // Close right
+
         const closeRightDisabled =
             index === tabStore.getTabList.length - 1 && tabStore.getLastDragEndIndex >= 0;
         const dropMenuList: DropMenu[] = [
@@ -89,7 +85,6 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
                 disabled: disabled,
             },
         ];
-
         return dropMenuList;
     });
 
@@ -105,7 +100,7 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
         };
     }
 
-    function refreshPage(){
+    function refreshPage() {
         tabStore.refreshPage(router)
     }
 
@@ -122,22 +117,6 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
             case MenuEventEnum.CLOSE_CURRENT:
                 close(tabContentProps.tabItem);
                 break;
-            // // Close left
-            // case MenuEventEnum.CLOSE_LEFT:
-            //     closeLeft();
-            //     break;
-            // // Close right
-            // case MenuEventEnum.CLOSE_RIGHT:
-            //     closeRight();
-            //     break;
-            // // Close other
-            // case MenuEventEnum.CLOSE_OTHER:
-            //     closeOther();
-            //     break;
-            // // Close all
-            // case MenuEventEnum.CLOSE_ALL:
-            //     closeAll();
-            //     break;
         }
     }
 

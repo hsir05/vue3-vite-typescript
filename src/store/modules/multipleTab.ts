@@ -26,7 +26,7 @@ export const useMultipleTabStore = defineStore({
         },
         getLastDragEndIndex(): number {
             return this.lastDragEndIndex;
-        },
+        }, 
     }, 
     actions: { 
         addTab(route: RouteLocationNormalized){
@@ -53,6 +53,19 @@ export const useMultipleTabStore = defineStore({
             } else {
                 this.tabList.push(route);
             }
+        },
+        async updateCacheTab() {
+            const cacheMap: Set<string> = new Set();
+            for (const tab of this.tabList) {
+                const item = getRawRoute(tab);
+                const needCache = !item.meta?.ignoreKeepAlive;
+                if (!needCache) {
+                    continue;
+                }
+                const name = item.name as string;
+                cacheMap.add(name);
+            }
+            this.cacheTabList = cacheMap;
         },
         clearCacheTabs(): void {
             this.cacheTabList = new Set();
@@ -108,7 +121,15 @@ export const useMultipleTabStore = defineStore({
         async closeTabByKey(key: string, router: Router){
             const index = this.tabList.findIndex((item) => (item.fullPath || item.path) === key);
             index !== -1 && this.closeTab(this.tabList[index], router);
-        }
+        },
+        async updateTabPath(fullPath: string, route: RouteLocationNormalized) {
+            const findTab = this.getTabList.find((item) => item === route);
+            if (findTab) {
+                findTab.fullPath = fullPath;
+                findTab.path = fullPath;
+                await this.updateCacheTab();
+            }
+        },
     }
 })
 

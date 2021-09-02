@@ -16,7 +16,6 @@ export function useMenuSetting() {
         appStore.setSelectedKeys([path])
     })
 
-
     const getCollapsed = computed(() => appStore.getMenuSetting.collapsed);
 
     const selectedKeys = computed(() => appStore.getSelectedKeys)

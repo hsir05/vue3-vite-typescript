@@ -4,7 +4,7 @@ import { Layout, Menu, Button, ConfigProvider, Breadcrumb, Tooltip, Divider } fr
 
 const Item = Breadcrumb.Item
 
-const compList = [ Button, Item, Breadcrumb, Tooltip, ConfigProvider, Divider];
+const compList = [Button, Item, Breadcrumb, Tooltip, ConfigProvider, Divider];
 
 export function registerGlobComp(app: App) {
   compList.forEach((comp) => {

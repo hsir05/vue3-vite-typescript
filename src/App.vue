@@ -1,18 +1,19 @@
 <template>
-  <a-config-provider :locale="getAntdLocale">
+  <ConfigProvider :locale="getAntdLocale">
     <AppProvider>
       <router-view />
     </AppProvider>
-  </a-config-provider>
+  </ConfigProvider>
 </template>
 
 <script lang="ts">
+  import { ConfigProvider } from 'ant-design-vue'
   import { defineComponent } from 'vue'
   import { AppProvider } from '/@/components/Application'
   import { useLocale } from '/@/locales/useLocale'
   export default defineComponent({
     name: 'App',
-    components: { AppProvider },
+    components: { ConfigProvider, AppProvider },
     setup() {
       const { getAntdLocale } = useLocale()
       return {

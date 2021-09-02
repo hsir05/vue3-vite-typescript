@@ -11,6 +11,7 @@
   import { useRouter } from 'vue-router'
   import { defineComponent } from 'vue'
   import { useI18n } from '/@/hooks/web/useI18n'
+  import { defaultHomePath } from '/@/config/router.config'
   export default defineComponent({
     name: 'Exception403',
     components: {
@@ -20,7 +21,7 @@
       const router = useRouter()
       const { t } = useI18n()
       const handle = () => {
-        router.push('/dashboard/analysis')
+        router.push(defaultHomePath)
       }
       return {
         handle,

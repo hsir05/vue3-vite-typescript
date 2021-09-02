@@ -3,7 +3,7 @@
     <div class="logo-wrap">
       <img src="../../assets/logo.png" style="height: 100%" alt="" />
     </div>
-    <h2>vite-admin 管理系统</h2>
+    <h2 style="text-align: center">vite-admin 管理系统</h2>
     <Form
       class="user-layout-login"
       :model="formState"
@@ -56,6 +56,7 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useRouter } from 'vue-router'
   import { useI18n } from '/@/hooks/web/useI18n'
+  import { defaultHomePath } from '/@/config/router.config'
   interface FormState {
     user: string
     password: string
@@ -83,7 +84,7 @@
         console.log(values, formState)
         loading.value = true
         setTimeout(() => {
-          router.replace('/dashboard/analysis')
+          router.replace(defaultHomePath)
         }, 800)
       }
       const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
@@ -120,6 +121,7 @@
     .logo-wrap {
       height: 100px;
       padding: 20px 0;
+      text-align: center;
     }
     .checked {
       text-align: left;

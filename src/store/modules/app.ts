@@ -10,13 +10,13 @@ import { deepMerge } from '/@/utils';
 
 interface AppState { 
     selectedKeys: String[];
-    projectConfig: ProjectConfig | null;
+    projectConfig: ProjectConfig | null; 
 }
 
 export const useAppStore = defineStore({
     id: 'app',
     state: (): AppState => ({
-        selectedKeys: ['/dashboard/analysis'],
+        selectedKeys: ['/dashboard'],
         projectConfig: null,
     }), 
     getters: {

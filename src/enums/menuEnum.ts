@@ -10,7 +10,6 @@ export enum MenuTypeEnum {
 
 export type Mode = 'vertical' | 'vertical-right' | 'horizontal' | 'inline';
 
-// menu mode
 export enum MenuModeEnum {
   VERTICAL = 'vertical',
   HORIZONTAL = 'horizontal',
