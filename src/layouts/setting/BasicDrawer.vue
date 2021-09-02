@@ -11,8 +11,12 @@
     <div class="drawer-container">
       <Divider>主题</Divider>
       <Switch v-model:checked="checked" @change="handleSwitch">
-        <template #checkedChildren><check-outlined /></template>
-        <template #unCheckedChildren><close-outlined /></template>
+        <template #checkedChildren
+          ><MyIcon type="icon-icon-test" style="font-size: 16px"
+        /></template>
+        <template #unCheckedChildren
+          ><MyIcon type="icon-yueliang1" style="font-size: 16px"
+        /></template>
       </Switch>
       <Divider>导航栏模式</Divider>
       <div class="navigation-mode-wrap">
@@ -35,10 +39,10 @@
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue'
   import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
-  import { CheckOutlined, CloseOutlined } from '@ant-design/icons-vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { menuTypeList } from '../enum'
+  import MyIcon from '/@/components/MyIcon/index.vue'
 
   const colorList = [
     'rgb(9, 96, 189)',
@@ -57,9 +61,8 @@
       Drawer,
       Divider,
       Switch,
-      CheckOutlined,
-      Tooltip,
-      CloseOutlined
+      MyIcon,
+      Tooltip
     },
     props: {
       visible: {

@@ -2,7 +2,7 @@
   <Popover title trigger="click">
     <span class="pd15 h-header-action-item">
       <Badge dot class>
-        <BellOutlined />
+        <MyIcon type="icon-bell" />
       </Badge>
     </span>
 
@@ -23,14 +23,14 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
-  import { BellOutlined } from '@ant-design/icons-vue'
+  import MyIcon from '/@/components/MyIcon/index.vue'
   import { tabListData, ListItem } from './data'
   import { Popover, Tabs, Badge } from 'ant-design-vue'
   import NoticeList from './NoticeList.vue'
   export default defineComponent({
     name: 'Notify',
     components: {
-      BellOutlined,
+      MyIcon,
       Popover,
       Tabs,
       Badge,

@@ -24,7 +24,7 @@ export function useECharts(elRef: Ref<HTMLDivElement>){
     watch(getCollapsed, () => {
         setTimeout(() => {
             resize()
-        }, 160);
+        }, 180);
     })
 
     function setOptions(options: EChartsOption) {

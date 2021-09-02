@@ -1,18 +1,19 @@
 <template>
   <span @click="openDrawer(true)">
-    <SettingOutlined class="pd15 h-header-action-item" />
+    <MyIcon type="icon-setting" class="pd15 h-header-action-item" style="font-size: 20px" />
+
     <BasicDrawer :visible="visible" @handleClose="handleClose" />
   </span>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
-  import { SettingOutlined } from '@ant-design/icons-vue'
   import BasicDrawer from './BasicDrawer.vue'
+  import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
     name: 'SettingButton',
     components: {
-      SettingOutlined,
-      BasicDrawer
+      BasicDrawer,
+      MyIcon
     },
     setup() {
       const visible = ref<boolean>(false)
