@@ -12,6 +12,9 @@ function pathResolve(dir: string) {
 }
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
+    console.log(command);
+    console.log(mode);
+    
     const root = process.cwd();
     const env = loadEnv(mode, root);
     const viteEnv = wrapperEnv(env);
@@ -72,7 +75,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             // 压缩
             minify: "esbuild",
             assetsDir: "",
-            outDir: `./dist/${process.env.VITE_ENV}`,
+            // outDir: `./dist/${process.env.VITE_ENV}`,
+            outDir: `./dist`,
         },
         esbuild: {
             jsxInject: "import { h } from 'vue';",

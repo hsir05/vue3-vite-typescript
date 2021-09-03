@@ -10,7 +10,7 @@ export const asyncRouterMap: AppRouteModule = {
     component: BasicLayout,
     meta: {
         orderNo: 10,
-        icon: 'ion:grid-outline',
+        icon: 'ion:grid-outline', 
         title: 'dashboard',
     },
     redirect: '/dashboard',

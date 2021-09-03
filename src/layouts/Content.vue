@@ -1,5 +1,4 @@
-<template
-  >,
+<template>
   <div class style="width: 100%">
     <slot></slot>
     <a-layout-content style="margin: 15px 10px 0; text-align: left">

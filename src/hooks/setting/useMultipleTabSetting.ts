@@ -1,12 +1,12 @@
 import { computed } from 'vue';
 import { useAppStore } from '/@/store/modules/app';
-import type { ProjectConfig, MultiTabsSetting } from '/#/config';
+import type { MultiTabsSetting } from '/#/config';
 
 
-type RootSetting = Omit<
-    ProjectConfig,
-    'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
->;
+// type RootSetting = Omit<
+//     ProjectConfig,
+//     'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
+// >;
 
 export function useMultipleTabSetting() {
     const appStore = useAppStore();

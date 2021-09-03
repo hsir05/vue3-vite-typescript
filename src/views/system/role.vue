@@ -49,6 +49,7 @@
           unCheckedValue="0"
           checkedValue="1"
           :checked="text"
+          @change="handleSwitch"
         />
       </template>
 
@@ -82,6 +83,7 @@
       title: '操作',
       key: 'operation',
       fixed: 'right',
+      align: 'center',
       width: 130,
       slots: { customRender: 'action' }
     }
@@ -132,6 +134,7 @@
         formRef.value.resetFields()
       }
       const addBtn = () => {}
+      const handleSwitch = () => {}
       return {
         tableData,
         columns,
@@ -140,7 +143,8 @@
         resetForm,
         handleFinish,
         handleFinishFailed,
-        addBtn
+        addBtn,
+        handleSwitch
       }
     }
   })
