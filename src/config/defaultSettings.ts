@@ -18,7 +18,8 @@ export default {
         collapsed: false,
     },
     multiTabsSetting: {
-        cache:true
+        cache:true,
+        showFold: false
     },
     transitionSetting: {
         enable: true,

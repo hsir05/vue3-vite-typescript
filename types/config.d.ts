@@ -6,6 +6,14 @@ export interface TransitionSetting {
     openPageLoading: boolean;
     openNProgress: boolean;
 }
+export interface MultiTabsSetting {
+    cache: boolean;
+    show: boolean;
+    showQuick: boolean;
+    canDrag: boolean;
+    showRedo: boolean;
+    showFold: boolean;
+}
 export interface LocaleSetting {
     showPicker: boolean;
     locale: LocaleType;

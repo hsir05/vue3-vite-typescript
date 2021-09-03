@@ -11,12 +11,12 @@
     <div class="drawer-container">
       <Divider>主题</Divider>
       <Switch v-model:checked="checked" @change="handleSwitch">
-        <template #checkedChildren
-          ><MyIcon type="icon-icon-test" style="font-size: 16px"
-        /></template>
-        <template #unCheckedChildren
-          ><MyIcon type="icon-yueliang1" style="font-size: 16px"
-        /></template>
+        <template #checkedChildren>
+          <MyIcon type="icon-icon-test" style="font-size: 16px" />
+        </template>
+        <template #unCheckedChildren>
+          <MyIcon type="icon-yueliang1" style="font-size: 16px" />
+        </template>
       </Switch>
       <Divider>导航栏模式</Divider>
       <div class="navigation-mode-wrap">
@@ -130,6 +130,9 @@
 <style lang="less">
   .drawer-container {
     text-align: center;
+    .ant-switch {
+      background-color: #000;
+    }
   }
   .navigation-mode-wrap {
     display: flex;

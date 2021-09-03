@@ -2,6 +2,7 @@ import type {
     ProjectConfig,
     HeaderSetting,
     TransitionSetting,
+    MultiTabsSetting,
     MenuSetting,
 } from '/#/config';
 import { defineStore } from 'pinia';
@@ -34,9 +35,12 @@ export const useAppStore = defineStore({
         },
         getHeaderSetting(): HeaderSetting {
             return this.getProjectConfig.headerSetting;
-        },
+        }, 
         getMenuSetting(): MenuSetting {
             return this.getProjectConfig.menuSetting;
+        },
+        getMultiTabsSetting(): MultiTabsSetting {
+            return this.getProjectConfig.multiTabsSetting;
         },
     },
     actions: {

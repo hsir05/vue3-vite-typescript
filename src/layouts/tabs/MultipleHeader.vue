@@ -29,8 +29,10 @@
       <TabContent :tabItem="$route" isExtra />
 
       <a-divider type="vertical" />
-      <MyIcon type="icon-feiquanping" v-if="isTabsExtra" />
-      <MyIcon type="icon-fullscreen-" v-else class="multiple-icon-item" />
+      <span @click="hanldleShowFold">
+        <MyIcon type="icon-feiquanping" v-if="getShowFold" />
+        <MyIcon type="icon-fullscreen-" v-else class="multiple-icon-item" />
+      </span>
     </div>
   </div>
 </template>
@@ -42,6 +44,7 @@
   import { listenerRouteChange } from '/@/router/routeChange'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useRouter } from 'vue-router'
+  import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
@@ -54,7 +57,6 @@
       const loading = ref(false)
       const router = useRouter()
       const activeKeyRef = ref('')
-      const isTabsExtra = ref(false)
 
       const tabStore = useMultipleTabStore()
 
@@ -77,6 +79,12 @@
         }
         tabStore.closeTabByKey(targetKey, router)
       }
+      const { getShowFold } = useMultipleTabSetting()
+
+      function hanldleShowFold() {
+        console.log(getShowFold.value)
+        //   setShowFold({ showFold: !unref(getShowFold) })
+      }
 
       const handleRedo = () => {
         loading.value = true
@@ -88,10 +96,11 @@
 
       return {
         handleRedo,
-        isTabsExtra,
+        getShowFold,
         handleChange,
         activeKeyRef,
         handleEdit,
+        hanldleShowFold,
         loading,
         getTabsState
       }

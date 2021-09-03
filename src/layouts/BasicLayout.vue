@@ -1,7 +1,6 @@
 <template>
   <Layout style="min-height: 100vh">
     <LayoutSider v-if="getLayoutMode === 'sidebar'" />
-
     <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
 
     <Layout>
@@ -20,7 +19,9 @@
 
         <LayoutContent>
           <LayoutMultipleHeader />
-          <template #footer> <LayoutFooter /></template>
+          <template #footer>
+            <LayoutFooter />
+          </template>
         </LayoutContent>
       </Layout>
 
@@ -29,7 +30,7 @@
   </Layout>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, defineAsyncComponent } from 'vue'
   import LayoutMultipleHeader from './tabs/MultipleHeader.vue'
   import LayoutHeader from './header/index.vue'
   import { Layout } from 'ant-design-vue'
@@ -37,9 +38,9 @@
   import LayoutMenu from './Menu.vue'
   import LayoutSider from './LayoutSider.vue'
   import LayoutContent from './Content.vue'
-  import LayoutFooter from './Footer.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
 
   export default defineComponent({
     name: 'BaicLayout',
@@ -51,16 +52,20 @@
       LayoutSider,
 
       LayoutContent,
-      LayoutFooter,
+      LayoutFooter: defineAsyncComponent({
+        loader: () => import('./Footer.vue')
+      }),
       LayoutHeader
     },
     setup() {
       const { getLayoutMode } = useHeaderSetting()
       const { getCollapsed } = useMenuSetting()
+      const { getShowFold } = useMultipleTabSetting()
 
       return {
         getCollapsed,
-        getLayoutMode
+        getLayoutMode,
+        getShowFold
       }
     }
   })

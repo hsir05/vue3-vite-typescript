@@ -4,6 +4,8 @@ export default {
     message: {
         dashboard: 'Dashboard',
         exception: 'Exception',
+        system: 'System',
+        role: 'Role',
         "403": "403",
         "404": "404",
         "500": "500",

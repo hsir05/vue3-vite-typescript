@@ -5,6 +5,8 @@ export default {
   message: {
    dashboard: 'Dashboard',
    exception: '错误页面',
+   system: '系统管理',
+   role: '角色管理',
     "403": "403",
     "404": "404",
     "500": "500",

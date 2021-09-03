@@ -1,5 +1,6 @@
 import { BasicLayout } from "/@/layouts/index"
 import type { AppRouteModule } from '/@/router/types';
+import Wrap from '/@/components/wrap/index.vue'
 
 export const defaultHomePath = '/dashboard';
 
@@ -21,13 +22,30 @@ export const asyncRouterMap: AppRouteModule = {
             component: () => import('../views/dashboard/index.vue'),
             meta: { title: 'dashboard', affix: true }
         },
+        // system
+        {
+            path: '/system',
+            name: 'system',
+            icon: 'icon-setting',
+            redirect: '/exception/403',
+            component: Wrap,
+            meta: { title: 'system', },
+            children: [
+                {
+                    path: '/system/role',
+                    name: 'role',
+                    component: () => import(/* webpackChunkName: "fail" */ '/@/views/system/role.vue'),
+                    meta: { title: 'role' }
+                },
+            ]
+        },
         // Exception
         {
             path: '/exception',
             name: 'exception',
             icon: 'icon-exception',
             redirect: '/exception/403',
-            component: () => import('/@/views/exception/error.vue'),
+            component: Wrap,
             meta: { title: 'exception', },
             children: [
                 {
