@@ -1,6 +1,6 @@
 <template>
   <div class style="width: 100%">
-    <slot></slot>
+    <LayoutMultipleHeader />
     <a-layout-content style="margin: 15px 10px 0; text-align: left">
       <div :style="{ padding: '10px', background: '#fff', minHeight: 'calc(100vh - 160px)' }">
         <router-view :key="routerViewKey" v-slot="{ Component }">
@@ -14,15 +14,24 @@
       </div>
     </a-layout-content>
     <slot name="footer"></slot>
+    <LayoutFooter v-if="getLayoutMode !== 'mix'" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import LayoutMultipleHeader from './tabs/MultipleHeader.vue'
+  import LayoutFooter from './Footer.vue'
   export default defineComponent({
     name: 'Content',
-    components: {},
+    components: {
+      LayoutMultipleHeader,
+      LayoutFooter
+    },
     setup() {
+      const { getLayoutMode } = useHeaderSetting()
       return {
+        getLayoutMode,
         routerViewKey: new Date().getTime(),
         openCache: true,
         getCaches: []

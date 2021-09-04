@@ -21,7 +21,7 @@
         />
         <LayoutBreadcrumb />
       </div>
-      <slot name="layoutMenu"></slot>
+      <LayoutMenu :isHorizontal="true" v-if="getLayoutMode === 'mix'" />
     </div>
 
     <!-- 功能区 -->
@@ -53,6 +53,7 @@
   import AppSearch from './components/AppSearch.vue'
   import TranslationDropDown from './components/TranslationDropDown.vue'
   import UserDropDown from './components/UserDropDown.vue'
+  import LayoutMenu from '../Menu.vue'
   export default defineComponent({
     name: 'Header',
     components: {
@@ -64,7 +65,8 @@
       AppSearch,
       MyIcon,
       UserDropDown,
-      TranslationDropDown
+      TranslationDropDown,
+      LayoutMenu
     },
     setup() {
       const { getLayoutMode } = useHeaderSetting()

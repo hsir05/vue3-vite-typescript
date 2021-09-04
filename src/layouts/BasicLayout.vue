@@ -4,25 +4,11 @@
     <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
 
     <Layout>
-      <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'">
-        <template #layoutMenu v-if="getLayoutMode === 'mix'">
-          <LayoutMenu :isHorizontal="true" />
-        </template>
-      </LayoutHeader>
-
-      <LayoutContent v-if="getLayoutMode === 'mix'">
-        <LayoutMultipleHeader />
-      </LayoutContent>
-
+      <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'" />
+      <LayoutContent v-if="getLayoutMode === 'mix'" />
       <Layout v-else>
         <LayoutSider v-if="getLayoutMode === 'mix-sidebar'" />
-
-        <LayoutContent>
-          <LayoutMultipleHeader />
-          <template #footer>
-            <LayoutFooter />
-          </template>
-        </LayoutContent>
+        <LayoutContent />
       </Layout>
 
       <LayoutFooter v-if="getLayoutMode === 'mix'" />
@@ -31,11 +17,9 @@
 </template>
 <script lang="ts">
   import { defineComponent, defineAsyncComponent } from 'vue'
-  import LayoutMultipleHeader from './tabs/MultipleHeader.vue'
   import LayoutHeader from './header/index.vue'
   import { Layout } from 'ant-design-vue'
 
-  import LayoutMenu from './Menu.vue'
   import LayoutSider from './LayoutSider.vue'
   import LayoutContent from './Content.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
@@ -46,9 +30,7 @@
     name: 'BaicLayout',
     components: {
       Layout,
-      LayoutMultipleHeader,
 
-      LayoutMenu,
       LayoutSider,
 
       LayoutContent,

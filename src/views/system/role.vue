@@ -15,6 +15,7 @@
           style="width: 150px"
         />
       </FormItem>
+
       <FormItem label="状态" name="status">
         <Select v-model:value="formState.status" placeholder="请选择状态" style="width: 150px">
           <SelectOption value="0">禁用</SelectOption>
@@ -42,14 +43,14 @@
       bordered
       :scroll="{ y: 400 }"
     >
-      <template #status="{ text }">
+      <template #statusAction="{ index }">
         <Switch
           checked-children="已启用"
           un-checked-children="已禁用"
-          unCheckedValue="0"
-          checkedValue="1"
-          :checked="text"
+          unCheckedValue="1"
+          checkedValue="0"
           @change="handleSwitch"
+          v-model:checked="tableData[index].status"
         />
       </template>
 
@@ -61,7 +62,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, ref, UnwrapRef } from 'vue'
+  import { defineComponent, reactive, Ref, ref, UnwrapRef } from 'vue'
   import { Table, Switch, Form, Input, Select } from 'ant-design-vue'
   import { DataItem, FormState } from './typing'
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
@@ -76,7 +77,7 @@
       align: 'center',
       width: 130,
       key: '2',
-      slots: { customRender: 'status' }
+      slots: { customRender: 'statusAction' }
     },
     { title: '备注', dataIndex: 'remark', align: 'center', width: 100, key: '2' },
     {
@@ -86,24 +87,6 @@
       align: 'center',
       width: 130,
       slots: { customRender: 'action' }
-    }
-  ]
-  const tableData: DataItem[] = [
-    {
-      roleName: '超级管理员',
-      code: 'superAdmin',
-      status: '1',
-      id: 1,
-      createTime: '2021/09/01',
-      remark: '测试'
-    },
-    {
-      roleName: '管理员',
-      code: 'admin',
-      status: '1',
-      id: 2,
-      createTime: '2021/09/01',
-      remark: '测试'
     }
   ]
 
@@ -119,6 +102,24 @@
       FormItem: Form.Item
     },
     setup() {
+      const tableData: Ref<DataItem[]> = ref([
+        {
+          roleName: '超级管理员',
+          code: 'superAdmin',
+          status: '1',
+          id: 1,
+          createTime: '2021/09/01',
+          remark: '测试'
+        },
+        {
+          roleName: '管理员',
+          code: 'admin',
+          status: '0',
+          id: 2,
+          createTime: '2021/09/01',
+          remark: '测试'
+        }
+      ])
       const formRef = ref()
       const formState: UnwrapRef<FormState> = reactive({
         roleName: '',
@@ -134,7 +135,9 @@
         formRef.value.resetFields()
       }
       const addBtn = () => {}
-      const handleSwitch = () => {}
+      const handleSwitch = (item) => {
+        console.log(item)
+      }
       return {
         tableData,
         columns,
