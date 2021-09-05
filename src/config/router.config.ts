@@ -34,8 +34,14 @@ export const asyncRouterMap: AppRouteModule = {
                 {
                     path: '/system/role',
                     name: 'role',
-                    component: () => import(/* webpackChunkName: "fail" */ '/@/views/system/role.vue'),
+                    component: () => import(/* webpackChunkName: "role" */ '/@/views/system/role.vue'),
                     meta: { title: 'role' }
+                },
+                {
+                    path: '/system/users',
+                    name: 'users',
+                    component: () => import(/* webpackChunkName: "users" */ '/@/views/system/users.vue'),
+                    meta: { title: 'users' }
                 },
             ]
         },

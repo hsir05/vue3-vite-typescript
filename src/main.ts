@@ -10,6 +10,7 @@ async function bootstrap() {
     const app = createApp(App);
     
     setupStore(app)
+
     registerGlobComp(app)
     await setupI18n(app);
     setupRouter(app)

@@ -6,6 +6,7 @@ export default {
         exception: 'Exception',
         system: 'System',
         role: 'Role',
+        users: 'Users',
         "403": "403",
         "404": "404",
         "500": "500",

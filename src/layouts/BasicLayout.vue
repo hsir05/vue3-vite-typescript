@@ -5,7 +5,9 @@
 
     <Layout>
       <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar'" />
+
       <LayoutContent v-if="getLayoutMode === 'mix'" />
+
       <Layout v-else>
         <LayoutSider v-if="getLayoutMode === 'mix-sidebar'" />
         <LayoutContent />

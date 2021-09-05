@@ -8,10 +8,10 @@
       @finish="handleFinish"
       @finishFailed="handleFinishFailed"
     >
-      <FormItem label="角色名称" name="roleName">
+      <FormItem label="用户名称" name="userName">
         <Input
-          v-model:value="formState.roleName"
-          placeholder="请输入角色名称"
+          v-model:value="formState.userName"
+          placeholder="请输入用户名称"
           style="width: 150px"
         />
       </FormItem>
@@ -64,12 +64,12 @@
 <script lang="ts">
   import { defineComponent, reactive, Ref, ref, UnwrapRef } from 'vue'
   import { Table, Switch, Form, Input, Select } from 'ant-design-vue'
-  import { roleDataItem, FormState } from './typing'
+  import { userDataItem, userFormState } from './typing'
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
 
   const columns = [
-    { title: '角色名称', dataIndex: 'roleName', align: 'center', key: 'roleName' },
-    { title: '角色值', dataIndex: 'code', align: 'center', key: 'code' },
+    { title: '用户名称', dataIndex: 'userName', align: 'center', key: 'userName' },
+    { title: '角色', dataIndex: 'code', align: 'center', key: 'code' },
     { title: '创建时间', dataIndex: 'createTime', align: 'center', key: '3' },
     {
       title: '状态',
@@ -91,7 +91,7 @@
   ]
 
   export default defineComponent({
-    name: 'Role',
+    name: 'Users',
     components: {
       Table,
       Switch,
@@ -102,9 +102,9 @@
       FormItem: Form.Item
     },
     setup() {
-      const tableData: Ref<roleDataItem[]> = ref([
+      const tableData: Ref<userDataItem[]> = ref([
         {
-          roleName: '超级管理员',
+          userName: '张三',
           code: 'superAdmin',
           status: '1',
           id: 1,
@@ -112,7 +112,7 @@
           remark: '测试'
         },
         {
-          roleName: '管理员',
+          userName: '李四',
           code: 'admin',
           status: '0',
           id: 2,
@@ -121,14 +121,14 @@
         }
       ])
       const formRef = ref()
-      const formState: UnwrapRef<FormState> = reactive({
-        roleName: '',
+      const formState: UnwrapRef<userFormState> = reactive({
+        userName: '',
         status: ''
       })
-      const handleFinish = (values: FormState) => {
+      const handleFinish = (values: userFormState) => {
         console.log(values, formState)
       }
-      const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
+      const handleFinishFailed = (errors: ValidateErrorEntity<userFormState>) => {
         console.log(errors)
       }
       const resetForm = () => {
