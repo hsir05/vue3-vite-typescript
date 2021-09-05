@@ -9,7 +9,6 @@ export default defineComponent({
         BasicDrawer
     },
     setup(){
-         
         return () => (
             <BasicDrawer />
         )

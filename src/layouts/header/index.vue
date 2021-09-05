@@ -41,7 +41,7 @@
   </a-layout-header>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, unref, toRefs } from 'vue'
+  import { defineComponent, unref } from 'vue'
   import LayoutBreadcrumb from '../Breadcrumb.vue'
   import SettingButton from '../setting/index.vue'
   import AppLogo from '../AppLogo.vue'
@@ -70,16 +70,12 @@
     },
     setup() {
       const { getLayoutMode } = useHeaderSetting()
-      const state = reactive({
-        selectedKeys: [1]
-      })
 
       const { getCollapsed, setMenuSetting } = useMenuSetting()
       const handleCollapsed = () => {
         setMenuSetting({ collapsed: !unref(getCollapsed) })
       }
       return {
-        ...toRefs(state),
         getCollapsed,
         handleCollapsed,
         getLayoutMode

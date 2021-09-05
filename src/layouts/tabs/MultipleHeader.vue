@@ -30,7 +30,7 @@
 
       <a-divider type="vertical" />
       <span @click="hanldleShowFold">
-        <MyIcon type="icon-feiquanping" v-if="getShowFold" />
+        <MyIcon type="icon-feiquanping" v-if="!getShowFold" />
         <MyIcon type="icon-fullscreen-" v-else class="multiple-icon-item" />
       </span>
     </div>
@@ -45,6 +45,8 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useRouter } from 'vue-router'
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { MenuTypeEnum } from '/@/enums/menuEnum'
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
@@ -79,11 +81,13 @@
         }
         tabStore.closeTabByKey(targetKey, router)
       }
-      const { getShowFold } = useMultipleTabSetting()
+      const { getShowFold, setShowFold } = useMultipleTabSetting()
+      const { settingLayoutMode } = useMenuSetting()
 
       function hanldleShowFold() {
-        console.log(getShowFold.value)
-        //   setShowFold({ showFold: !unref(getShowFold) })
+        settingLayoutMode({ layoutMode: MenuTypeEnum.MIX })
+
+        setShowFold({ showFold: !unref(getShowFold) })
       }
 
       const handleRedo = () => {

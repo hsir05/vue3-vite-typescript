@@ -19,7 +19,7 @@ export default {
     },
     multiTabsSetting: {
         cache:true,
-        showFold: false
+        showFold: true
     },
     transitionSetting: {
         enable: true,
