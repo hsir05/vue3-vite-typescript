@@ -3,6 +3,7 @@
   import { useAppStore } from '/@/store/modules/app'
   import { prefixCls } from '/@/settings/designSetting'
   import defaultSettings from '/@/config/defaultSettings'
+  import { localStorageService } from '/@/utils/storage'
   const props = {
     prefixCls: { type: String, default: prefixCls }
   }
@@ -19,7 +20,8 @@
       console.log(prefixCls.value)
 
       function handleRestoreState() {
-        appStore.setProjectConfig(defaultSettings)
+        const projectConfig = localStorageService.get('projectConfig') || {}
+        appStore.setProjectConfig({ ...defaultSettings, ...projectConfig })
       }
       return () => slots.default?.()
     }
