@@ -8,7 +8,7 @@ import type {
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { deepMerge } from '/@/utils';
-import { localStorageService } from '/@/utils/storage'
+import { localStorageService, sessionStorageService } from '/@/utils/storage'
 
 interface AppState { 
     selectedKeys: String[];
@@ -18,7 +18,7 @@ interface AppState {
 export const useAppStore = defineStore({
     id: 'app',
     state: (): AppState => ({
-        selectedKeys: ['/dashboard'],
+        selectedKeys: sessionStorageService.get('selectedKeys') || ['/dashboard'],
         projectConfig: localStorageService.get('projectConfig') || null,
     }), 
     getters: {
@@ -47,6 +47,7 @@ export const useAppStore = defineStore({
     actions: {
         setSelectedKeys(setSelectedKeys: String[]):void{
             this.selectedKeys = setSelectedKeys;
+            sessionStorageService.set('selectedKeys', this.selectedKeys)
         },
         setProjectConfig(config: DeepPartial<ProjectConfig>): void {
             this.projectConfig = deepMerge(this.projectConfig || {}, config);

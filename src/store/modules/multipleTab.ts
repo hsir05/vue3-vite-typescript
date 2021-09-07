@@ -6,6 +6,7 @@ import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { getRawRoute } from '/@/utils';
 import { useRedo } from '/@/hooks/web/usePage'
+import { sessionStorageService } from '/@/utils/storage'
 
 export interface MultipleTabState {
     cacheTabList: Set<string>;
@@ -17,7 +18,7 @@ export const useMultipleTabStore = defineStore({
     id: 'app-multiple-tab',
     state: (): MultipleTabState => ({
         cacheTabList: new Set(),
-        tabList: [],
+        tabList: sessionStorageService.get('tabList') || [],
         lastDragEndIndex: 0,
     }),
     getters: {
@@ -53,7 +54,8 @@ export const useMultipleTabStore = defineStore({
             } else {
                 this.tabList.push(route);
             }
-        },
+            sessionStorageService.set('tabList', this.tabList)
+        }, 
         async updateCacheTab() {
             const cacheMap: Set<string> = new Set();
             for (const tab of this.tabList) {
@@ -116,6 +118,7 @@ export const useMultipleTabStore = defineStore({
                 toTarget = getToTarget(page);
             }
             close(currentRoute.value);
+            sessionStorageService.set('tabList', this.tabList)
             replace(toTarget);
         },
         async closeTabByKey(key: string, router: Router){

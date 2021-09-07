@@ -15,7 +15,9 @@
           </span>
         </template>
         <a-menu-item :key="item.path" v-for="item in menu.children">
-          <router-link :to="item.path" @click="handleMenu(item.path)">{{ item.name }}</router-link>
+          <router-link :to="item.path" @click="handleMenu(item.path)">{{
+            t(item.name)
+          }}</router-link>
         </a-menu-item>
       </a-sub-menu>
     </template>
