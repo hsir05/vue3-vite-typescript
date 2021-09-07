@@ -6,7 +6,7 @@ const useStorage = ($storage) => {
      * @param key storage key
      */
     const get = (key: string) => {
-        let value = $storage.getItem(`${storageKey}-${key}`);
+        let value = $storage.getItem(`${storageKey}_${key}`);
         try {
             value = JSON.parse(value);
             return value;
@@ -21,7 +21,7 @@ const useStorage = ($storage) => {
      * @param value 需要储存在 storage 中的值
      */
     const set = (key: string, value: any) => {
-        return $storage.setItem(`${storageKey}-${key}`, value ? JSON.stringify(value) : value);
+        return $storage.setItem(`${storageKey}_${key}`, value ? JSON.stringify(value) : value);
     }
 
     /**
@@ -29,7 +29,7 @@ const useStorage = ($storage) => {
      * @param key storage key
      */
     const remove = (key: string) => {
-        return $storage.removeItem(`${storageKey}-${key}`);
+        return $storage.removeItem(`${storageKey}_${key}`);
     }
 
     /**
@@ -39,7 +39,7 @@ const useStorage = ($storage) => {
     const clearExcept = (key: string) => {
         for (let i = 0; i < $storage.length; i++) {
             const itemKey: string | undefined = $storage.key(i);
-            if (itemKey && itemKey !== `${storageKey}-${key}`) {
+            if (itemKey && itemKey !== `${storageKey}_${key}`) {
                 $storage.removeItem(itemKey);
             }
         }

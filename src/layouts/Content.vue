@@ -20,7 +20,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
-  import LayoutMultipleHeader from './tabs/MultipleHeader.vue'
+  import LayoutMultipleHeader from './tabs/index.vue'
   import LayoutFooter from './Footer.vue'
   export default defineComponent({
     name: 'Content',

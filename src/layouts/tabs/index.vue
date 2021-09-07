@@ -47,6 +47,7 @@
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { MenuTypeEnum } from '/@/enums/menuEnum'
+  import { initAffixTabs } from './useMultipleTabs'
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
@@ -61,6 +62,8 @@
       const activeKeyRef = ref('')
 
       const tabStore = useMultipleTabStore()
+      const affixTextList = initAffixTabs()
+      console.log(affixTextList)
 
       listenerRouteChange((route) => {
         tabStore.addTab(unref(route))

@@ -29,7 +29,7 @@ export function initAffixTabs(): string[]{
             } as unknown as RouteLocationNormalized);
         }
     }
-
+ 
     let isAddAffix = false
     if (!isAddAffix){
         addAffixTabs();

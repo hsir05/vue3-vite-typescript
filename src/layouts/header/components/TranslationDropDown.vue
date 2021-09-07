@@ -17,7 +17,7 @@
   </Dropdown>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, unref } from 'vue'
+  import { defineComponent, ref, unref, watchEffect } from 'vue'
   import { Dropdown, Menu } from 'ant-design-vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import type { LocaleType } from '/#/config'
@@ -32,7 +32,11 @@
       Dropdown
     },
     setup() {
-      const selectedKeys = ref<string[]>(['zh_CN'])
+      const selectedKeys = ref<string[]>([])
+      const { changeLocale, getLocale } = useLocale()
+      watchEffect(() => {
+        selectedKeys.value = [unref(getLocale)]
+      })
 
       function handleTanslation(translant: string) {
         selectedKeys.value = [translant]
@@ -48,8 +52,6 @@
         // location.reload()
         // props.reload && location.reload();
       }
-
-      const { changeLocale, getLocale } = useLocale()
 
       return {
         selectedKeys,

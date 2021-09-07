@@ -1,14 +1,11 @@
 
 import type { LocaleType } from '/#/config';
-
 import moment from 'moment';
-
 import { i18n, loadLocalePool, setHtmlPageLang } from './setupI18n';
- 
 import { useLocaleStoreWithOut } from '/@/store/modules/locale';
 import { unref, computed } from 'vue';
 
-interface LangModule {
+interface LangModule { 
   message: Recordable;
   momentLocale: Recordable;
   momentLocaleName: string;
@@ -29,6 +26,7 @@ function setI18nLanguage(locale: LocaleType) {
 export function useLocale() {
   const localeStore = useLocaleStoreWithOut();
   const getLocale = computed(() => localeStore.getLocale);
+const getShowLocalePicker = computed(() => localeStore.getShowPicker);
 
   const getAntdLocale = computed((): any => {
     return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale ?? {};
@@ -60,7 +58,7 @@ export function useLocale() {
  
   return {
     getLocale,
-    // getShowLocalePicker,
+    getShowLocalePicker,
     changeLocale,
     getAntdLocale,
   };

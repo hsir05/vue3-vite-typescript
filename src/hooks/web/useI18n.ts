@@ -42,4 +42,3 @@ export function useI18n(namespace?: string): { t: I18nGlobalTranslation; } {
     t: tFn,
   };
 }
-
