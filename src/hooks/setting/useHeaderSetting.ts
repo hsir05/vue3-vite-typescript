@@ -8,7 +8,7 @@ export function useHeaderSetting(){
     const getHeaderTheme = computed(() => appStore.getHeaderSetting.theme);
     const getLayoutMode = computed(() => appStore.getLayoutMode);
 
-    return {
+    return { 
         getHeaderTheme,
         getLayoutMode,
     } 

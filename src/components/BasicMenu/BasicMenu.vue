@@ -1,5 +1,10 @@
 <template>
-  <a-menu :selectedKeys="selectedKeys" theme="dark" mode="inline">
+  <a-menu
+    :selectedKeys="selectedKeys"
+    :defaultSelectedKeys="defaultSelectedKeys"
+    theme="dark"
+    mode="inline"
+  >
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
         <router-link :to="menu.path" @click="handleMenu(menu.path)">
@@ -15,20 +20,21 @@
           </span>
         </template>
         <a-menu-item :key="item.path" v-for="item in menu.children">
-          <router-link :to="item.path" @click="handleMenu(item.path)">{{
-            t(item.name)
-          }}</router-link>
+          <router-link :to="item.path" @click="handleMenu(item.path)">
+            {{ t(item.name) }}
+          </router-link>
         </a-menu-item>
       </a-sub-menu>
     </template>
   </a-menu>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
+  import { defineComponent, ref, unref, PropType } from 'vue'
   import type { Menu as MenuType } from '/@/router/types'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { REDIRECT_NAME } from '/@/router/constant'
+  import { listenerRouteChange } from '/@/router/routeChange'
   export default defineComponent({
     name: 'Menu',
     components: {
@@ -42,14 +48,25 @@
     },
     setup() {
       const { t } = useI18n()
-      const { selectedKeys, setSelectedKeys } = useMenuSetting()
+      const selectedKeys = ref<string[]>(['/dashboard'])
+      const defaultSelectedKeys = ref<string[]>(['/dashboard'])
+      const currentActiveMenu = ref('')
+      listenerRouteChange((route) => {
+        if (route.name === REDIRECT_NAME) return
+        currentActiveMenu.value = route.meta?.currentActiveMenu as string
+        if (unref(currentActiveMenu)) {
+          selectedKeys.value = [unref(currentActiveMenu)]
+        }
+      })
+
       function handleMenu(path: string) {
-        setSelectedKeys([path])
+        selectedKeys.value = [path]
       }
       return {
         t,
         handleMenu,
-        selectedKeys
+        selectedKeys,
+        defaultSelectedKeys
       }
     }
   })

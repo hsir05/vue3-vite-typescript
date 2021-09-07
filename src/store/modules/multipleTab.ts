@@ -29,7 +29,7 @@ export const useMultipleTabStore = defineStore({
         getLastDragEndIndex(): number {
             return this.lastDragEndIndex;
         }, 
-    }, 
+    },  
     actions: { 
         addTab(route: RouteLocationNormalized){
             const { path, name, fullPath, params, query } = getRawRoute(route);

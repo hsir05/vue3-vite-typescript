@@ -21,6 +21,7 @@
   import { Avatar, Dropdown, Menu } from 'ant-design-vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useRouter } from 'vue-router'
+  import { useMultipleTabStore } from '/@/store/modules/multipleTab'
   export default defineComponent({
     name: 'Footer',
     components: {
@@ -32,8 +33,10 @@
     },
     setup() {
       const router = useRouter()
+      const tabStore = useMultipleTabStore()
       function handleQuit() {
         router.replace('/login')
+        tabStore.resetState()
       }
 
       return {

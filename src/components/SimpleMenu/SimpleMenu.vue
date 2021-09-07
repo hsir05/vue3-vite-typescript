@@ -1,5 +1,10 @@
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" theme="linght" mode="horizontal">
+  <a-menu
+    v-model:selectedKeys="selectedKeys"
+    :defaultSelectedKeys="defaultSelectedKeys"
+    theme="linght"
+    mode="horizontal"
+  >
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
         <router-link :to="menu.path" @click="handleMenu(menu.path)">
@@ -25,11 +30,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
+  import { defineComponent, ref, unref, PropType } from 'vue'
   import type { Menu as MenuType } from '/@/router/types'
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
+  import { REDIRECT_NAME } from '/@/router/constant'
+  import { listenerRouteChange } from '/@/router/routeChange'
   export default defineComponent({
     name: 'SimpleMenu',
     components: {
@@ -43,15 +49,25 @@
     },
     setup() {
       const { t } = useI18n()
-      const { selectedKeys, setSelectedKeys } = useMenuSetting()
-      function handleMenu(path: string) {
-        setSelectedKeys([path])
-      }
+      const selectedKeys = ref<string[]>(['/dashboard'])
+      const defaultSelectedKeys = ref<string[]>(['/dashboard'])
+      const currentActiveMenu = ref('')
+      listenerRouteChange((route) => {
+        if (route.name === REDIRECT_NAME) return
+        currentActiveMenu.value = route.meta?.currentActiveMenu as string
+        if (unref(currentActiveMenu)) {
+          selectedKeys.value = [unref(currentActiveMenu)]
+        }
+      })
 
+      function handleMenu(path: string) {
+        selectedKeys.value = [path]
+      }
       return {
         t,
         handleMenu,
-        selectedKeys
+        selectedKeys,
+        defaultSelectedKeys
       }
     }
   })
