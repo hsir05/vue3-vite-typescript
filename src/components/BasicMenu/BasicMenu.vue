@@ -4,6 +4,7 @@
     :defaultSelectedKeys="defaultSelectedKeys"
     theme="dark"
     mode="inline"
+    :openKeys="openKeys"
   >
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
@@ -29,7 +30,7 @@
   </a-menu>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, unref, PropType } from 'vue'
+  import { defineComponent, reactive, ref, unref, toRefs, PropType } from 'vue'
   import type { Menu as MenuType } from '/@/router/types'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
@@ -48,25 +49,29 @@
     },
     setup() {
       const { t } = useI18n()
-      const selectedKeys = ref<string[]>(['/dashboard'])
-      const defaultSelectedKeys = ref<string[]>(['/dashboard'])
+
+      const menuState = reactive({
+        defaultSelectedKeys: ['/dashboard'],
+        openKeys: [],
+        selectedKeys: ['/dashboard']
+      })
+
       const currentActiveMenu = ref('')
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
         currentActiveMenu.value = route.meta?.currentActiveMenu as string
         if (unref(currentActiveMenu)) {
-          selectedKeys.value = [unref(currentActiveMenu)]
+          menuState.selectedKeys = [unref(currentActiveMenu)]
         }
       })
 
       function handleMenu(path: string) {
-        selectedKeys.value = [path]
+        menuState.selectedKeys = [path]
       }
       return {
         t,
-        handleMenu,
-        selectedKeys,
-        defaultSelectedKeys
+        ...toRefs(menuState),
+        handleMenu
       }
     }
   })

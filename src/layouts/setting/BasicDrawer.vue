@@ -12,10 +12,10 @@
       <Divider>主题</Divider>
       <Switch v-model:checked="checked" @change="handleSwitch">
         <template #checkedChildren>
-          <MyIcon type="icon-icon-test" style="font-size: 16px" />
+          <MyIcon type="icon-icon-test" style="font-size: 18px" />
         </template>
         <template #unCheckedChildren>
-          <MyIcon type="icon-yueliang1" style="font-size: 16px" />
+          <MyIcon type="icon-yueliang1" style="font-size: 18px" />
         </template>
       </Switch>
       <Divider>导航栏模式</Divider>

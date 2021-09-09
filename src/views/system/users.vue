@@ -30,7 +30,7 @@
     </Form>
     <!-- 功能 -->
     <div class="mt10">
-      <a-button type="primary" @click="addBtn" class="mr10">新增</a-button>
+      <a-button type="primary" @click="addBtn" class="mr10">新增用户</a-button>
     </div>
 
     <!-- table -->

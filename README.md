@@ -1,4 +1,4 @@
-# Vue 3 + Vite + vue-route4 + Typescript +  + axios + antd design + less
+# Vue 3 + Vite + vue-route4 + Typescript + Pinia + Axios + Antd design + Less
 
 类型声明文件
 
