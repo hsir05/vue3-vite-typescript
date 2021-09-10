@@ -18,6 +18,7 @@
           <MyIcon type="icon-yueliang1" style="font-size: 18px" />
         </template>
       </Switch>
+
       <Divider>导航栏模式</Divider>
       <div class="navigation-mode-wrap">
         <template v-for="item in menuTypeList || []" :key="item.title">
@@ -33,6 +34,18 @@
           </Tooltip>
         </template>
       </div>
+
+      <Divider>系统主题</Divider>
+
+      <div class="clearfix flex">
+        <div
+          class="theme-color"
+          v-for="color in colorList"
+          :key="color"
+          :style="{ backgroundColor: color }"
+          @click="handleSystemTheme(color)"
+        ></div>
+      </div>
     </div>
   </Drawer>
 </template>
@@ -45,14 +58,14 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
 
   const colorList = [
-    'rgb(9, 96, 189)',
-    'rgb(0, 132, 244)',
-    'rgb(0, 150, 136)',
-    'rgb(83, 109, 254)',
-    'rgb(255, 92, 147)',
-    'rgb(238, 79, 18)',
-    'rgb(0, 150, 199)',
-    'rgb(156, 39, 176)',
+    'rgb(245, 34, 45)',
+    'rgb(250, 84, 28)',
+    'rgb(250, 219, 20)',
+    'rgb(62, 175, 124)',
+    'rgb(19, 194, 194)',
+    'rgb(24, 144, 255)',
+    'rgb(114, 46, 209)',
+    'rgb(235, 47, 150)',
     'rgb(255, 152, 0)'
   ]
   export default defineComponent({
@@ -102,7 +115,7 @@
       const handleSwitch = () => {
         console.log(checked.value)
       }
-      const handleTheme = (color: string): void => {
+      const handleSystemTheme = (color: string): void => {
         console.log(color)
       }
       const handler = (item) => {
@@ -119,7 +132,7 @@
         colorList,
         close,
         handler,
-        handleTheme,
+        handleSystemTheme,
         menuTypeList,
         handleSwitch,
         getLayoutMode
@@ -132,6 +145,15 @@
     text-align: center;
     .ant-switch {
       background-color: #000;
+    }
+    .theme-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
     }
   }
   .navigation-mode-wrap {

@@ -5,38 +5,7 @@ import { wrapperEnv } from './build/utils'
 import path from 'path'
 import { resolve } from 'path';
 import { loadEnv } from 'vite';
-// import viteAntdTheme, { ThemeEntry, AntdThemeOptions } from 'vite-plugin-antd-theme';
-
-// const themesEntry: Array<ThemeEntry> = [
-//     // 暗黑主题
-//     {
-//         entryPath: [
-//             path.resolve(__dirname, './node_modules/ant-design-vue/lib/style/themes/dark.less'),
-//             path.resolve(__dirname, './src/assets/styles/dark.less')
-//         ],
-//         outputName: 'dark',
-//         outputPath: './src/config'
-//     },
-//     // 默认主题
-//     {
-//         entryPath: path.resolve(__dirname, './src/assets/styles/default.less'),
-//         outputName: 'light',
-//         outputPath: './src/config'
-//     }
-// ];
-
-// const options: AntdThemeOptions = {
-//     themesEntry,
-//     // 是否提取全部变量，默认false，优先级低于设置themeVariables
-//     allVariables: true,
-//     // 以下是antd-theme-generator配置项
-//     antDir: path.join(__dirname, './node_modules/ant-design-vue'),
-//     stylesDir: path.join(__dirname, './src'), // all files with .less extension will be processed
-//     varFile: path.join(__dirname, './src/assets/styles/default.less'), // default path is Ant Design default.less file
-//     themeVariables: [],
-//     outputFilePath: path.join(__dirname, './public/static/color.less'), // if provided, file will be created with generated less/styles
-//     customColorRegexArray: [/^fade\(.*\)$/] // An array of regex codes to match your custom color variable values so that code can identify that it's a valid color. Make sure your regex does not adds false positives.
-// };
+import { generateModifyVars } from './build/themeConfig'
 
 function pathResolve(dir: string) {
     return resolve(process.cwd(), '.', dir);
@@ -122,11 +91,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
                 // }
                 less: { 
                     additionalData: `@import "src/assets/styles/index.less";`,
-                    modifyVars: { // 更改主题在这里
-                        'primary-color': '#52c41a',
-                        'link-color': '#1DA57A',
-                        'border-radius-base': '2px'
-                    },
+                    modifyVars: generateModifyVars(),
                     javascriptEnabled: true
                 }
             }
@@ -139,9 +104,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
                     libraryName: 'ant-design-vue',
                     esModule: true,
                     // ensureStyleFile: true,
-                    resolveStyle: (name) => {
-                        return `ant-design-vue/es/${name}/style/css`;
-                    },
+                    // resolveStyle: (name) => {
+                    //     return `ant-design-vue/es/${name}/style/css`;
+                    // },
                 }]
             })
         ]

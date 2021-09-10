@@ -1,6 +1,7 @@
 import {
     RouterTransitionEnum,
 } from '/@/enums/appEnum';
+import { primaryColor } from '../../build/themeConfig';
 /**
  * 项目默认配置项
  * primaryColor - 默认主题色, 如果修改颜色不生效，请清理 localStorage
@@ -30,7 +31,7 @@ export default {
     isHorizontal: true,
     layoutMode: 'sidebar',
     navTheme: 'dark', 
-    primaryColor: '#F5222D', 
+    primaryColor: primaryColor,
     layout: 'sidemenu',
     contentWidth: 'Fluid', 
     fixedHeader: false, 

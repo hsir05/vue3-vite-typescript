@@ -147,7 +147,7 @@
       height: 29px;
     }
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
-      background-color: #1890ff;
+      background-color: @primary-color;
       .tab-content {
         color: white;
       }
