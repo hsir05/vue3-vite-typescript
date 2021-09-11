@@ -1,5 +1,5 @@
 
-export const primaryColor = "rgb(250, 84, 28)"
+export const primaryColor = "rgb(255, 152, 0)"
 
 export function generateModifyVars(){
 
