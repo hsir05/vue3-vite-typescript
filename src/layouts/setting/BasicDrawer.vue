@@ -6,7 +6,6 @@
     :destroyOnClose="true"
     @close="close"
     v-model:visible="visibleRef"
-    :after-visible-change="afterVisibleChange"
   >
     <div class="drawer-container">
       <Divider>主题</Divider>
@@ -36,15 +35,28 @@
       </div>
 
       <Divider>系统主题</Divider>
-
       <div class="clearfix flex">
         <div
           class="theme-color"
-          v-for="color in colorList"
+          v-for="color in APP_PRESET_COLOR_LIST"
           :key="color"
           :style="{ backgroundColor: color }"
           @click="handleSystemTheme(color)"
-        ></div>
+        >
+          <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
+        </div>
+      </div>
+      <Divider>顶栏主题</Divider>
+      <div class="clearfix flex">
+        <div
+          class="theme-color"
+          v-for="color in APP_PRESET_COLOR_LIST"
+          :key="color"
+          :style="{ backgroundColor: color }"
+          @click="handleSystemTheme(color)"
+        >
+          <!-- <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" /> -->
+        </div>
       </div>
     </div>
   </Drawer>
@@ -56,18 +68,8 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { menuTypeList } from '../enum'
   import MyIcon from '/@/components/MyIcon/index.vue'
-
-  const colorList = [
-    'rgb(245, 34, 45)',
-    'rgb(250, 84, 28)',
-    'rgb(250, 219, 20)',
-    'rgb(62, 175, 124)',
-    'rgb(19, 194, 194)',
-    'rgb(24, 144, 255)',
-    'rgb(114, 46, 209)',
-    'rgb(235, 47, 150)',
-    'rgb(255, 152, 0)'
-  ]
+  import { APP_PRESET_COLOR_LIST } from '/@/settings/designSetting'
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   export default defineComponent({
     name: 'SettingDrawer',
     components: {
@@ -88,12 +90,13 @@
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
 
-      const afterVisibleChange = (bool: boolean) => {
-        console.log('visibleRef', bool)
-      }
+      //   const afterVisibleChange = (bool: boolean) => {
+      //     console.log('visibleRef', bool)
+      //   }
       const { getLayoutMode } = useHeaderSetting()
 
       const { settingLayoutMode, setMenuSetting } = useMenuSetting()
+      const { getThemeColor, setRootSetting, changeThemeColor } = useRootSetting()
 
       const close = () => {
         visibleRef.value = false
@@ -116,20 +119,21 @@
         console.log(checked.value)
       }
       const handleSystemTheme = (color: string): void => {
-        console.log(color)
+        setRootSetting({ themeColor: color })
+        changeThemeColor(color)
       }
       const handler = (item) => {
-        console.log(item)
         settingLayoutMode({ layoutMode: item.type })
         setMenuSetting({ collapsed: false })
       }
 
       return {
-        afterVisibleChange,
+        // afterVisibleChange,
         showDrawer,
+        getThemeColor,
         visibleRef,
         checked,
-        colorList,
+        APP_PRESET_COLOR_LIST,
         close,
         handler,
         handleSystemTheme,

@@ -22,3 +22,8 @@ declare interface ViteEnv {
 declare type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
 };
+interface Window {
+    less: {
+        modifyVars:string
+    };
+}

@@ -31,7 +31,7 @@ export default {
     isHorizontal: true,
     layoutMode: 'sidebar',
     navTheme: 'dark', 
-    primaryColor: primaryColor,
+    themeColor: primaryColor,
     layout: 'sidemenu',
     contentWidth: 'Fluid', 
     fixedHeader: false, 

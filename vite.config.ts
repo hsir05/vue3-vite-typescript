@@ -12,9 +12,6 @@ function pathResolve(dir: string) {
 }
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
-    console.log(command);
-    console.log(mode);
-    
     const root = process.cwd();
     const env = loadEnv(mode, root);
     const viteEnv = wrapperEnv(env);
@@ -68,7 +65,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             terserOptions: {
                 compress: {
                     keep_infinity: true,
-                    // Used to delete console in production environment
                     drop_console: VITE_DROP_CONSOLE,
                 },
             },
@@ -85,10 +81,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
         css: {
             preprocessorOptions: {
-                // less: {
-                //     javascriptEnabled: true,
-                //     additionalData: `@import "@/assets/styles/default.less";`
-                // }
                 less: { 
                     additionalData: `@import "src/assets/styles/index.less";`,
                     modifyVars: generateModifyVars(),
@@ -98,15 +90,14 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         }, 
         plugins: [
             vue(),
-            // viteAntdTheme(options)
             styleImport({
                 libs: [{ 
                     libraryName: 'ant-design-vue',
                     esModule: true,
-                    // ensureStyleFile: true,
-                    // resolveStyle: (name) => {
-                    //     return `ant-design-vue/es/${name}/style/css`;
-                    // },
+                    ensureStyleFile: true,
+                    resolveStyle: (name) => {
+                        return `ant-design-vue/es/${name}/style/css`;
+                    },
                 }]
             })
         ]

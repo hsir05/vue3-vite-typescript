@@ -20,7 +20,7 @@ export const useAppStore = defineStore({
     state: (): AppState => ({ 
         projectConfig: localStorageService.get(PROJ_CFG_KEY) || null,
     }), 
-    getters: {
+    getters: { 
         getLayoutMode():string {
             return this.getProjectConfig.layoutMode;
         },

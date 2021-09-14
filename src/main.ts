@@ -5,7 +5,6 @@ import { router, setupRouter } from '/@/router';
 import { setupI18n } from './locales/setupI18n'
 import { registerGlobComp } from '/@/components/registerGlobComp'
 import { setupRouterGuard } from '/@/router/guard';
-import 'ant-design-vue/dist/antd.less';
 
 async function bootstrap() {
     const app = createApp(App);

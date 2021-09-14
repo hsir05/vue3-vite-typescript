@@ -7,6 +7,7 @@ export default {
         system: 'System',
         role: 'Role',
         users: 'Users',
+        menus: 'Menus',
         "403": "403",
         "404": "404",
         "500": "500",

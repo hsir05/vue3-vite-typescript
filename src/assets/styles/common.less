@@ -1,5 +1,31 @@
 @charset 'utf-8';
+@boderColor: #f0f2f5; 
+@white: #fff;
+@menuBgColor: #141414;
+@iconColor: rgba(0,0,0,.45);
+@iconHoverColor: rgba(0,0,0,.85);
 
+
+.flexed(@a: space-between){
+    display: flex;
+    align-items: center;
+    justify-content: @a;
+}
+.mode(@w:100%, @h:25%, @c:#fff){
+    top: 0;
+    left: 0;
+    width: @w;
+    height: @h;
+    background-color: @c;
+}
+.ant-menu{
+    font-weight: 600;
+}
+
+
+.collapse-transition {
+  transition: 0.2s height ease-in-out, 0.2s padding-top ease-in-out, 0.2s padding-bottom ease-in-out;
+}
 .ant-layout-footer{
     padding: 10px;
     font-size: 14px;

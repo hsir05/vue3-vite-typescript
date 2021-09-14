@@ -50,7 +50,7 @@
         "build/**/*.d.ts",
         "mock/**/*.ts",
         "vite.config.ts"
-    ],
+, "build/generateColorLess.js"    ],
     "exclude": [
         "node_modules",
         "tests/server/**/*.ts",

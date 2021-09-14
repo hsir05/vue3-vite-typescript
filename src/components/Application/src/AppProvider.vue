@@ -4,6 +4,7 @@
   import { prefixCls } from '/@/settings/designSetting'
   import defaultSettings from '/@/config/defaultSettings'
   import { localStorageService } from '/@/utils/storage'
+  //   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   const props = {
     prefixCls: { type: String, default: prefixCls }
   }
@@ -15,6 +16,8 @@
       const appStore = useAppStore()
 
       handleRestoreState()
+      // const { changeThemeColor } = useRootSetting()
+      //    changeThemeColor('#ff9800')
 
       const { prefixCls } = toRefs(props)
       console.log(prefixCls.value)
