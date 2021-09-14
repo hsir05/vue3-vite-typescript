@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { defineComponent, toRefs } from 'vue'
+  import { defineComponent, toRefs, unref } from 'vue'
   import { useAppStore } from '/@/store/modules/app'
   import { prefixCls } from '/@/settings/designSetting'
   import defaultSettings from '/@/config/defaultSettings'
   import { localStorageService } from '/@/utils/storage'
   import { PROJ_CFG_KEY } from '/@/enums/cacheEnum'
-  //   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   const props = {
     prefixCls: { type: String, default: prefixCls }
   }
@@ -17,8 +17,8 @@
       const appStore = useAppStore()
 
       handleRestoreState()
-      // const { changeThemeColor } = useRootSetting()
-      //    changeThemeColor('#ff9800')
+      const { changeThemeColor, getThemeColor } = useRootSetting()
+      changeThemeColor(unref(getThemeColor))
 
       const { prefixCls } = toRefs(props)
       console.log(prefixCls.value)

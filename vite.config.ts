@@ -5,7 +5,7 @@ import { wrapperEnv } from './build/utils'
 import path from 'path'
 import { resolve } from 'path';
 import { loadEnv } from 'vite';
-import { generateModifyVars } from './build/themeConfig'
+// import { generateModifyVars } from './build/themeConfig'
 
 function pathResolve(dir: string) {
     return resolve(process.cwd(), '.', dir);
