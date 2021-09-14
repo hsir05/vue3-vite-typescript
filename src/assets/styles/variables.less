@@ -1,7 +1,16 @@
 
 // variables.less
-@primary-color: #ff9800;
+@primary-color: #fa541c;
  :root {
     --PC: @primary-color;
 }
 @border-radius-base: 4px;
+.multiple-header {
+    .ant-tabs.ant-tabs-card {
+        .ant-tabs-card-bar {
+            .ant-tabs-tab-active {
+                background-color: @primary-color;
+            }
+        }
+    }
+  }

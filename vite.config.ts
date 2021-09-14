@@ -83,7 +83,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             preprocessorOptions: {
                 less: { 
                     additionalData: `@import "src/assets/styles/index.less";`,
-                    modifyVars: generateModifyVars(),
+                    // modifyVars: generateModifyVars(),
                     javascriptEnabled: true
                 }
             }

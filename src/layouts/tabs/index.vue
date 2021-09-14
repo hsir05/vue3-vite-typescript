@@ -48,6 +48,7 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { MenuTypeEnum } from '/@/enums/menuEnum'
   import { initAffixTabs } from './useMultipleTabs'
+
   export default defineComponent({
     name: 'MultipleHeader',
     components: {
@@ -104,6 +105,7 @@
       return {
         handleRedo,
         getShowFold,
+
         handleChange,
         activeKeyRef,
         handleEdit,
@@ -137,8 +139,6 @@
       .ant-tabs-card-bar {
         .ant-tabs-tab-active {
           border-color: #f0f0f0;
-
-          background-color: @primary-color;
           .tab-content {
             color: white;
           }

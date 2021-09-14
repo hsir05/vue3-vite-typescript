@@ -18,7 +18,7 @@ export function useRootSetting() {
 
     async function  changeThemeColor(color: string){
         // @ts-ignore
-        window.less.modifyVars({
+        window.less.modifyVars({ 
             '@primary-color': color
         }).then(() => {
             console.log('主题切换成功');

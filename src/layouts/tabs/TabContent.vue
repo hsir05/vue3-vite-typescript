@@ -1,6 +1,6 @@
 <template>
   <Dropdown :trigger="getTrigger">
-    <router-link :to="getPath" class="tab-content" @contextmenu="handleContext" v-if="getIsTabs">
+    <router-link :to="getPath" v-if="getIsTabs" class="tab-content" @contextmenu="handleContext">
       {{ getTitle }}
     </router-link>
 
@@ -35,6 +35,7 @@
   import { useTabDropdown } from './useTabDropdown'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   export default defineComponent({
     name: 'TabContent',
     components: {
@@ -59,6 +60,8 @@
         props as TabContentProps,
         getIsTabs
       )
+
+      const { getThemeColor } = useRootSetting()
 
       const getTitle = computed(() => {
         const { tabItem: { meta } = {} } = props
@@ -85,6 +88,7 @@
       return {
         getTitle,
         getPath,
+        getThemeColor,
         getIsTabs,
         getTrigger,
         getDropMenuList,
