@@ -8,6 +8,14 @@ export default {
         role: 'Role',
         users: 'Users',
         menus: 'Menus',
+
+        configuration: 'Configuration',
+        darkMode: 'Dark mode',
+        navigationMode: 'Navigation mode',
+        systemTheme: 'System theme',
+        headerTheme: 'Header theme',
+        menuTheme: 'Menu theme',
+
         "403": "403",
         "404": "404",
         "500": "500",

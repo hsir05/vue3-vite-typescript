@@ -9,6 +9,14 @@ export default {
         role: '角色管理', 
         users: '用户管理',
         menus: '菜单管理',
+
+        configuration: '项目配置',
+        darkMode: '主题',
+        navigationMode: '导航栏模式',
+        systemTheme: '系统主题',
+        headerTheme: '顶栏主题',
+        menuTheme: '菜单主题',
+
         "403": "403",
         "404": "404",
         "500": "500",

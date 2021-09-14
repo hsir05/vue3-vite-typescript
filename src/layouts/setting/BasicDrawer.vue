@@ -1,6 +1,6 @@
 <template>
   <Drawer
-    title="项目配置"
+    :title="t('configuration')"
     :closable="true"
     width="350"
     :destroyOnClose="true"
@@ -8,7 +8,7 @@
     v-model:visible="visibleRef"
   >
     <div class="drawer-container">
-      <Divider>主题</Divider>
+      <Divider orientation="left" plain>{{ t('darkMode') }}</Divider>
       <Switch v-model:checked="checked" @change="handleSwitch">
         <template #checkedChildren>
           <MyIcon type="icon-icon-test" style="font-size: 18px" />
@@ -18,7 +18,7 @@
         </template>
       </Switch>
 
-      <Divider>导航栏模式</Divider>
+      <Divider orientation="left" plain>{{ t('systemTheme') }}</Divider>
       <div class="navigation-mode-wrap">
         <template v-for="item in menuTypeList || []" :key="item.title">
           <Tooltip :title="item.title" placement="bottom">
@@ -34,7 +34,7 @@
         </template>
       </div>
 
-      <Divider>系统主题</Divider>
+      <Divider orientation="left" plain>{{ t('systemTheme') }}</Divider>
       <div class="clearfix flex">
         <div
           class="theme-color"
@@ -46,7 +46,7 @@
           <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
         </div>
       </div>
-      <Divider>顶栏主题</Divider>
+      <Divider orientation="left" plain>{{ t('headerTheme') }}</Divider>
       <div class="clearfix flex">
         <div
           class="theme-color"
@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <Divider>菜单主题</Divider>
+      <Divider orientation="left" plain>{{ t('menuTheme') }}</Divider>
       <div class="clearfix flex">
         <div
           class="theme-color"
@@ -79,6 +79,7 @@
   import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { useI18n } from '/@/hooks/web/useI18n'
   import { menuTypeList } from '../enum'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import {
@@ -106,6 +107,7 @@
     setup(props, { emit }) {
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
+      const { t } = useI18n()
 
       const { getLayoutMode } = useHeaderSetting()
 
@@ -159,7 +161,8 @@
         handleTopTheme,
         menuTypeList,
         handleSwitch,
-        getLayoutMode
+        getLayoutMode,
+        t
       }
     }
   })
