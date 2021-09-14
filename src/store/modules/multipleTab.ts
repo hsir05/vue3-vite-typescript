@@ -97,6 +97,7 @@ export const useMultipleTabStore = defineStore({
                 }
                 const index = this.tabList.findIndex((item) => item.fullPath === fullPath);
                 index !== -1 && this.tabList.splice(index, 1);
+                sessionStorageService.set(MULTIPLE_TABS_KEY, this.tabList)
             };
 
             const { currentRoute, replace } = router;
@@ -119,7 +120,7 @@ export const useMultipleTabStore = defineStore({
                 toTarget = getToTarget(page);
             }
             close(currentRoute.value);
-            sessionStorageService.set('tabList', this.tabList)
+            sessionStorageService.set(MULTIPLE_TABS_KEY, this.tabList)
             replace(toTarget);
         },
         async closeTabByKey(key: string, router: Router){
