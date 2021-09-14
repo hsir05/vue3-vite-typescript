@@ -34,6 +34,7 @@
       <TranslationDropDown />
       <!-- 全屏 -->
       <FullScreen />
+
       <UserDropDown />
 
       <SettingButton />

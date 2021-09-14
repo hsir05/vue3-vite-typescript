@@ -21,16 +21,16 @@
           </span>
         </template>
         <a-menu-item :key="item.path" v-for="item in menu.children">
-          <router-link :to="item.path" @click="handleMenu(item.path)">
-            {{ t(item.name) }}
-          </router-link>
+          <router-link :to="item.path" @click="handleMenu(item.path)">{{
+            t(item.name)
+          }}</router-link>
         </a-menu-item>
       </a-sub-menu>
     </template>
   </a-menu>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, ref, unref, toRefs, PropType } from 'vue'
+  import { defineComponent, reactive, toRefs, PropType } from 'vue'
   import type { Menu as MenuType } from '/@/router/types'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
@@ -56,13 +56,16 @@
         selectedKeys: ['/dashboard']
       })
 
-      const currentActiveMenu = ref('')
+      // const currentActiveMenu = ref('')
+      // 注释代码存在优化
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
-        currentActiveMenu.value = route.meta?.currentActiveMenu as string
-        if (unref(currentActiveMenu)) {
-          menuState.selectedKeys = [unref(currentActiveMenu)]
-        }
+
+        // currentActiveMenu.value = route.meta?.currentActiveMenu as string
+        menuState.selectedKeys = [route.path]
+        // if (unref(currentActiveMenu)) {
+        //     menuState.selectedKeys = [unref(currentActiveMenu)]
+        // }
       })
 
       function handleMenu(path: string) {

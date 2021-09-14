@@ -12,7 +12,7 @@ export function setRouteChange(lastChangeRoute: RouteLocationNormalized) {
     emitter.emit(key, r);
     lastChangeTab = r;
 } 
-
+ 
 export function listenerRouteChange(
     callback: (route: RouteLocationNormalized) => void,
     immediate = true

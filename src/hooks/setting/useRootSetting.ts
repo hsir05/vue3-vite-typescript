@@ -14,7 +14,7 @@ export function useRootSetting() {
 
     function setRootSetting(setting: Partial<RootSetting>) {
         appStore.setProjectConfig(setting);
-    }  
+    }   
 
     async function  changeThemeColor(color: string){
         // @ts-ignore

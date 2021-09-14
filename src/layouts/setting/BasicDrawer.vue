@@ -50,12 +50,25 @@
       <div class="clearfix flex">
         <div
           class="theme-color"
-          v-for="color in APP_PRESET_COLOR_LIST"
+          v-for="color in APP_TOP_COLOR_LIST"
           :key="color"
           :style="{ backgroundColor: color }"
-          @click="handleSystemTheme(color)"
+          @click="handleTopTheme(color)"
         >
-          <!-- <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" /> -->
+          <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
+        </div>
+      </div>
+
+      <Divider>菜单主题</Divider>
+      <div class="clearfix flex">
+        <div
+          class="theme-color"
+          v-for="color in APP_MENU_COLOR_LIST"
+          :key="color"
+          :style="{ backgroundColor: color }"
+          @click="handleTopTheme(color)"
+        >
+          <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
         </div>
       </div>
     </div>
@@ -68,7 +81,11 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { menuTypeList } from '../enum'
   import MyIcon from '/@/components/MyIcon/index.vue'
-  import { APP_PRESET_COLOR_LIST } from '/@/settings/designSetting'
+  import {
+    APP_PRESET_COLOR_LIST,
+    APP_TOP_COLOR_LIST,
+    APP_MENU_COLOR_LIST
+  } from '/@/settings/designSetting'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   export default defineComponent({
     name: 'SettingDrawer',
@@ -90,9 +107,6 @@
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
 
-      //   const afterVisibleChange = (bool: boolean) => {
-      //     console.log('visibleRef', bool)
-      //   }
       const { getLayoutMode } = useHeaderSetting()
 
       const { settingLayoutMode, setMenuSetting } = useMenuSetting()
@@ -122,6 +136,9 @@
         setRootSetting({ themeColor: color })
         changeThemeColor(color)
       }
+      const handleTopTheme = (color: string): void => {
+        console.log(color)
+      }
       const handler = (item) => {
         settingLayoutMode({ layoutMode: item.type })
         setMenuSetting({ collapsed: false })
@@ -134,9 +151,12 @@
         visibleRef,
         checked,
         APP_PRESET_COLOR_LIST,
+        APP_TOP_COLOR_LIST,
+        APP_MENU_COLOR_LIST,
         close,
         handler,
         handleSystemTheme,
+        handleTopTheme,
         menuTypeList,
         handleSwitch,
         getLayoutMode
@@ -158,6 +178,7 @@
       text-align: center;
       color: #fff;
       font-weight: 700;
+      border: 1px solid #ddd;
     }
   }
   .navigation-mode-wrap {
@@ -171,9 +192,10 @@
       overflow: hidden;
       cursor: pointer;
       background-color: #f0f2f5;
-      border-radius: 4px;
+      border-radius: 6px;
       box-shadow: 0 1px 2.5px 0 rgb(0 0 0 / 18%);
       box-sizing: border-box;
+      border: 1px solid #ddd;
       &:after,
       &:before {
         position: absolute;
