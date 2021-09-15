@@ -6,6 +6,7 @@
   import { localStorageService } from '/@/utils/storage'
   import { PROJ_CFG_KEY } from '/@/enums/cacheEnum'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   const props = {
     prefixCls: { type: String, default: prefixCls }
   }
@@ -18,7 +19,10 @@
 
       handleRestoreState()
       const { changeThemeColor, getThemeColor } = useRootSetting()
+      const { getHeaderBgColor, updateHeaderBgColor } = useHeaderSetting()
       changeThemeColor(unref(getThemeColor))
+
+      updateHeaderBgColor(getHeaderBgColor.value)
 
       const { prefixCls } = toRefs(props)
       console.log(prefixCls.value)

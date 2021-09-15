@@ -79,19 +79,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             jsxFactory: 'h',
             jsxFragment: 'Fragment'
         },
-        css: {
-            preprocessorOptions: {
-                less: { 
-                    additionalData: `@import "src/assets/styles/index.less";`,
-                    // modifyVars: generateModifyVars(),
-                    javascriptEnabled: true
-                }
-            }
-        }, 
+        
         plugins: [
             vue(),
             styleImport({
-                libs: [{ 
+                libs: [{
                     libraryName: 'ant-design-vue',
                     esModule: true,
                     ensureStyleFile: true,
@@ -100,6 +92,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
                     },
                 }]
             })
-        ]
+        ],
+        css: {
+            preprocessorOptions: {
+                less: {
+                    additionalData: `@import "src/assets/styles/index.less";`,
+                    // modifyVars: generateModifyVars(),
+                    javascriptEnabled: true
+                }
+            }
+        },
     }
 }

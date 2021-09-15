@@ -1,8 +1,8 @@
 <template>
   <Popover title trigger="click">
     <span class="pd15 h-header-action-item">
-      <Badge dot class>
-        <MyIcon type="icon-bell" />
+      <Badge dot>
+        <span class="badge"><MyIcon type="icon-bell" /></span>
       </Badge>
     </span>
 
@@ -50,3 +50,8 @@
     }
   })
 </script>
+<style lang="less">
+  .badge {
+    color: var(--header-text-color);
+  }
+</style>

@@ -70,9 +70,7 @@
       LayoutMenu
     },
     setup() {
-      const { getLayoutMode, getHeaderTheme } = useHeaderSetting()
-      console.log(getHeaderTheme.value)
-
+      const { getLayoutMode } = useHeaderSetting()
       const { getCollapsed, setMenuSetting } = useMenuSetting()
       const handleCollapsed = () => {
         setMenuSetting({ collapsed: !unref(getCollapsed) })
@@ -80,7 +78,6 @@
       return {
         getCollapsed,
         handleCollapsed,
-        getHeaderTheme,
         getLayoutMode
       }
     }
@@ -96,8 +93,10 @@
       color: #1890ff;
     }
   }
+
   .h-header {
-    background: @white;
+    background: var(--header-bg-color);
+    color: var(--header-text-color);
     padding: 0;
     height: 45px;
     line-height: 45px;
@@ -105,6 +104,12 @@
     .h-header-top {
       @a: flex-start;
       .flexed();
+    }
+    .ant-breadcrumb :deep(a) {
+      color: var(--header-text-color);
+    }
+    .ant-breadcrumb > :deep(span:last-child) {
+      color: var(--header-text-color);
     }
   }
   .user-name {

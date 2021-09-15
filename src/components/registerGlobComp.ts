@@ -1,9 +1,8 @@
 import type { App } from 'vue';
-import { Layout, Menu, Button, ConfigProvider, Breadcrumb, Tooltip, Divider } from "ant-design-vue";
+import { Layout, Menu, Button, ConfigProvider, Tooltip, Divider } from "ant-design-vue";
 
-const Item = Breadcrumb.Item
 
-const compList = [Button, Item, Breadcrumb, Tooltip, ConfigProvider, Divider];
+const compList = [Button, Tooltip, ConfigProvider, Divider];
 
 export function registerGlobComp(app: App) {
   compList.forEach((comp) => {

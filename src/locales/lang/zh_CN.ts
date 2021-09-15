@@ -21,6 +21,10 @@ export default {
         "404": "404",
         "500": "500",
         login: '登录',
+        loginOut: '退出系统',
+
+        tooltipEntryFull: '全屏',
+        tooltipExitFull: '退出全屏',
 
         ...common,
         antdLocale,

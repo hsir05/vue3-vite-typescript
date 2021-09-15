@@ -11,7 +11,7 @@
 
     <template #overlay>
       <Menu style="width: 135px">
-        <MenuItem @click="handleQuit"> <MyIcon type="icon-exit" />退出系统 </MenuItem>
+        <MenuItem @click="handleQuit"> <MyIcon type="icon-exit" />{{ t('loginOut') }}</MenuItem>
       </Menu>
     </template>
   </Dropdown>
@@ -22,6 +22,7 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useRouter } from 'vue-router'
   import { useMultipleTabStore } from '/@/store/modules/multipleTab'
+  import { useI18n } from '/@/hooks/web/useI18n'
   export default defineComponent({
     name: 'Footer',
     components: {
@@ -33,6 +34,7 @@
     },
     setup() {
       const router = useRouter()
+      const { t } = useI18n()
       const tabStore = useMultipleTabStore()
       function handleQuit() {
         router.replace('/login')
@@ -40,7 +42,8 @@
       }
 
       return {
-        handleQuit
+        handleQuit,
+        t
       }
     }
   })

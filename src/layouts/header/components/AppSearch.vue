@@ -3,7 +3,7 @@
     <template #title>
       <span>搜索</span>
     </template>
-    <MyIcon type="icon-search" class="pd15 h-header-action-item" />
+    <MyIcon type="icon--search" class="pd15 h-header-action-item" />
   </a-tooltip>
 </template>
 <script lang="ts">

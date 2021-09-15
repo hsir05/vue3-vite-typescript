@@ -20,6 +20,11 @@ export default {
         "404": "404",
         "500": "500",
         login: 'Login',
+        loginOut: 'Login Out',
+
+        tooltipEntryFull: 'Full Screen',
+        tooltipExitFull: 'Exit Full Screen',
+
         ...common,
         antdLocale,
     },

@@ -49,16 +49,15 @@
       </div>
 
       <Divider orientation="left">{{ t('headerTheme') }}</Divider>
-      {{ getHeaderTheme }}
       <div class="clearfix flex">
         <div
-          :class="['theme-color', getHeaderTheme === color ? 'theme-color-active' : '']"
+          :class="['theme-color', getHeaderBgColor === color ? 'theme-color-active' : '']"
           v-for="color in APP_TOP_COLOR_LIST"
           :key="color"
           :style="{ backgroundColor: color }"
           @click="handleHeaderTheme(color)"
         >
-          <MyIcon type="icon-gou" v-if="getHeaderTheme === color" style="font-size: 18px" />
+          <MyIcon type="icon-gou" v-if="getHeaderBgColor === color" style="font-size: 18px" />
         </div>
       </div>
 
@@ -112,7 +111,7 @@
       const checked = ref<boolean>(false)
       const { t } = useI18n()
 
-      const { getLayoutMode, getHeaderTheme, setHeaderTheme } = useHeaderSetting()
+      const { getLayoutMode, getHeaderBgColor, getHeaderTheme, setHeaderTheme } = useHeaderSetting()
 
       const { settingLayoutMode, setMenuSetting } = useMenuSetting()
       const { getThemeColor, setRootSetting, changeThemeColor } = useRootSetting()
@@ -156,6 +155,7 @@
         // afterVisibleChange,
         showDrawer,
         getThemeColor,
+        getHeaderBgColor,
         visibleRef,
         checked,
         APP_PRESET_COLOR_LIST,
