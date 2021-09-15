@@ -3,6 +3,7 @@
 @primary-color: #fa541c;
  :root {
     --PC: @primary-color;
+    --header-bg-color: white;
 }
 @border-radius-base: 4px;
 .multiple-header {
@@ -14,3 +15,16 @@
         }
     }
   }
+.navigation-mode-wrap {
+     .navigation-mode:hover {
+        border: 2px solid @primary-color;
+     }
+    .navigation-mode-active{
+        border: 2px solid @primary-color;
+    }
+}
+.drawer-container {
+    .theme-color-active {
+        border: 1px solid @primary-color;
+    }
+}

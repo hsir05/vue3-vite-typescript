@@ -6,9 +6,10 @@
     :destroyOnClose="true"
     @close="close"
     v-model:visible="visibleRef"
+    class="drawer-wrap"
   >
     <div class="drawer-container">
-      <Divider orientation="left" plain>{{ t('darkMode') }}</Divider>
+      <Divider orientation="left">{{ t('darkMode') }}</Divider>
       <Switch v-model:checked="checked" @change="handleSwitch">
         <template #checkedChildren>
           <MyIcon type="icon-icon-test" style="font-size: 18px" />
@@ -18,7 +19,7 @@
         </template>
       </Switch>
 
-      <Divider orientation="left" plain>{{ t('systemTheme') }}</Divider>
+      <Divider orientation="left">{{ t('navigationMode') }}</Divider>
       <div class="navigation-mode-wrap">
         <template v-for="item in menuTypeList || []" :key="item.title">
           <Tooltip :title="item.title" placement="bottom">
@@ -34,10 +35,10 @@
         </template>
       </div>
 
-      <Divider orientation="left" plain>{{ t('systemTheme') }}</Divider>
+      <Divider orientation="left">{{ t('systemTheme') }}</Divider>
       <div class="clearfix flex">
         <div
-          class="theme-color"
+          :class="['theme-color', getThemeColor === color ? 'theme-color-active' : '']"
           v-for="color in APP_PRESET_COLOR_LIST"
           :key="color"
           :style="{ backgroundColor: color }"
@@ -46,27 +47,29 @@
           <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
         </div>
       </div>
-      <Divider orientation="left" plain>{{ t('headerTheme') }}</Divider>
+
+      <Divider orientation="left">{{ t('headerTheme') }}</Divider>
+      {{ getHeaderTheme }}
       <div class="clearfix flex">
         <div
-          class="theme-color"
+          :class="['theme-color', getHeaderTheme === color ? 'theme-color-active' : '']"
           v-for="color in APP_TOP_COLOR_LIST"
           :key="color"
           :style="{ backgroundColor: color }"
-          @click="handleTopTheme(color)"
+          @click="handleHeaderTheme(color)"
         >
-          <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
+          <MyIcon type="icon-gou" v-if="getHeaderTheme === color" style="font-size: 18px" />
         </div>
       </div>
 
-      <Divider orientation="left" plain>{{ t('menuTheme') }}</Divider>
+      <Divider orientation="left">{{ t('menuTheme') }}</Divider>
       <div class="clearfix flex">
         <div
-          class="theme-color"
+          :class="['theme-color', getHeaderTheme === color ? 'theme-color-active' : '']"
           v-for="color in APP_MENU_COLOR_LIST"
           :key="color"
           :style="{ backgroundColor: color }"
-          @click="handleTopTheme(color)"
+          @click="handleMenuTheme(color)"
         >
           <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
         </div>
@@ -79,6 +82,7 @@
   import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   import { useI18n } from '/@/hooks/web/useI18n'
   import { menuTypeList } from '../enum'
   import MyIcon from '/@/components/MyIcon/index.vue'
@@ -87,7 +91,6 @@
     APP_TOP_COLOR_LIST,
     APP_MENU_COLOR_LIST
   } from '/@/settings/designSetting'
-  import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   export default defineComponent({
     name: 'SettingDrawer',
     components: {
@@ -109,7 +112,7 @@
       const checked = ref<boolean>(false)
       const { t } = useI18n()
 
-      const { getLayoutMode } = useHeaderSetting()
+      const { getLayoutMode, getHeaderTheme, setHeaderTheme } = useHeaderSetting()
 
       const { settingLayoutMode, setMenuSetting } = useMenuSetting()
       const { getThemeColor, setRootSetting, changeThemeColor } = useRootSetting()
@@ -138,7 +141,10 @@
         setRootSetting({ themeColor: color })
         changeThemeColor(color)
       }
-      const handleTopTheme = (color: string): void => {
+      const handleHeaderTheme = (color: string): void => {
+        setHeaderTheme({ bgColor: color })
+      }
+      const handleMenuTheme = (color: string): void => {
         console.log(color)
       }
       const handler = (item) => {
@@ -158,16 +164,23 @@
         close,
         handler,
         handleSystemTheme,
-        handleTopTheme,
+        handleHeaderTheme,
+        handleMenuTheme,
         menuTypeList,
         handleSwitch,
         getLayoutMode,
+        getHeaderTheme,
         t
       }
     }
   })
 </script>
 <style lang="less">
+  .drawer-wrap {
+    .ant-drawer-body {
+      padding: 5px 24px;
+    }
+  }
   .drawer-container {
     text-align: center;
     .ant-switch {
@@ -179,9 +192,12 @@
       border-radius: 2px;
       cursor: pointer;
       text-align: center;
-      color: #fff;
+      color: @white;
       font-weight: 700;
       border: 1px solid #ddd;
+    }
+    .theme-color-active {
+      border: 1px solid @primary-color;
     }
   }
   .navigation-mode-wrap {
@@ -206,37 +222,37 @@
       }
       &:hover {
         padding: 12px;
-        border: 2px solid #0960bd;
+        border: 2px solid @primary-color;
       }
     }
     .navigation-mode-active {
       padding: 12px;
-      border: 2px solid #0960bd;
+      border: 2px solid @primary-color;
     }
 
     .navigation-mode-sidebar {
       &:after {
-        .mode(100%, 25%, #fff);
+        .mode(100%, 25%, @white);
       }
       &:before {
-        .mode(33%, 100%, #273352);
+        .mode(33%, 100%, @navigationColor);
         z-index: 1;
         border-radius: 4px 0 0 4px;
       }
     }
     .navigation-mode-mix-sidebar {
       &:after {
-        .mode(100%, 25%, #273352);
+        .mode(100%, 25%, @navigationColor);
         z-index: 1;
       }
       &:before {
-        .mode(33%, 100%, #fff);
+        .mode(33%, 100%, @white);
         border-radius: 4px 0 0 4px;
       }
     }
     .navigation-mode-mix {
       &:after {
-        .mode(100%, 25%, #273352);
+        .mode(100%, 25%, @navigationColor);
       }
     }
   }

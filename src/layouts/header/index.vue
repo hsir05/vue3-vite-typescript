@@ -70,7 +70,8 @@
       LayoutMenu
     },
     setup() {
-      const { getLayoutMode } = useHeaderSetting()
+      const { getLayoutMode, getHeaderTheme } = useHeaderSetting()
+      console.log(getHeaderTheme.value)
 
       const { getCollapsed, setMenuSetting } = useMenuSetting()
       const handleCollapsed = () => {
@@ -79,6 +80,7 @@
       return {
         getCollapsed,
         handleCollapsed,
+        getHeaderTheme,
         getLayoutMode
       }
     }

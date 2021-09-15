@@ -36,6 +36,6 @@ export const APP_MENU_COLOR_LIST: string[] = [
     'rgb(19, 194, 194)',
     '#001529',
     '#000',
-    '#fff',
+    'light',
     '#ff9800'
 ];

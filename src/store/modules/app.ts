@@ -32,7 +32,7 @@ export const useAppStore = defineStore({
         },
         getHeaderSetting(): HeaderSetting {
             return this.getProjectConfig.headerSetting;
-        }, 
+        },  
         getMenuSetting(): MenuSetting {
             return this.getProjectConfig.menuSetting;
         },
