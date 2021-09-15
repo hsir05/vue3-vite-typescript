@@ -1,12 +1,7 @@
 
 import { computed } from 'vue';
 import { useAppStore } from '/@/store/modules/app';
-import type { ProjectConfig, HeaderSetting } from '/#/config';
-
-type RootSetting = Omit<
-    ProjectConfig,
-    'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
->;
+import type { HeaderSetting } from '/#/config';
 
 export function useHeaderSetting(){
     const appStore = useAppStore();
