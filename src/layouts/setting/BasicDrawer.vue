@@ -9,6 +9,7 @@
     class="drawer-wrap"
   >
     <div class="drawer-container">
+      <!-- 这里可以优化 抽离公共组件 -->
       <Divider orientation="left">{{ t('darkMode') }}</Divider>
       <Switch v-model:checked="checked" @change="handleSwitch">
         <template #checkedChildren>
@@ -210,7 +211,7 @@
       margin-right: 16px;
       overflow: hidden;
       cursor: pointer;
-      background-color: #f0f2f5;
+      background-color: @boderColor;
       border-radius: 6px;
       box-shadow: 0 1px 2.5px 0 rgb(0 0 0 / 18%);
       box-sizing: border-box;
@@ -263,7 +264,7 @@
       width: 20px;
       height: 20px;
       cursor: pointer;
-      border: 1px solid #ddd;
+      border: 1px solid @borderColor2;
       border-radius: 2px;
     }
   }

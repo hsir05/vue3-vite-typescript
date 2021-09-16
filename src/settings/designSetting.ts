@@ -24,7 +24,7 @@ export const APP_TOP_COLOR_LIST: string[] = [
     '#13c2c2',
     '#1890ff',
     '#000000d9',
-    '#fff',
+    '#ffffff',
     '#ff9800'
 ];
 
@@ -36,6 +36,6 @@ export const APP_MENU_COLOR_LIST: string[] = [
     '#13c2c2',
     '#001529',
     '#000000d9',
-    '#fff',
+    '#ffffff',
     '#ff9800'
 ];

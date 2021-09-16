@@ -24,10 +24,9 @@ export function useHeaderSetting(){
     function updateHeaderBgColor(color: string){
         setCssVar(HEADER_BG_COLOR_VAR, color);
         const hoverColor = lighten(color!, 6);
-        
         setCssVar(HEADER_BG_HOVER_COLOR_VAR, hoverColor);
-        color === '#fff' ? setCssVar(HEADER_TEXT_COLOR_VAR, '#000000d9') : setCssVar(HEADER_TEXT_COLOR_VAR, '#fff');
-        
+        setCssVar(HEADER_TEXT_COLOR_VAR, '#fff')
+        color === '#ffffff' ? setCssVar(HEADER_TEXT_COLOR_VAR, '#000000d9') : setCssVar(HEADER_TEXT_COLOR_VAR, '#fff');
     }
     
     return { 

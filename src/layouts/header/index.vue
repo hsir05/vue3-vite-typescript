@@ -89,9 +89,9 @@
     padding: 0 24px 0 12px;
     cursor: pointer;
     transition: color 0.3s;
-    &:hover {
-      color: #1890ff;
-    }
+    // &:hover {
+    //   color:var(--header-bg-hover-color);;
+    // }
   }
 
   .h-header {

@@ -24,10 +24,9 @@ export default {
         showFold: true
     },
     headerSetting: {
-        bgColor: '#fff',
+        bgColor: '#ffffff',
         show: true,
-        // theme: ThemeEnum.DARK,
-        theme: '#fff',
+        theme: '#ffffff',
         showFullScreen: true,
     },
     transitionSetting: {

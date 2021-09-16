@@ -2,7 +2,7 @@
   <div class style="width: 100%">
     <LayoutMultipleHeader />
     <a-layout-content style="margin: 15px 10px 0; text-align: left">
-      <div :style="{ padding: '10px', background: '#fff', minHeight: 'calc(100vh - 160px)' }">
+      <div :style="{ padding: '10px', background: '#ffffff', minHeight: 'calc(100vh - 160px)' }">
         <router-view :key="routerViewKey" v-slot="{ Component }">
           <transition name="fade" mode="out-in" :appear="true">
             <keep-alive v-if="openCache" :include="getCaches">
