@@ -7,6 +7,7 @@
   import { PROJ_CFG_KEY } from '/@/enums/cacheEnum'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   const props = {
     prefixCls: { type: String, default: prefixCls }
   }
@@ -20,9 +21,11 @@
       handleRestoreState()
       const { changeThemeColor, getThemeColor } = useRootSetting()
       const { getHeaderBgColor, updateHeaderBgColor } = useHeaderSetting()
+      const { getMenuBgColor, updateSidebarBgColor } = useMenuSetting()
       changeThemeColor(unref(getThemeColor))
 
       updateHeaderBgColor(getHeaderBgColor.value)
+      updateSidebarBgColor(getMenuBgColor.value)
 
       const { prefixCls } = toRefs(props)
       console.log(prefixCls.value)

@@ -2,7 +2,7 @@
   <a-menu
     :selectedKeys="selectedKeys"
     :defaultSelectedKeys="defaultSelectedKeys"
-    theme="dark"
+    :theme="theme"
     mode="inline"
     :openKeys="openKeys"
   >
@@ -45,15 +45,21 @@
       items: {
         type: Array as PropType<MenuType[]>,
         default: () => []
+      },
+      theme: {
+        type: String,
+        default: () => 'dark'
       }
     },
-    setup() {
+    setup(props) {
       const { t } = useI18n()
+      console.log(props.theme)
 
       const menuState = reactive({
         defaultSelectedKeys: ['/dashboard'],
         openKeys: [],
-        selectedKeys: ['/dashboard']
+        selectedKeys: ['/dashboard'],
+        theme: props.theme
       })
 
       // const currentActiveMenu = ref('')

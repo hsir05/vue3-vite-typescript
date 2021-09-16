@@ -1,7 +1,7 @@
 <template>
-  <Sider v-model:collapsed="getCollapsed">
+  <Sider v-model:collapsed="getCollapsed" class="h-sider-bg">
     <AppLogo v-if="getLayoutMode === 'sidebar'" class="sidebar" />
-    <HMenu :isHorizontal="false" />
+    <HMenu :isHorizontal="false" :theme="getMenuTheme" />
   </Sider>
 </template>
 <script lang="ts">
@@ -20,7 +20,7 @@
       Sider: Layout.Sider
     },
     setup() {
-      const { getCollapsed, setMenuSetting } = useMenuSetting()
+      const { getCollapsed, getMenuBgColor, getMenuTheme, setMenuSetting } = useMenuSetting()
       const { getLayoutMode } = useHeaderSetting()
 
       const handleCollapsed = () => {
@@ -29,8 +29,34 @@
       return {
         getCollapsed,
         handleCollapsed,
-        getLayoutMode
+        getLayoutMode,
+        getMenuBgColor,
+        getMenuTheme
       }
     }
   })
 </script>
+<style lang="less">
+  .h-sider-bg.ant-layout-sider {
+    background-color: var(--sider-dark-bg-color);
+  }
+  .h-sider-bg {
+    .ant-menu.ant-menu-dark {
+      // background-color: var(--sider-dark-darken-bg-color);
+      background-color: var(--sider-dark-bg-color);
+    }
+    .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+      //  background-color: var(--sider-dark-bg-color);
+      background-color: var(--sider-dark-darken-bg-color);
+    }
+  }
+  //  左侧导航菜单收缩后hover菜单样式
+  .ant-menu-dark .ant-menu-sub,
+  .ant-menu.ant-menu-dark .ant-menu-sub.ant-menu-vertical {
+    background-color: var(--sider-dark-darken-bg-color);
+  }
+
+  .ant-tooltip-inner {
+    background-color: var(--sider-dark-darken-bg-color);
+  }
+</style>

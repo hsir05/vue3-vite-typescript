@@ -18,6 +18,8 @@ import { primaryColor } from '../../build/themeConfig';
 export default {
     menuSetting: {
         collapsed: false,
+        bgColor: '#001529',
+        theme: 'dark',
     },
     multiTabsSetting: {
         cache:true,

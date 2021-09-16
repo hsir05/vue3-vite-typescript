@@ -18,7 +18,7 @@ export const asyncRouterMap: AppRouteModule = {
         {
             path: '/dashboard', 
             name: 'dashboard',
-            icon: "icon-analysis_icon",
+            icon: "icon-yibiao1",
             component: () => import('../views/dashboard/index.vue'),
             meta: { title: 'dashboard', affix: true }
         },

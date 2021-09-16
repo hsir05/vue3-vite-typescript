@@ -63,15 +63,16 @@
       </div>
 
       <Divider orientation="left">{{ t('menuTheme') }}</Divider>
+      {{ getMenuBgColor }}
       <div class="clearfix flex">
         <div
-          :class="['theme-color', getHeaderTheme === color ? 'theme-color-active' : '']"
+          :class="['theme-color', getMenuBgColor === color ? 'theme-color-active' : '']"
           v-for="color in APP_MENU_COLOR_LIST"
           :key="color"
           :style="{ backgroundColor: color }"
           @click="handleMenuTheme(color)"
         >
-          <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
+          <MyIcon type="icon-gou" v-if="getMenuBgColor === color" style="font-size: 18px" />
         </div>
       </div>
     </div>
@@ -111,11 +112,11 @@
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
       const { t } = useI18n()
-
+      const { getThemeColor, setRootSetting, changeThemeColor } = useRootSetting()
       const { getLayoutMode, getHeaderBgColor, getHeaderTheme, setHeaderTheme } = useHeaderSetting()
 
-      const { settingLayoutMode, setMenuSetting } = useMenuSetting()
-      const { getThemeColor, setRootSetting, changeThemeColor } = useRootSetting()
+      const { settingLayoutMode, getMenuBgColor, setMenuSetting, updateSidebarBgColor } =
+        useMenuSetting()
 
       const close = () => {
         visibleRef.value = false
@@ -130,10 +131,6 @@
         { deep: true }
       )
 
-      const showDrawer = () => {
-        visibleRef.value = true
-      }
-
       const handleSwitch = () => {
         console.log(checked.value)
       }
@@ -145,7 +142,8 @@
         setHeaderTheme({ bgColor: color })
       }
       const handleMenuTheme = (color: string): void => {
-        console.log(color)
+        setMenuSetting({ bgColor: color })
+        updateSidebarBgColor(color)
       }
       const handler = (item) => {
         settingLayoutMode({ layoutMode: item.type })
@@ -153,10 +151,9 @@
       }
 
       return {
-        // afterVisibleChange,
-        showDrawer,
         getThemeColor,
         getHeaderBgColor,
+        getMenuBgColor,
         visibleRef,
         checked,
         APP_PRESET_COLOR_LIST,
