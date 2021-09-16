@@ -2,7 +2,7 @@
   <a-menu
     :selectedKeys="selectedKeys"
     :defaultSelectedKeys="defaultSelectedKeys"
-    :theme="theme"
+    :theme="getMenuTheme"
     mode="inline"
     :openKeys="openKeys"
   >
@@ -10,18 +10,18 @@
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
         <router-link :to="menu.path" @click="handleMenu(menu.path)">
           <MyIcon :type="menu.icon" />
-          <span>{{ t(menu.name) }}</span>
+          <span calss="menu-text">{{ t(menu.name) }}</span>
         </router-link>
       </a-menu-item>
       <a-sub-menu v-else :key="menu.path + 1">
         <template #title>
           <span>
             <MyIcon :type="menu.icon" />
-            <span>{{ t(menu.name) }}</span>
+            <span calss="menu-text">{{ t(menu.name) }}</span>
           </span>
         </template>
         <a-menu-item :key="item.path" v-for="item in menu.children">
-          <router-link :to="item.path" @click="handleMenu(item.path)">{{
+          <router-link :to="item.path" @click="handleMenu(item.path)" calss="menu-text">{{
             t(item.name)
           }}</router-link>
         </a-menu-item>
@@ -36,6 +36,7 @@
   import { useI18n } from '/@/hooks/web/useI18n'
   import { REDIRECT_NAME } from '/@/router/constant'
   import { listenerRouteChange } from '/@/router/routeChange'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   export default defineComponent({
     name: 'Menu',
     components: {
@@ -45,22 +46,18 @@
       items: {
         type: Array as PropType<MenuType[]>,
         default: () => []
-      },
-      theme: {
-        type: String,
-        default: () => 'dark'
       }
     },
-    setup(props) {
+    setup() {
       const { t } = useI18n()
-      console.log(props.theme)
 
       const menuState = reactive({
         defaultSelectedKeys: ['/dashboard'],
         openKeys: [],
-        selectedKeys: ['/dashboard'],
-        theme: props.theme
+        selectedKeys: ['/dashboard']
       })
+
+      const { getMenuTheme } = useMenuSetting()
 
       // const currentActiveMenu = ref('')
       // 注释代码存在优化
@@ -80,6 +77,7 @@
       return {
         t,
         ...toRefs(menuState),
+        getMenuTheme,
         handleMenu
       }
     }

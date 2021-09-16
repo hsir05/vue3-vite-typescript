@@ -2,7 +2,7 @@ import { computed } from 'vue';
 import { useAppStore } from '/@/store/modules/app';
 import type { ProjectConfig, MenuSetting } from '/#/config';
 import { setCssVar } from './util';
-import { colorIsDark, lighten, darken } from '/@/utils/color';
+import { lighten, darken } from '/@/utils/color';
 import { ThemeEnum } from '/@/enums/appEnum';
 
 type RootSetting = Omit<
@@ -30,11 +30,17 @@ export function useMenuSetting() {
     }
 
     function updateSidebarBgColor(color?: string) {
-        setCssVar(SIDER_DARK_BG_COLOR, color);
-        setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color!, 6));
-        setCssVar(SIDER_LIGHTEN_BG_COLOR, lighten(color!, 5));
+        if (color === '#ffffff') {
+            setCssVar(SIDER_DARK_BG_COLOR, color);
+            appStore.setProjectConfig({ menuSetting: { bgColor: color, theme: ThemeEnum.LIGHT } });
+        } else {
+            setCssVar(SIDER_DARK_BG_COLOR, color);
+            setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color!, 6));
+            setCssVar(SIDER_LIGHTEN_BG_COLOR, lighten(color!, 5));
 
-        appStore.setProjectConfig({ menuSetting:{bgColor: color} });
+            appStore.setProjectConfig({ menuSetting: { bgColor: color, theme: ThemeEnum.DARK} });
+        }
+       
     }
      
     return {

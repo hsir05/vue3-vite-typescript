@@ -1,7 +1,7 @@
 <template>
   <Sider v-model:collapsed="getCollapsed" class="h-sider-bg">
     <AppLogo v-if="getLayoutMode === 'sidebar'" class="sidebar" />
-    <HMenu :isHorizontal="false" :theme="getMenuTheme" />
+    <HMenu :isHorizontal="false" />
   </Sider>
 </template>
 <script lang="ts">
@@ -20,7 +20,7 @@
       Sider: Layout.Sider
     },
     setup() {
-      const { getCollapsed, getMenuBgColor, getMenuTheme, setMenuSetting } = useMenuSetting()
+      const { getCollapsed, getMenuBgColor, setMenuSetting } = useMenuSetting()
       const { getLayoutMode } = useHeaderSetting()
 
       const handleCollapsed = () => {
@@ -30,8 +30,7 @@
         getCollapsed,
         handleCollapsed,
         getLayoutMode,
-        getMenuBgColor,
-        getMenuTheme
+        getMenuBgColor
       }
     }
   })

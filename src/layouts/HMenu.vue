@@ -6,15 +6,14 @@
   export default defineComponent({
     name: 'LayoutMenu',
     props: {
-      isHorizontal: Boolean,
-      theme: String
+      isHorizontal: Boolean
     },
     setup(props) {
       const menuData = getMenus()
 
       function renderMenu() {
         return !props.isHorizontal ? (
-          <BasicMenu items={menuData} theme={props.theme} />
+          <BasicMenu items={menuData} />
         ) : (
           <SimpleMenu items={menuData} />
         )
