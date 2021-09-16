@@ -1,24 +1,24 @@
 <template>
-  <Breadcrumb :routes="routesList" class="breadcrumb">
+  <a-breadcrumb :routes="routesList" class="breadcrumb">
     <template #itemRender="{ route, routes }">
       <span v-if="!hasRedirect(routes, route)">{{ t(route.breadcrumbName) }}</span>
       <router-link v-else :to="`${route.path}`">{{ t(route.breadcrumbName) }}</router-link>
     </template>
-  </Breadcrumb>
+  </a-breadcrumb>
 </template>
 <script lang="ts">
   import { defineComponent, toRaw, computed } from 'vue'
   import type { RouteLocationMatched } from 'vue-router'
-  import { Breadcrumb } from 'ant-design-vue'
-  import { RouteType } from './typing'
-  import { getBreadcrumb } from '/@/router/index'
+  // import { Breadcrumb } from 'ant-design-vue'
   import { useRoute } from 'vue-router'
   import { useI18n } from '/@/hooks/web/useI18n'
+  import { getBreadcrumb } from '/@/router/index'
+  import { RouteType } from '/@/layouts/typing'
   export default defineComponent({
-    name: 'LayoutBreadcrumb',
-    components: {
-      Breadcrumb
-    },
+    name: 'HBreadcrumb',
+    // components: {
+    //     Breadcrumb
+    // },
     setup() {
       const route = useRoute()
       const { t } = useI18n()

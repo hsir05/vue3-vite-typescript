@@ -36,7 +36,7 @@
     margin: 16px;
     font-weight: 600;
     font-size: 18px;
-    color: @white;
+    // color: @white;
     text-align: left;
     width: 168px;
     transition: all;

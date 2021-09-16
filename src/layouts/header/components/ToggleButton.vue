@@ -1,6 +1,6 @@
 <template>
   <div class="h-header-app-logo">
-    <AppLogo v-if="getLayoutMode !== 'sidebar'" />
+    <AppLogo v-if="getLayoutMode !== 'sidebar'" :class="getLayoutMode" />
     <div class="h-header-top" v-if="getLayoutMode !== 'mix'">
       <MyIcon
         type="icon-unfold"
@@ -16,25 +16,24 @@
         @click="handleCollapsed"
         style="font-size: 22px"
       />
-      <LayoutBreadcrumb />
+      <HBreadcrumb />
     </div>
     <LayoutMenu :isHorizontal="true" v-if="getLayoutMode === 'mix'" />
   </div>
 </template>
-
 <script lang="ts">
   import { defineComponent, unref } from 'vue'
-  import AppLogo from '../../AppLogo.vue'
-  import LayoutBreadcrumb from '../../Breadcrumb.vue'
+  import AppLogo from '/@/layouts/AppLogo.vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
+  import HBreadcrumb from '/@/components/HBreadcrumb/index.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import LayoutMenu from '../../Menu.vue'
   export default defineComponent({
-    name: 'Header',
+    name: 'ToggleButton',
     components: {
-      LayoutBreadcrumb,
       AppLogo,
+      HBreadcrumb,
       LayoutMenu,
       MyIcon
     },
@@ -67,5 +66,8 @@
   .h-header-top {
     @a: flex-start;
     .flexed();
+  }
+  .mix-sidebar {
+    color: @white;
   }
 </style>

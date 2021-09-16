@@ -1,7 +1,7 @@
 <template>
   <a-layout-header class="h-header bb">
     <!-- 切换按钮 -->
-    <ToggleBtn />
+    <ToggleButton />
     <!-- 功能区 -->
     <div class="h-header-action">
       <!-- 搜索 -->
@@ -22,17 +22,17 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import SettingButton from '../setting/index.vue'
-  import ToggleBtn from './components/toggleBtn.vue'
+  import ToggleButton from './components/ToggleButton.vue'
   import FullScreen from './components/FullScreen.vue'
   import Notify from './components/Notify/index.vue'
   import AppSearch from './components/AppSearch.vue'
   import TranslationDropDown from './components/TranslationDropDown.vue'
   import UserDropDown from './components/UserDropDown.vue'
   export default defineComponent({
-    name: 'Header',
+    name: 'LayoutHeader',
     components: {
       SettingButton,
-      ToggleBtn,
+      ToggleButton,
       FullScreen,
       Notify,
       AppSearch,

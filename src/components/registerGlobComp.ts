@@ -1,8 +1,7 @@
 import type { App } from 'vue';
-import { Layout, Menu, Button, ConfigProvider, Tooltip, Divider } from "ant-design-vue";
+import { Layout, Menu, Button, ConfigProvider, Breadcrumb, Tooltip, Divider } from "ant-design-vue";
 
-
-const compList = [Button, Tooltip, ConfigProvider, Divider];
+const compList = [Button, Tooltip, ConfigProvider, Divider, Breadcrumb];
 
 export function registerGlobComp(app: App) {
   compList.forEach((comp) => {
@@ -10,5 +9,5 @@ export function registerGlobComp(app: App) {
     app.component(comp.name || comp.displayName, comp);
   });
 
-    app.use(Layout).use(Menu);
+    app.use(Layout).use(Menu); 
 }
