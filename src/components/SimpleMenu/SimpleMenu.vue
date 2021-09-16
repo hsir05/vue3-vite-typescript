@@ -2,8 +2,9 @@
   <a-menu
     v-model:selectedKeys="selectedKeys"
     :defaultSelectedKeys="defaultSelectedKeys"
-    theme="linght"
+    theme="dark"
     mode="horizontal"
+    class="horizontal-menu"
   >
     <template v-for="menu in items">
       <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
@@ -78,5 +79,8 @@
 <style lang="less">
   .mw {
     min-width: 440px;
+  }
+  .horizontal-menu.ant-menu.ant-menu-dark {
+    background-color: var(--header-bg-color);
   }
 </style>

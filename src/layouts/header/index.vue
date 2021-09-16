@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header class="h-header bb">
+  <a-layout-header class="h-header">
     <!-- 切换按钮 -->
     <ToggleButton />
     <!-- 功能区 -->

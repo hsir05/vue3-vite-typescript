@@ -9,16 +9,12 @@
 <script lang="ts">
   import { defineComponent, toRaw, computed } from 'vue'
   import type { RouteLocationMatched } from 'vue-router'
-  // import { Breadcrumb } from 'ant-design-vue'
   import { useRoute } from 'vue-router'
   import { useI18n } from '/@/hooks/web/useI18n'
   import { getBreadcrumb } from '/@/router/index'
   import { RouteType } from '/@/layouts/typing'
   export default defineComponent({
     name: 'HBreadcrumb',
-    // components: {
-    //     Breadcrumb
-    // },
     setup() {
       const route = useRoute()
       const { t } = useI18n()

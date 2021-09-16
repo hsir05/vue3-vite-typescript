@@ -18,7 +18,7 @@
       />
       <HBreadcrumb />
     </div>
-    <LayoutMenu :isHorizontal="true" v-if="getLayoutMode === 'mix'" />
+    <HMenu :isHorizontal="true" v-if="getLayoutMode === 'mix'" />
   </div>
 </template>
 <script lang="ts">
@@ -28,13 +28,13 @@
   import HBreadcrumb from '/@/components/HBreadcrumb/index.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-  import LayoutMenu from '../../Menu.vue'
+  import HMenu from '../../HMenu.vue'
   export default defineComponent({
     name: 'ToggleButton',
     components: {
       AppLogo,
       HBreadcrumb,
-      LayoutMenu,
+      HMenu,
       MyIcon
     },
     setup() {
@@ -66,8 +66,5 @@
   .h-header-top {
     @a: flex-start;
     .flexed();
-  }
-  .mix-sidebar {
-    color: @white;
   }
 </style>

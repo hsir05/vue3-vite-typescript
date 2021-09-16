@@ -123,6 +123,7 @@
     background-color: @white;
     padding-top: 2px;
     padding-bottom: 2px;
+    border-top: 1px solid #f0f2f5;
     .multiple-header-icon {
       color: @iconColor;
     }

@@ -1,14 +1,14 @@
 <template>
   <Sider v-model:collapsed="getCollapsed">
-    <AppLogo v-if="getLayoutMode === 'sidebar'" />
-    <LayoutMenu :isHorizontal="false" />
+    <AppLogo v-if="getLayoutMode === 'sidebar'" class="sidebar" />
+    <HMenu :isHorizontal="false" />
   </Sider>
 </template>
 <script lang="ts">
   import { defineComponent, unref } from 'vue'
   import { Layout } from 'ant-design-vue'
   import AppLogo from './AppLogo.vue'
-  import LayoutMenu from './Menu.vue'
+  import HMenu from './HMenu.vue'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 
@@ -16,7 +16,7 @@
     name: 'LayoutSider',
     components: {
       AppLogo,
-      LayoutMenu,
+      HMenu,
       Sider: Layout.Sider
     },
     setup() {
