@@ -74,10 +74,10 @@
       color: var(--header-text-color);
     }
   }
-  .ant-breadcrumb > span:last-child {
+  .breadcrumb.ant-breadcrumb > span:last-child {
     color: var(--header-text-color);
   }
-  .ant-breadcrumb a {
+  .breadcrumb.ant-breadcrumb a {
     color: var(--header-text-color);
   }
 </style>
