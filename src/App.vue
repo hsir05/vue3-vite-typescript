@@ -16,7 +16,6 @@
     components: { ConfigProvider, AppProvider },
     setup() {
       const { getAntdLocale } = useLocale()
-
       return {
         getAntdLocale
       }

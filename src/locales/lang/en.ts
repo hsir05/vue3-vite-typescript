@@ -1,5 +1,7 @@
 import antdLocale from 'ant-design-vue/es/locale/en_US';
 import common from './en/common'
+import layout from './en/layout'
+
 export default {
     message: {
         dashboard: 'Dashboard',
@@ -26,6 +28,7 @@ export default {
         tooltipExitFull: 'Exit Full Screen',
 
         ...common,
+        ...layout,
         antdLocale,
     },
     //   momentLocale: null,

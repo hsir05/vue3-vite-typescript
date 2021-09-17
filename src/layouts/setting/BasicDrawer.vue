@@ -10,8 +10,8 @@
   >
     <div class="drawer-container">
       <!-- 这里可以优化 抽离公共组件 -->
-      <Divider orientation="left">{{ t('darkMode') }}</Divider>
-      <Switch v-model:checked="checked" @change="handleSwitch">
+      <Divider orientation="center">{{ t('darkMode') }}</Divider>
+      <Switch v-model:checked="checked" class="dark-mode" @change="handleSwitch">
         <template #checkedChildren>
           <MyIcon type="icon-icon-test" style="font-size: 18px" />
         </template>
@@ -20,7 +20,7 @@
         </template>
       </Switch>
 
-      <Divider orientation="left">{{ t('navigationMode') }}</Divider>
+      <Divider orientation="center">{{ t('navigationMode') }}</Divider>
       <div class="navigation-mode-wrap">
         <template v-for="item in menuTypeList || []" :key="item.title">
           <Tooltip :title="item.title" placement="bottom">
@@ -36,7 +36,7 @@
         </template>
       </div>
 
-      <Divider orientation="left">{{ t('systemTheme') }}</Divider>
+      <Divider orientation="center">{{ t('systemTheme') }}</Divider>
       <div class="clearfix flex">
         <div
           :class="['theme-color', getThemeColor === color ? 'theme-color-active' : '']"
@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <Divider orientation="left">{{ t('headerTheme') }}</Divider>
+      <Divider orientation="center">{{ t('headerTheme') }}</Divider>
       <div class="clearfix flex">
         <div
           :class="['theme-color', getHeaderBgColor === color ? 'theme-color-active' : '']"
@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <Divider orientation="left">{{ t('menuTheme') }}</Divider>
+      <Divider orientation="center">{{ t('menuTheme') }}</Divider>
       <div class="clearfix flex">
         <div
           :class="['theme-color', getMenuBgColor === color ? 'theme-color-active' : '']"
@@ -74,12 +74,15 @@
           <MyIcon type="icon-gou" v-if="getMenuBgColor === color" style="font-size: 18px" />
         </div>
       </div>
+
+      <SettingSelect :checked="getCollapsed" @handeSetting="handleMenuCollapse" />
     </div>
   </Drawer>
 </template>
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue'
   import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
+  import SettingSelect from './components/SettingSelect.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
@@ -98,7 +101,8 @@
       Divider,
       Switch,
       MyIcon,
-      Tooltip
+      Tooltip,
+      SettingSelect
     },
     props: {
       visible: {
@@ -113,9 +117,13 @@
       const { t } = useI18n()
       const { getThemeColor, setRootSetting, changeThemeColor } = useRootSetting()
       const { getLayoutMode, getHeaderBgColor, getHeaderTheme, setHeaderTheme } = useHeaderSetting()
-
-      const { settingLayoutMode, getMenuBgColor, setMenuSetting, updateSidebarBgColor } =
-        useMenuSetting()
+      const {
+        settingLayoutMode,
+        getCollapsed,
+        getMenuBgColor,
+        setMenuSetting,
+        updateSidebarBgColor
+      } = useMenuSetting()
 
       const close = () => {
         visibleRef.value = false
@@ -152,9 +160,14 @@
         close()
       }
 
+      const handleMenuCollapse = (bool) => {
+        setMenuSetting({ collapsed: bool })
+      }
+
       return {
         getThemeColor,
         getHeaderBgColor,
+        getCollapsed,
         getMenuBgColor,
         visibleRef,
         checked,
@@ -170,6 +183,7 @@
         handleSwitch,
         getLayoutMode,
         getHeaderTheme,
+        handleMenuCollapse,
         t
       }
     }
@@ -181,11 +195,11 @@
       padding: 5px 24px;
     }
   }
+  .dark-mode.ant-switch {
+    background-color: #000;
+  }
   .drawer-container {
     text-align: center;
-    .ant-switch {
-      background-color: #000;
-    }
     .theme-color {
       width: 20px;
       height: 20px;
