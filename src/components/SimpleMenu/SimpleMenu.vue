@@ -2,7 +2,7 @@
   <a-menu
     v-model:selectedKeys="selectedKeys"
     :defaultSelectedKeys="defaultSelectedKeys"
-    theme="dark"
+    theme="light"
     mode="horizontal"
     class="horizontal-menu"
   >

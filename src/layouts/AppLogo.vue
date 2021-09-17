@@ -17,7 +17,7 @@
     setup() {
       const { getCollapsed, getMenuTheme } = useMenuSetting()
       const { getLayoutMode } = useHeaderSetting()
-      const isActive = computed(() => !unref(getCollapsed) && unref(getLayoutMode) !== 'mix')
+      const isActive = computed(() => !unref(getCollapsed) && unref(getLayoutMode) === 'sidebar')
       const isTextActive = computed(
         () => !unref(getCollapsed) && unref(getLayoutMode) !== 'mix-sidebar'
       )

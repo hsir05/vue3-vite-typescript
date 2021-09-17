@@ -7,7 +7,6 @@ export const darkMode = ThemeEnum.LIGHT;
 export const APP_PRESET_COLOR_LIST: string[] = [
     '#f5222d',
     '#fa541c',
-    '#fadb14',
     '#3eaf7c',
     '#13c2c2',
     '#1890ff',
@@ -19,7 +18,6 @@ export const APP_PRESET_COLOR_LIST: string[] = [
 export const APP_TOP_COLOR_LIST: string[] = [
     '#f5222d',
     '#fa541c',
-    '#fadb14',
     '#3eaf7c',
     '#13c2c2',
     '#1890ff',
@@ -31,7 +29,6 @@ export const APP_TOP_COLOR_LIST: string[] = [
 export const APP_MENU_COLOR_LIST: string[] = [
     '#f5222d',
     '#fa541c',
-    '#fadb14',
     '#3eaf7c',
     '#13c2c2',
     '#001529',

@@ -30,6 +30,7 @@ export function useMenuSetting() {
     }
 
     function updateSidebarBgColor(color?: string) {
+        
         if (color === '#ffffff') {
             setCssVar(SIDER_DARK_BG_COLOR, color);
             appStore.setProjectConfig({ menuSetting: { bgColor: color, theme: ThemeEnum.LIGHT } });

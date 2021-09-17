@@ -136,17 +136,20 @@
       const handleSystemTheme = (color: string): void => {
         setRootSetting({ themeColor: color })
         changeThemeColor(color)
+        close()
       }
       const handleHeaderTheme = (color: string): void => {
         setHeaderTheme({ bgColor: color })
+        close()
       }
       const handleMenuTheme = (color: string): void => {
-        setMenuSetting({ bgColor: color })
         updateSidebarBgColor(color)
+        close()
       }
       const handler = (item) => {
         settingLayoutMode({ layoutMode: item.type })
         setMenuSetting({ collapsed: false })
+        close()
       }
 
       return {
