@@ -63,8 +63,8 @@
       const activeKeyRef = ref('')
 
       const tabStore = useMultipleTabStore()
-      const affixTextList = initAffixTabs()
-      console.log(affixTextList)
+      initAffixTabs()
+      //   const affixTextList = initAffixTabs()
 
       listenerRouteChange((route) => {
         tabStore.addTab(unref(route))

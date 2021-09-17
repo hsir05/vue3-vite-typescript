@@ -63,7 +63,6 @@
       </div>
 
       <Divider orientation="left">{{ t('menuTheme') }}</Divider>
-      {{ getMenuBgColor }}
       <div class="clearfix flex">
         <div
           :class="['theme-color', getMenuBgColor === color ? 'theme-color-active' : '']"

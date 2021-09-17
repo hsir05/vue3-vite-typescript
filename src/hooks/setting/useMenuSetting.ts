@@ -33,6 +33,7 @@ export function useMenuSetting() {
         if (color === '#ffffff') {
             setCssVar(SIDER_DARK_BG_COLOR, color);
             appStore.setProjectConfig({ menuSetting: { bgColor: color, theme: ThemeEnum.LIGHT } });
+            
         } else {
             setCssVar(SIDER_DARK_BG_COLOR, color);
             setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color!, 6));

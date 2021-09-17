@@ -1,6 +1,6 @@
 <template>
   <div class="h-header-app-logo">
-    <AppLogo v-if="getLayoutMode !== 'sidebar'" :class="getLayoutMode" />
+    <AppLogo v-if="getLayoutMode !== 'sidebar'" />
     <div class="h-header-top" v-if="getLayoutMode !== 'mix'">
       <MyIcon
         type="icon-unfold"
