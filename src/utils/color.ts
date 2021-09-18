@@ -80,7 +80,7 @@ export function darken(color: string, amount: number) {
  * @returns {string} The processed color represented as HEX
  */
 export function lighten(color: string, amount: number) {
-    if (color === '#fff' || color === '#ffffff'){
+    if (color === '#fffffe' || color === '#ffffff'){
         return '#f0f2f5'
     }
   color = color.indexOf('#') >= 0 ? color.substring(1, color.length) : color;

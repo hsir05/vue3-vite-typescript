@@ -2,7 +2,7 @@
   <a-menu
     v-model:selectedKeys="selectedKeys"
     :defaultSelectedKeys="defaultSelectedKeys"
-    theme="light"
+    :theme="theme"
     mode="horizontal"
     class="horizontal-menu"
   >
@@ -31,12 +31,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, toRefs, reactive, PropType } from 'vue'
+  import { defineComponent, toRefs, reactive, unref, computed, PropType } from 'vue'
   import type { Menu as MenuType } from '/@/router/types'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
   import { REDIRECT_NAME } from '/@/router/constant'
   import { listenerRouteChange } from '/@/router/routeChange'
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   export default defineComponent({
     name: 'SimpleMenu',
     components: {
@@ -52,24 +53,23 @@
       const { t } = useI18n()
       const menuState = reactive({
         defaultSelectedKeys: ['/dashboard'],
-        openKeys: [],
         selectedKeys: ['/dashboard']
       })
-      //   const currentActiveMenu = ref('')
+      const { getHeaderBgColor } = useHeaderSetting()
+
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
-        // currentActiveMenu.value = route.meta?.currentActiveMenu as string
         menuState.selectedKeys = [route.path]
-        // if (unref(currentActiveMenu)) {
-        //   selectedKeys.value = [unref(currentActiveMenu)]
-        // }
       })
+
+      const theme = computed(() => (unref(getHeaderBgColor) === '#fffffe' ? 'light' : 'dark'))
 
       function handleMenu(path: string) {
         menuState.selectedKeys = [path]
       }
       return {
         t,
+        theme,
         handleMenu,
         ...toRefs(menuState)
       }

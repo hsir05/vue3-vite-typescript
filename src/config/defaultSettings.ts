@@ -26,9 +26,9 @@ export default {
         showFold: true
     },
     headerSetting: {
-        bgColor: '#ffffff',
+        bgColor: '#fffffe',
         show: true,
-        theme: '#ffffff',
+        theme: '#fffffe',
         showFullScreen: true,
     },
     transitionSetting: {

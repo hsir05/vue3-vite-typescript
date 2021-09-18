@@ -1,17 +1,15 @@
 <template>
   <div class style="width: 100%">
     <LayoutMultipleHeader />
-    <a-layout-content style="margin: 15px 10px 0; text-align: left">
-      <div :style="{ padding: '10px', background: '#ffffff', minHeight: 'calc(100vh - 160px)' }">
-        <router-view :key="routerViewKey" v-slot="{ Component }">
-          <transition name="fade" mode="out-in" :appear="true">
-            <keep-alive v-if="openCache" :include="getCaches">
-              <component :is="Component" />
-            </keep-alive>
-            <component v-else :is="Component" />
-          </transition>
-        </router-view>
-      </div>
+    <a-layout-content class="h-layout-content">
+      <router-view :key="routerViewKey" v-slot="{ Component }">
+        <transition name="fade" mode="out-in" :appear="true">
+          <keep-alive v-if="openCache" :include="getCaches">
+            <component :is="Component" />
+          </keep-alive>
+          <component v-else :is="Component" />
+        </transition>
+      </router-view>
     </a-layout-content>
     <slot name="footer"></slot>
     <LayoutFooter v-if="getLayoutMode !== 'mix'" />
@@ -39,3 +37,12 @@
     }
   })
 </script>
+<style lang="less">
+  .h-layout-content {
+    margin: 15px 10px 0;
+    text-align: left;
+    padding: 10px;
+    background: var(--main-bg-color);
+    min-height: calc(100vh - 160px);
+  }
+</style>

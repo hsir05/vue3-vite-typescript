@@ -4,7 +4,7 @@
   import { SimpleMenu } from '/@/components/SimpleMenu'
   import { getMenus } from '/@/router/index'
   export default defineComponent({
-    name: 'LayoutMenu',
+    name: 'HMenu',
     props: {
       isHorizontal: Boolean
     },

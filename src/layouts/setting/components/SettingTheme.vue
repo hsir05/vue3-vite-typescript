@@ -1,16 +1,14 @@
 <template>
-  <div class="">
-    <Divider orientation="center" plain>{{ themeTitle }}</Divider>
-    <div class="clearfix flex">
-      <div
-        :class="['theme-color', value === color ? 'theme-color-active' : '']"
-        v-for="color in data"
-        :key="color"
-        :style="{ backgroundColor: color }"
-        @click="handeSetting(color)"
-      >
-        <MyIcon type="icon-gou" v-if="value === color" style="font-size: 18px" />
-      </div>
+  <Divider orientation="center" plain>{{ themeTitle }}</Divider>
+  <div class="clearfix flex">
+    <div
+      :class="['theme-color', value === color ? 'theme-color-active' : '']"
+      v-for="color in data"
+      :key="color"
+      :style="{ backgroundColor: color }"
+      @click="handeSetting(color)"
+    >
+      <MyIcon type="icon-gou" v-if="value === color" style="font-size: 18px" />
     </div>
   </div>
 </template>
@@ -28,7 +26,7 @@
     props: {
       theme: {
         type: String,
-        default: () => '#fff'
+        default: () => '#fffffe'
       },
       title: {
         type: String,
@@ -36,7 +34,7 @@
       },
       colorList: {
         type: Array,
-        default: () => ['#fff']
+        default: () => ['#fffffe']
       }
     },
     emits: ['handeSetting'],

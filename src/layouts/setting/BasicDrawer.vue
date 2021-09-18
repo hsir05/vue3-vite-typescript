@@ -11,7 +11,7 @@
     <div class="drawer-container">
       <!-- 这里可以优化 抽离公共组件 -->
       <Divider orientation="center" plain>{{ t('darkMode') }}</Divider>
-      <Switch v-model:checked="checked" class="dark-mode" @change="handleSwitch">
+      <Switch v-model:checked="checked" class="dark-mode" @change="handleDark">
         <template #checkedChildren>
           <MyIcon type="icon-icon-test" style="font-size: 18px" />
         </template>
@@ -99,7 +99,7 @@
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
       const { t } = useI18n()
-      const { getThemeColor, setRootSetting, changeThemeColor } = useRootSetting()
+      const { getThemeColor, setRootSetting, changeThemeColor, changeDarkTheme } = useRootSetting()
       const { getLayoutMode, getHeaderBgColor, getHeaderTheme, setHeaderTheme } = useHeaderSetting()
       const {
         settingLayoutMode,
@@ -122,8 +122,8 @@
         { deep: true }
       )
 
-      const handleSwitch = () => {
-        console.log(checked.value)
+      const handleDark = () => {
+        changeDarkTheme()
       }
       const handleSystemTheme = (color: string): void => {
         setRootSetting({ themeColor: color })
@@ -164,7 +164,7 @@
         handleHeaderTheme,
         handleMenuTheme,
         menuTypeList,
-        handleSwitch,
+        handleDark,
         getLayoutMode,
         getHeaderTheme,
         handleMenuCollapse,
@@ -184,19 +184,6 @@
   }
   .drawer-container {
     text-align: center;
-    .theme-color {
-      width: 20px;
-      height: 20px;
-      border-radius: 2px;
-      cursor: pointer;
-      text-align: center;
-      color: @white;
-      font-weight: 700;
-      border: 1px solid #ddd;
-    }
-    .theme-color-active {
-      border: 1px solid @primary-color;
-    }
   }
   .navigation-mode-wrap {
     display: flex;

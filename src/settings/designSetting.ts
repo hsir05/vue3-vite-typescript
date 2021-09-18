@@ -15,24 +15,24 @@ export const APP_PRESET_COLOR_LIST = [
     '#ff9800'
 ];
 
-export const APP_TOP_COLOR_LIST: string[] = [
+export const APP_TOP_COLOR_LIST = [
     '#f5222d',
     '#fa541c',
     '#3eaf7c',
     '#13c2c2',
     '#1890ff',
     '#000000d9',
-    '#ffffff',
+    '#fffffe',
     '#ff9800'
 ];
 
-export const APP_MENU_COLOR_LIST: string[] = [
+export const APP_MENU_COLOR_LIST = [
     '#f5222d',
     '#fa541c',
     '#3eaf7c',
     '#13c2c2',
     '#001529',
     '#000000d9',
-    '#ffffff',
+    '#fffffe',
     '#ff9800'
 ];

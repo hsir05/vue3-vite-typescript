@@ -7,12 +7,10 @@
       <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar' && getShowFold" />
 
       <LayoutContent v-if="getLayoutMode === 'mix' && getShowFold" />
-
       <Layout v-else>
         <LayoutSider v-if="getLayoutMode === 'mix-sidebar'" />
         <LayoutContent />
       </Layout>
-
       <LayoutFooter v-if="getLayoutMode === 'mix'" />
     </Layout>
   </Layout>
@@ -32,9 +30,7 @@
     name: 'BaicLayout',
     components: {
       Layout,
-
       LayoutSider,
-
       LayoutContent,
       LayoutFooter: defineAsyncComponent({
         loader: () => import('./Footer.vue')
