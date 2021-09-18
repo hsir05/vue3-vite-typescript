@@ -2,7 +2,7 @@
   <Drawer
     :title="t('configuration')"
     :closable="true"
-    width="350"
+    width="300"
     :destroyOnClose="true"
     @close="close"
     v-model:visible="visibleRef"
@@ -10,7 +10,7 @@
   >
     <div class="drawer-container">
       <!-- 这里可以优化 抽离公共组件 -->
-      <Divider orientation="center">{{ t('darkMode') }}</Divider>
+      <Divider orientation="center" plain>{{ t('darkMode') }}</Divider>
       <Switch v-model:checked="checked" class="dark-mode" @change="handleSwitch">
         <template #checkedChildren>
           <MyIcon type="icon-icon-test" style="font-size: 18px" />
@@ -20,10 +20,10 @@
         </template>
       </Switch>
 
-      <Divider orientation="center">{{ t('navigationMode') }}</Divider>
+      <Divider orientation="center" plain>{{ t('navigationMode') }}</Divider>
       <div class="navigation-mode-wrap">
         <template v-for="item in menuTypeList || []" :key="item.title">
-          <Tooltip :title="item.title" placement="bottom">
+          <Tooltip :title="t(item.title)" placement="bottom">
             <div
               :class="[
                 'navigation-mode',
@@ -36,44 +36,26 @@
         </template>
       </div>
 
-      <Divider orientation="center">{{ t('systemTheme') }}</Divider>
-      <div class="clearfix flex">
-        <div
-          :class="['theme-color', getThemeColor === color ? 'theme-color-active' : '']"
-          v-for="color in APP_PRESET_COLOR_LIST"
-          :key="color"
-          :style="{ backgroundColor: color }"
-          @click="handleSystemTheme(color)"
-        >
-          <MyIcon type="icon-gou" v-if="getThemeColor === color" style="font-size: 18px" />
-        </div>
-      </div>
+      <SettingTheme
+        :title="t('systemTheme')"
+        :theme="getThemeColor"
+        :colorList="APP_PRESET_COLOR_LIST"
+        @handeSetting="handleSystemTheme"
+      />
 
-      <Divider orientation="center">{{ t('headerTheme') }}</Divider>
-      <div class="clearfix flex">
-        <div
-          :class="['theme-color', getHeaderBgColor === color ? 'theme-color-active' : '']"
-          v-for="color in APP_TOP_COLOR_LIST"
-          :key="color"
-          :style="{ backgroundColor: color }"
-          @click="handleHeaderTheme(color)"
-        >
-          <MyIcon type="icon-gou" v-if="getHeaderBgColor === color" style="font-size: 18px" />
-        </div>
-      </div>
+      <SettingTheme
+        :title="t('headerTheme')"
+        :theme="getHeaderBgColor"
+        :colorList="APP_TOP_COLOR_LIST"
+        @handeSetting="handleHeaderTheme"
+      />
 
-      <Divider orientation="center">{{ t('menuTheme') }}</Divider>
-      <div class="clearfix flex">
-        <div
-          :class="['theme-color', getMenuBgColor === color ? 'theme-color-active' : '']"
-          v-for="color in APP_MENU_COLOR_LIST"
-          :key="color"
-          :style="{ backgroundColor: color }"
-          @click="handleMenuTheme(color)"
-        >
-          <MyIcon type="icon-gou" v-if="getMenuBgColor === color" style="font-size: 18px" />
-        </div>
-      </div>
+      <SettingTheme
+        :title="t('menuTheme')"
+        :theme="getMenuBgColor"
+        :colorList="APP_MENU_COLOR_LIST"
+        @handeSetting="handleMenuTheme"
+      />
 
       <SettingSelect :checked="getCollapsed" @handeSetting="handleMenuCollapse" />
     </div>
@@ -83,6 +65,7 @@
   import { defineComponent, ref, watch } from 'vue'
   import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
   import SettingSelect from './components/SettingSelect.vue'
+  import SettingTheme from './components/SettingTheme.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
@@ -102,7 +85,8 @@
       Switch,
       MyIcon,
       Tooltip,
-      SettingSelect
+      SettingSelect,
+      SettingTheme
     },
     props: {
       visible: {

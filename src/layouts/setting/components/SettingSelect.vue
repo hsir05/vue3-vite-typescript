@@ -3,8 +3,8 @@
     <span>{{ t('setting.menuCollapse') }}</span>
     <Switch
       v-model:checked="value"
-      :checked-children="t('off')"
-      :un-checked-children="t('on')"
+      :checked-children="t('setting.off')"
+      :un-checked-children="t('setting.on')"
       @change="handeSetting"
     />
   </div>

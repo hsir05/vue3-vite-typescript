@@ -39,6 +39,10 @@
   .h-sider-bg.ant-layout-sider {
     background-color: var(--sider-dark-bg-color);
   }
+  .ant-menu-vertical .ant-menu-item:not(:last-child) {
+    margin-top: 0;
+  }
+
   .h-sider-bg {
     .ant-menu.ant-menu-dark {
       // background-color: var(--sider-dark-darken-bg-color);
