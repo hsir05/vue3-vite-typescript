@@ -30,7 +30,7 @@
                 `navigation-mode-${item.type}`,
                 `${getLayoutMode === item.type ? 'navigation-mode-active' : ''}`
               ]"
-              @click="handler(item)"
+              @click="handleLayout(item)"
             ></div>
           </Tooltip>
         </template>
@@ -58,12 +58,16 @@
       />
 
       <SettingSelect :checked="getCollapsed" @handeSetting="handleMenuCollapse" />
+
+      <Button type="primary" class="mt10" style="width: 100%" @click="handleClearAll">{{
+        t('setting.clearBtn')
+      }}</Button>
     </div>
   </Drawer>
 </template>
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue'
-  import { Drawer, Divider, Switch, Tooltip } from 'ant-design-vue'
+  import { Drawer, Divider, Switch, Tooltip, Button } from 'ant-design-vue'
   import SettingSelect from './components/SettingSelect.vue'
   import SettingTheme from './components/SettingTheme.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
@@ -71,7 +75,10 @@
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   import { useI18n } from '/@/hooks/web/useI18n'
   import { menuTypeList } from '../enum'
+  import { MenuTypeEnum } from '/@/enums/menuEnum'
   import MyIcon from '/@/components/MyIcon/index.vue'
+  import { localStorageService, sessionStorageService } from '/@/utils/storage'
+  import { useRouter } from 'vue-router'
   import {
     APP_PRESET_COLOR_LIST,
     APP_TOP_COLOR_LIST,
@@ -86,7 +93,8 @@
       MyIcon,
       Tooltip,
       SettingSelect,
-      SettingTheme
+      SettingTheme,
+      Button
     },
     props: {
       visible: {
@@ -96,18 +104,20 @@
     },
     emits: ['handleClose'],
     setup(props, { emit }) {
+      const router = useRouter()
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
       const { t } = useI18n()
       const { getThemeColor, setRootSetting, changeThemeColor, changeDarkTheme } = useRootSetting()
-      const { getLayoutMode, getHeaderBgColor, getHeaderTheme, setHeaderTheme } = useHeaderSetting()
       const {
-        settingLayoutMode,
-        getCollapsed,
-        getMenuBgColor,
-        setMenuSetting,
-        updateSidebarBgColor
-      } = useMenuSetting()
+        getLayoutMode,
+        getHeaderBgColor,
+        updateHeaderBgColor,
+        getHeaderTheme,
+        setHeaderTheme
+      } = useHeaderSetting()
+      const { setLayoutMode, getCollapsed, getMenuBgColor, setMenuSetting, updateSidebarBgColor } =
+        useMenuSetting()
 
       const close = () => {
         visibleRef.value = false
@@ -138,14 +148,25 @@
         updateSidebarBgColor(color)
         close()
       }
-      const handler = (item) => {
-        settingLayoutMode({ layoutMode: item.type })
+      const handleLayout = (item) => {
+        setLayoutMode({ layoutMode: item.type })
         setMenuSetting({ collapsed: false })
         close()
       }
 
       const handleMenuCollapse = (bool) => {
         setMenuSetting({ collapsed: bool })
+      }
+      const handleClearAll = () => {
+        localStorageService.clearAll()
+        sessionStorageService.clearAll()
+
+        changeThemeColor()
+        setLayoutMode({ layoutMode: MenuTypeEnum.SIDEBAR })
+        updateHeaderBgColor()
+        updateSidebarBgColor()
+
+        router.replace('/login')
       }
 
       return {
@@ -159,7 +180,7 @@
         APP_TOP_COLOR_LIST,
         APP_MENU_COLOR_LIST,
         close,
-        handler,
+        handleLayout,
         handleSystemTheme,
         handleHeaderTheme,
         handleMenuTheme,
@@ -168,6 +189,7 @@
         getLayoutMode,
         getHeaderTheme,
         handleMenuCollapse,
+        handleClearAll,
         t
       }
     }

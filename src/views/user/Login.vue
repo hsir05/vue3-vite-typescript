@@ -13,7 +13,7 @@
       @finishFailed="handleFinishFailed"
     >
       <Tabs v-model:activeKey="activeKey" animated @change="handleTabs">
-        <TabPane key="1" tab="账号密码登录" :forceRender="true">
+        <TabPane key="1" tab="账号密码登录" :forceRender="false">
           <FormItem name="account">
             <Input v-model:value.trim="formState.account" size="large" placeholder="请输入账号">
               <template #prefix>
@@ -38,7 +38,7 @@
           </FormItem>
         </TabPane>
 
-        <TabPane key="2" tab="手机号登录" :forceRender="true">
+        <TabPane key="2" tab="手机号登录" :forceRender="false">
           <FormItem name="phone">
             <Input
               v-model:value="formState.phone"

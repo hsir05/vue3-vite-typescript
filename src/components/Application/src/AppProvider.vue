@@ -22,8 +22,8 @@
       const { changeThemeColor, getThemeColor } = useRootSetting()
       const { getHeaderBgColor, updateHeaderBgColor } = useHeaderSetting()
       const { getMenuBgColor, updateSidebarBgColor } = useMenuSetting()
-      changeThemeColor(unref(getThemeColor))
 
+      changeThemeColor(unref(getThemeColor))
       updateHeaderBgColor(getHeaderBgColor.value)
       updateSidebarBgColor(getMenuBgColor.value)
 

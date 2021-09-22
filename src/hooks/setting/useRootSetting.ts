@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useAppStore } from '/@/store/modules/app';
 import type { ProjectConfig } from '/#/config';
-
+import defaultSettings from '/@/config/defaultSettings'
 type RootSetting = Omit<
     ProjectConfig,
     'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
@@ -49,7 +49,7 @@ export function useRootSetting() {
             console.log(error);
         });
     }
-    async function  changeThemeColor(color: string){
+    async function changeThemeColor(color: string = defaultSettings.themeColor){
         // @ts-ignore
         window.less.modifyVars({ 
             '@primary-color': color

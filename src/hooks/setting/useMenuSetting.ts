@@ -4,6 +4,7 @@ import type { ProjectConfig, MenuSetting } from '/#/config';
 import { setCssVar } from './util';
 import { lighten, darken } from '/@/utils/color';
 import { ThemeEnum } from '/@/enums/appEnum';
+import defaultSettings from '/@/config/defaultSettings'
 
 type RootSetting = Omit<
     ProjectConfig,
@@ -22,14 +23,14 @@ export function useMenuSetting() {
     
     const getMenuTheme = computed(() => appStore.getMenuSetting.theme);
 
-    function settingLayoutMode(setting: Partial<RootSetting>){
+    function setLayoutMode(setting: Partial<RootSetting>){
         appStore.setProjectConfig(setting)
     }
     function setMenuSetting(menuSetting: Partial<MenuSetting>): void {
         appStore.setProjectConfig({ menuSetting });
     }
 
-    function updateSidebarBgColor(color?: string) {
+    function updateSidebarBgColor(color: string = defaultSettings.menuSetting.bgColor) {
         
         if (color === '#fffffe') {
             setCssVar(SIDER_DARK_BG_COLOR, color);
@@ -47,7 +48,7 @@ export function useMenuSetting() {
      
     return {
         getCollapsed,
-        settingLayoutMode,
+        setLayoutMode,
         setMenuSetting,
         getMenuBgColor,
         getMenuTheme,

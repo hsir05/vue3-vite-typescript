@@ -86,11 +86,10 @@
         tabStore.closeTabByKey(targetKey, router)
       }
       const { getShowFold, setShowFold } = useMultipleTabSetting()
-      const { settingLayoutMode } = useMenuSetting()
+      const { setLayoutMode } = useMenuSetting()
 
       function hanldleShowFold() {
-        settingLayoutMode({ layoutMode: MenuTypeEnum.MIX })
-
+        setLayoutMode({ layoutMode: MenuTypeEnum.MIX })
         setShowFold({ showFold: !unref(getShowFold) })
       }
 
