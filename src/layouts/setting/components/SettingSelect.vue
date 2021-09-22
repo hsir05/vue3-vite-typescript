@@ -1,6 +1,6 @@
 <template>
   <div class="h-setting-select-item">
-    <span>{{ t('setting.menuCollapse') }}</span>
+    <span>{{ selectTitle }}</span>
     <Switch
       v-model:checked="value"
       :checked-children="t('setting.off')"
@@ -22,6 +22,10 @@
       checked: {
         type: Boolean,
         default: () => false
+      },
+      title: {
+        type: String,
+        default: () => ' '
       }
     },
     emits: ['handeSetting'],
@@ -35,6 +39,7 @@
 
       return {
         value,
+        selectTitle: props.title,
         handeSetting,
         t
       }
@@ -44,6 +49,6 @@
 <style lang="less">
   .h-setting-select-item {
     .flexed();
-    padding: 20px 15px;
+    padding: 20px 15px 0 10px;
   }
 </style>

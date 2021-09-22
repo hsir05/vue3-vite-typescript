@@ -57,9 +57,36 @@
         @handeSetting="handleMenuTheme"
       />
 
-      <SettingSelect :checked="getCollapsed" @handeSetting="handleMenuCollapse" />
+      <SettingSelect
+        :title="t('setting.menuCollapse')"
+        :checked="getCollapsed"
+        @handeSetting="handleMenuCollapse"
+      />
 
-      <Button type="primary" class="mt10" style="width: 100%" @click="handleClearAll">{{
+      <SettingSelect
+        :title="t('setting.progress')"
+        :checked="getCollapsed"
+        @handeSetting="handleMenuCollapse"
+      />
+
+      <div class="h-setting-select-item">
+        <span>{{ t('setting.switchAnimation') }}</span>
+        <Select
+          ref="select"
+          v-model:value="animation"
+          @change="handleAnimation"
+          size="small"
+          style="width: 120px"
+        >
+          <Option :value="item.value" v-for="item in routerTransitionOptions" :key="item.value">{{
+            item.label
+          }}</Option>
+        </Select>
+      </div>
+
+      <!-- <SettingSelect  :title="t('setting.progress')" :checked="getCollapsed" @handeSetting="handleMenuCollapse" /> -->
+
+      <Button type="primary" class="mt20" style="width: 100%" @click="handleClearAll">{{
         t('setting.clearBtn')
       }}</Button>
     </div>
@@ -67,7 +94,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue'
-  import { Drawer, Divider, Switch, Tooltip, Button } from 'ant-design-vue'
+  import { Drawer, Divider, Switch, Tooltip, Button, Select } from 'ant-design-vue'
   import SettingSelect from './components/SettingSelect.vue'
   import SettingTheme from './components/SettingTheme.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
@@ -79,6 +106,9 @@
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { localStorageService, sessionStorageService } from '/@/utils/storage'
   import { useRouter } from 'vue-router'
+  import { routerTransitionOptions } from '/@/settings/enum'
+  //   import { useNProgress } from '@vueuse/integrations/useNProgress'
+
   import {
     APP_PRESET_COLOR_LIST,
     APP_TOP_COLOR_LIST,
@@ -94,7 +124,9 @@
       Tooltip,
       SettingSelect,
       SettingTheme,
-      Button
+      Button,
+      Select,
+      Option: Select.Option
     },
     props: {
       visible: {
@@ -105,6 +137,10 @@
     emits: ['handleClose'],
     setup(props, { emit }) {
       const router = useRouter()
+      //   const { isLoading } = useNProgress()
+
+      //    isLoading.value = true
+
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
       const { t } = useI18n()
@@ -157,6 +193,10 @@
       const handleMenuCollapse = (bool) => {
         setMenuSetting({ collapsed: bool })
       }
+      const handleAnimation = (animation) => {
+        console.log(animation)
+      }
+
       const handleClearAll = () => {
         localStorageService.clearAll()
         sessionStorageService.clearAll()
@@ -176,6 +216,8 @@
         getMenuBgColor,
         visibleRef,
         checked,
+        animation: '',
+
         APP_PRESET_COLOR_LIST,
         APP_TOP_COLOR_LIST,
         APP_MENU_COLOR_LIST,
@@ -190,6 +232,8 @@
         getHeaderTheme,
         handleMenuCollapse,
         handleClearAll,
+        handleAnimation,
+        routerTransitionOptions,
         t
       }
     }
