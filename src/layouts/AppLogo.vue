@@ -1,6 +1,6 @@
 <template>
   <div :class="['logo', `logo-${getLayoutMode}`]">
-    <img src="../assets/logo.png" alt="logo" :class="{ logoImg: isActive }" />
+    <img src="../assets/logo.svg" alt="logo" :class="{ logoImg: isActive }" />
     <span
       :class="['ml10', isTextLight ? 'darkText' : '', 'logo-text', isTextActive ? 'hide ' : 'show']"
       >vite-admin</span
