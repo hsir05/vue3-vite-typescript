@@ -100,6 +100,8 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+  import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
+
   import { useI18n } from '/@/hooks/web/useI18n'
   import { menuTypeList } from '../enum'
   import { MenuTypeEnum } from '/@/enums/menuEnum'
@@ -138,11 +140,12 @@
     setup(props, { emit }) {
       const router = useRouter()
       //   const { isLoading } = useNProgress()
-
       //    isLoading.value = true
+      const { setTransitionSetting, getBasicTransition } = useTransitionSetting()
 
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
+      const animation = ref(getBasicTransition.value)
       const { t } = useI18n()
       const { getThemeColor, setRootSetting, changeThemeColor, changeDarkTheme } = useRootSetting()
       const {
@@ -194,7 +197,7 @@
         setMenuSetting({ collapsed: bool })
       }
       const handleAnimation = (animation) => {
-        console.log(animation)
+        setTransitionSetting(animation)
       }
 
       const handleClearAll = () => {
@@ -214,9 +217,10 @@
         getHeaderBgColor,
         getCollapsed,
         getMenuBgColor,
+        getBasicTransition,
         visibleRef,
         checked,
-        animation: '',
+        animation,
 
         APP_PRESET_COLOR_LIST,
         APP_TOP_COLOR_LIST,

@@ -3,7 +3,7 @@
     <LayoutMultipleHeader />
     <a-layout-content class="h-layout-content">
       <router-view :key="routerViewKey" v-slot="{ Component }">
-        <transition name="fade" mode="out-in" :appear="true">
+        <transition :name="getBasicTransition" mode="out-in" :appear="true">
           <keep-alive v-if="openCache" :include="getCaches">
             <component :is="Component" />
           </keep-alive>
@@ -18,6 +18,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
   import LayoutMultipleHeader from './tabs/index.vue'
   import LayoutFooter from './Footer.vue'
   export default defineComponent({
@@ -28,10 +29,13 @@
     },
     setup() {
       const { getLayoutMode } = useHeaderSetting()
+      const { getBasicTransition } = useTransitionSetting()
+
       return {
         getLayoutMode,
         routerViewKey: new Date().getTime(),
         openCache: true,
+        getBasicTransition,
         getCaches: []
       }
     }
