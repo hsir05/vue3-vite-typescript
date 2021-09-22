@@ -8,19 +8,20 @@
     <Form
       class="user-layout-login"
       :model="formState"
+      :rules="rules"
       @finish="handleFinish"
       @finishFailed="handleFinishFailed"
     >
-      <Tabs v-model:activeKey="activeKey">
-        <TabPane key="1" tab="账号密码登录">
-          <FormItem>
-            <Input v-model:value="formState.user" size="large" placeholder="请输入账号">
+      <Tabs v-model:activeKey="activeKey" animated @change="handleTabs">
+        <TabPane key="1" tab="账号密码登录" :forceRender="true">
+          <FormItem name="account">
+            <Input v-model:value.trim="formState.account" size="large" placeholder="请输入账号">
               <template #prefix>
                 <MyIcon type="icon-user" />
               </template>
             </Input>
           </FormItem>
-          <FormItem>
+          <FormItem name="password">
             <Input
               v-model:value="formState.password"
               size="large"
@@ -37,8 +38,8 @@
           </FormItem>
         </TabPane>
 
-        <TabPane key="2" tab="手机号登录">
-          <FormItem>
+        <TabPane key="2" tab="手机号登录" :forceRender="true">
+          <FormItem name="phone">
             <Input
               v-model:value="formState.phone"
               size="large"
@@ -50,7 +51,7 @@
               </template>
             </Input>
           </FormItem>
-          <FormItem>
+          <FormItem name="code">
             <InputSearch v-model:value="formState.code" placeholder="验证码" size="large">
               <template #prefix>
                 <MyIcon type="icon-captcha1" />
@@ -65,7 +66,7 @@
 
       <div class="checked mb10">
         <Checkbox v-model:checked="checked">记住密码</Checkbox>
-        <a href="javascript:;" class="">忘记密码</a>
+        <a href="javascript:;" class>忘记密码</a>
       </div>
 
       <FormItem>
@@ -75,30 +76,11 @@
           size="large"
           html-type="submit"
           :loading="loading"
-          :disabled="formState.user === '' || formState.password === ''"
           >{{ t('login') }}</a-button
         >
       </FormItem>
 
-      <div class="other">
-        <div class="other-login"
-          >其他登录方式
-          <MyIcon
-            type="icon-weixin"
-            style="font-size: 24px; margin-left: 10px; vertical-align: middle; color: #e9e9e9"
-          />
-          <MyIcon
-            type="icon-zhifubao"
-            style="font-size: 24px; margin-left: 10px; vertical-align: middle; color: #e9e9e9"
-          />
-          <MyIcon
-            type="icon-qq"
-            style="font-size: 24px; margin-left: 10px; vertical-align: middle; color: #e9e9e9"
-          />
-        </div>
-
-        <a href="javascript:;" class="">注册账户</a>
-      </div>
+      <OtherLogin />
     </Form>
   </div>
 </template>
@@ -107,15 +89,12 @@
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
   import { defineComponent, reactive, ref, UnwrapRef } from 'vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
+  import OtherLogin from './otherLogin.vue'
   import { useRouter } from 'vue-router'
   import { useI18n } from '/@/hooks/web/useI18n'
   import { defaultHomePath } from '/@/config/router.config'
-  interface FormState {
-    user: string
-    password: string
-    phone?: string
-    code?: string
-  }
+  import { rules } from '/@/utils/validator'
+  import { FormState } from './typing'
   export default defineComponent({
     name: 'Login',
     components: {
@@ -126,7 +105,8 @@
       Input,
       Tabs,
       TabPane: Tabs.TabPane,
-      InputSearch
+      InputSearch,
+      OtherLogin
     },
     setup() {
       const router = useRouter()
@@ -137,7 +117,7 @@
 
       const { t } = useI18n()
       const formState: UnwrapRef<FormState> = reactive({
-        user: '',
+        account: '',
         password: ''
       })
       const handleFinish = (values: FormState) => {
@@ -150,8 +130,11 @@
       const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
         console.log(errors)
       }
-      function handlePass() {
+      const handlePass = () => {
         isShow.value = !isShow.value
+      }
+      const handleTabs = (tab: string) => {
+        console.log(tab)
       }
       return {
         formState,
@@ -162,7 +145,9 @@
         handlePass,
         handleFinish,
         handleFinishFailed,
-        activeKey
+        activeKey,
+        rules,
+        handleTabs
       }
     }
   })
@@ -173,11 +158,12 @@
   }
   .main {
     min-width: 260px;
-    width: 450px;
+    width: 430px;
     margin: 0 auto;
-    transform: translateY(20%);
+    transform: translateY(17%);
     padding: 55px 45px 100px;
     border: 1px solid #e4e4e4;
+    user-select: none;
     border-radius: 5px;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
@@ -204,10 +190,7 @@
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       text-align: center;
     }
-    .other {
-      .flexed();
-      cursor: pointer;
-    }
+
     .checked {
       text-align: left;
       .flexed();
