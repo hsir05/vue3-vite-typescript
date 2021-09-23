@@ -27,9 +27,6 @@ export const useAppStore = defineStore({
         getTransitionSetting(): TransitionSetting {
             return this.getProjectConfig.transitionSetting;
         },
-        // getDarkMode(): 'light' | 'dark' | string {
-        //     return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
-        // },
         getProjectConfig(): ProjectConfig {
             return this.projectConfig || ({} as ProjectConfig);
         },

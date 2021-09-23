@@ -2,7 +2,7 @@
   <Drawer
     :title="t('configuration')"
     :closable="true"
-    width="300"
+    width="340"
     :destroyOnClose="true"
     @close="close"
     v-model:visible="visibleRef"
@@ -83,8 +83,6 @@
           }}</Option>
         </Select>
       </div>
-
-      <!-- <SettingSelect  :title="t('setting.progress')" :checked="getCollapsed" @handeSetting="handleMenuCollapse" /> -->
 
       <Button type="primary" class="mt20" style="width: 100%" @click="handleClearAll">{{
         t('setting.clearBtn')

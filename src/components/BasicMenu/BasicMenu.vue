@@ -5,27 +5,28 @@
     :theme="getMenuTheme"
     mode="inline"
     :openKeys="openKeys"
+    @openChange="onOpenChange"
   >
     <template v-for="menu in items">
-      <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
+      <a-sub-menu v-if="menu.children && menu.children.length !== 0" :key="menu.path">
+        <template #title>
+          <span>
+            <MyIcon :type="menu.icon" /> <span calss="menu-text">{{ t(menu.name) }}</span>
+          </span>
+        </template>
+        <a-menu-item :key="item.path" v-for="item in menu.children">
+          <router-link :to="item.path" @click="handleMenu(item.path)" calss="menu-text">
+            {{ t(item.name) }}
+          </router-link>
+        </a-menu-item>
+      </a-sub-menu>
+
+      <a-menu-item v-else :key="menu.path + 1">
         <router-link :to="menu.path" @click="handleMenu(menu.path)">
           <MyIcon :type="menu.icon" />
           <span calss="menu-text">{{ t(menu.name) }}</span>
         </router-link>
       </a-menu-item>
-      <a-sub-menu v-else :key="menu.path + 1">
-        <template #title>
-          <span>
-            <MyIcon :type="menu.icon" />
-            <span calss="menu-text">{{ t(menu.name) }}</span>
-          </span>
-        </template>
-        <a-menu-item :key="item.path" v-for="item in menu.children">
-          <router-link :to="item.path" @click="handleMenu(item.path)" calss="menu-text">{{
-            t(item.name)
-          }}</router-link>
-        </a-menu-item>
-      </a-sub-menu>
     </template>
   </a-menu>
 </template>
@@ -37,8 +38,15 @@
   import { REDIRECT_NAME } from '/@/router/constant'
   import { listenerRouteChange } from '/@/router/routeChange'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+
+  interface menuStateFace {
+    defaultSelectedKeys: string[]
+    openKeys: string[]
+    selectedKeys: string[]
+  }
+
   export default defineComponent({
-    name: 'Menu',
+    name: 'BasicMenu',
     components: {
       MyIcon
     },
@@ -51,7 +59,7 @@
     setup() {
       const { t } = useI18n()
 
-      const menuState = reactive({
+      const menuState: menuStateFace = reactive({
         defaultSelectedKeys: ['/dashboard'],
         openKeys: [],
         selectedKeys: ['/dashboard']
@@ -59,26 +67,31 @@
 
       const { getMenuTheme } = useMenuSetting()
 
-      // const currentActiveMenu = ref('')
+      const onOpenChange = (openKeys) => {
+        menuState.openKeys = []
+        if (openKeys.length === 0 || openKeys.length === 1) {
+          menuState.openKeys = openKeys
+        } else {
+          menuState.openKeys.push(openKeys[openKeys.length - 1])
+        }
+      }
+
       // 注释代码存在优化
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
-
-        // currentActiveMenu.value = route.meta?.currentActiveMenu as string
         menuState.selectedKeys = [route.path]
-        // if (unref(currentActiveMenu)) {
-        //     menuState.selectedKeys = [unref(currentActiveMenu)]
-        // }
       })
 
       function handleMenu(path: string) {
         menuState.selectedKeys = [path]
       }
+
       return {
         t,
         ...toRefs(menuState),
         getMenuTheme,
-        handleMenu
+        handleMenu,
+        onOpenChange
       }
     }
   })
