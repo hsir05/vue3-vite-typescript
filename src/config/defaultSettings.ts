@@ -27,6 +27,7 @@ export default {
     },
     headerSetting: {
         bgColor: '#fffffe',
+        fixed: true,
         show: true,
         theme: '#fffffe',
         showFullScreen: true,
@@ -43,8 +44,6 @@ export default {
     themeColor: primaryColor,
     layout: 'sidemenu',
     contentWidth: 'Fluid', 
-    fixedHeader: false, 
-    fixSiderbar: false,
     colorWeak: false,
     menu: {
         locale: true

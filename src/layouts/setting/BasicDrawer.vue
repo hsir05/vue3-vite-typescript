@@ -64,9 +64,15 @@
       />
 
       <SettingSelect
+        :title="t('setting.fixedHeader')"
+        :checked="getHeaderFixed"
+        @handeSetting="handleFixedHeader"
+      />
+
+      <SettingSelect
         :title="t('setting.progress')"
-        :checked="getCollapsed"
-        @handeSetting="handleMenuCollapse"
+        :checked="getOpenNProgress"
+        @handeSetting="handleprogress"
       />
 
       <div class="h-setting-select-item">
@@ -107,8 +113,6 @@
   import { localStorageService, sessionStorageService } from '/@/utils/storage'
   import { useRouter } from 'vue-router'
   import { routerTransitionOptions } from '/@/settings/enum'
-  //   import { useNProgress } from '@vueuse/integrations/useNProgress'
-
   import {
     APP_PRESET_COLOR_LIST,
     APP_TOP_COLOR_LIST,
@@ -139,7 +143,7 @@
       const router = useRouter()
       //   const { isLoading } = useNProgress()
       //    isLoading.value = true
-      const { setTransitionSetting, getBasicTransition } = useTransitionSetting()
+      const { setTransitionSetting, getBasicTransition, getOpenNProgress } = useTransitionSetting()
 
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
@@ -151,8 +155,10 @@
         getHeaderBgColor,
         updateHeaderBgColor,
         getHeaderTheme,
-        setHeaderTheme
+        setHeaderTheme,
+        getHeaderFixed
       } = useHeaderSetting()
+
       const { setLayoutMode, getCollapsed, getMenuBgColor, setMenuSetting, updateSidebarBgColor } =
         useMenuSetting()
 
@@ -191,11 +197,18 @@
         close()
       }
 
-      const handleMenuCollapse = (bool) => {
+      const handleMenuCollapse = (bool: boolean) => {
         setMenuSetting({ collapsed: bool })
       }
-      const handleAnimation = (animation) => {
-        setTransitionSetting(animation)
+      const handleFixedHeader = (bool: boolean) => {
+        setHeaderTheme({ fixed: bool })
+      }
+
+      const handleprogress = (bool: boolean) => {
+        setTransitionSetting({ openNProgress: bool })
+      }
+      const handleAnimation = (animation: string) => {
+        setTransitionSetting({ basicTransition: animation })
       }
 
       const handleClearAll = () => {
@@ -213,6 +226,7 @@
       return {
         getThemeColor,
         getHeaderBgColor,
+        getHeaderFixed,
         getCollapsed,
         getMenuBgColor,
         getBasicTransition,
@@ -233,9 +247,12 @@
         getLayoutMode,
         getHeaderTheme,
         handleMenuCollapse,
+        handleFixedHeader,
         handleClearAll,
         handleAnimation,
         routerTransitionOptions,
+        getOpenNProgress,
+        handleprogress,
         t
       }
     }

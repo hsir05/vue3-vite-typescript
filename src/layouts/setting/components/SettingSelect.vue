@@ -3,8 +3,8 @@
     <span>{{ selectTitle }}</span>
     <Switch
       v-model:checked="value"
-      :checked-children="t('setting.off')"
-      :un-checked-children="t('setting.on')"
+      :checked-children="t('setting.on')"
+      :un-checked-children="t('setting.off')"
       @change="handeSetting"
     />
   </div>

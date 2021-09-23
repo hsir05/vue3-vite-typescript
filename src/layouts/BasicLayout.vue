@@ -3,7 +3,7 @@
     <LayoutSider v-if="getLayoutMode === 'sidebar'" />
     <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
 
-    <Layout :class="`${getLayoutMode}-layout`">
+    <Layout :class="[getHeaderFixed ? '' : `${getLayoutMode}-layout`]">
       <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar' && getShowFold" />
 
       <LayoutContent v-if="getLayoutMode === 'mix' && getShowFold" />
@@ -23,7 +23,6 @@
   import LayoutSider from './LayoutSider.vue'
   import LayoutContent from './Content.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
 
   export default defineComponent({
@@ -38,14 +37,13 @@
       LayoutHeader
     },
     setup() {
-      const { getLayoutMode } = useHeaderSetting()
-      const { getCollapsed } = useMenuSetting()
+      const { getLayoutMode, getHeaderFixed } = useHeaderSetting()
       const { getShowFold } = useMultipleTabSetting()
 
       return {
-        getCollapsed,
         getLayoutMode,
-        getShowFold
+        getShowFold,
+        getHeaderFixed
       }
     }
   })

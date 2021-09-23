@@ -8,7 +8,14 @@
     @openChange="onOpenChange"
   >
     <template v-for="menu in items">
-      <a-sub-menu v-if="menu.children && menu.children.length !== 0" :key="menu.path">
+      <a-menu-item v-if="!menu.children || menu.children.length === 0" :key="menu.path">
+        <router-link :to="menu.path" @click="handleMenu(menu.path)">
+          <MyIcon :type="menu.icon" />
+          <span calss="menu-text">{{ t(menu.name) }}</span>
+        </router-link>
+      </a-menu-item>
+
+      <a-sub-menu v-else :key="menu.name">
         <template #title>
           <span>
             <MyIcon :type="menu.icon" /> <span calss="menu-text">{{ t(menu.name) }}</span>
@@ -20,13 +27,6 @@
           </router-link>
         </a-menu-item>
       </a-sub-menu>
-
-      <a-menu-item v-else :key="menu.path + 1">
-        <router-link :to="menu.path" @click="handleMenu(menu.path)">
-          <MyIcon :type="menu.icon" />
-          <span calss="menu-text">{{ t(menu.name) }}</span>
-        </router-link>
-      </a-menu-item>
     </template>
   </a-menu>
 </template>

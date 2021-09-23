@@ -11,13 +11,7 @@ export interface HeaderSetting {
     fixed: boolean;
     show: boolean;
     theme: ThemeEnum;
-    // Turn on full screen
     showFullScreen: boolean;
-    // Whether to show the lock screen
-    useLockPage: boolean;
-    // Show document button
-    showDoc: boolean;
-    // Show message center button
     showNotice: boolean;
     showSearch: boolean;
 }
@@ -81,28 +75,7 @@ export interface ProjectConfig {
     showBreadCrumb: boolean;
     showBreadCrumbIcon: boolean;
 }
-// export interface HeaderSetting {
-//     bgColor: string;
-//     fixed: boolean;
-//     show: boolean;
-//     theme: ThemeEnum;
-//     // Turn on full screen
-//     showFullScreen: boolean;
-//     // Whether to show the lock screen
-//     useLockPage: boolean;
-//     // Show document button
-//     showDoc: boolean;
-//     // Show message center button
-//     showNotice: boolean;
-//     showSearch: boolean;
-// }
-export interface HeaderSetting {
-    bgColor: string;
-    fixed: boolean;
-    show: boolean;
-    theme: ThemeEnum;
-    showFullScreen: boolean;
-}
+
 export interface LayoutMode {
     layoutMode: string
 }

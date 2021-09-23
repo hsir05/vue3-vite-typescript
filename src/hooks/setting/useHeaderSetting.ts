@@ -13,9 +13,12 @@ const HEADER_BG_HOVER_COLOR_VAR = '--header-bg-hover-color';
 export function useHeaderSetting(){
     const appStore = useAppStore();
     
+    
     const getHeaderTheme = computed(() => appStore.getHeaderSetting.theme);
     const getHeaderBgColor = computed(() => appStore.getHeaderSetting.bgColor);
+    const getHeaderFixed = computed(() => appStore.getHeaderSetting.fixed);
     const getLayoutMode = computed(() => appStore.getLayoutMode);
+    
 
     function setHeaderTheme(headerSetting: Partial<HeaderSetting>){
         appStore.setProjectConfig({ headerSetting });
@@ -33,6 +36,7 @@ export function useHeaderSetting(){
     return { 
         getHeaderTheme,
         getHeaderBgColor,
+        getHeaderFixed,
         getLayoutMode,
         updateHeaderBgColor,
         setHeaderTheme,
