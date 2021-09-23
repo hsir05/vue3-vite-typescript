@@ -3,7 +3,7 @@
     <LayoutSider v-if="getLayoutMode === 'sidebar'" />
     <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
 
-    <Layout :class="[getHeaderFixed ? '' : `${getLayoutMode}-layout`]">
+    <Layout :class="[isActive ? '' : `${getLayoutMode}-layout`]">
       <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar' && getShowFold" />
 
       <LayoutContent v-if="getLayoutMode === 'mix' && getShowFold" />
@@ -16,7 +16,7 @@
   </Layout>
 </template>
 <script lang="ts">
-  import { defineComponent, defineAsyncComponent } from 'vue'
+  import { defineComponent, computed, defineAsyncComponent } from 'vue'
   import LayoutHeader from './header/index.vue'
   import { Layout } from 'ant-design-vue'
 
@@ -40,22 +40,27 @@
       const { getLayoutMode, getHeaderFixed } = useHeaderSetting()
       const { getShowFold } = useMultipleTabSetting()
 
+      const isActive = computed(() => {
+        if (getLayoutMode.value === 'siderbar' || getLayoutMode.value === 'mix') {
+          return getHeaderFixed.value
+        }
+        return false
+      })
+
       return {
         getLayoutMode,
-        getShowFold,
-        getHeaderFixed
+        isActive,
+        getShowFold
       }
     }
   })
 </script>
 <style lang="less" scoped>
   .sidebar-layout {
-    overflow-y: scroll;
-    height: 100vh;
+    .scroll;
   }
   .mix-layout {
-    overflow-y: scroll;
-    height: 100vh;
+    .scroll;
   }
   .site-layout {
     .site-layout-background {

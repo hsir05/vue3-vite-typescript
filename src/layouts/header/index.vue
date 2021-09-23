@@ -1,5 +1,4 @@
 <template>
-  <!-- <Affix :offset-top="5"> -->
   <a-layout-header class="h-header">
     <!-- 切换按钮 -->
     <ToggleButton />
@@ -19,7 +18,6 @@
       <SettingButton />
     </div>
   </a-layout-header>
-  <!-- </Affix> -->
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'

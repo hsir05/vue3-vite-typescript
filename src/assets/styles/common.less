@@ -13,6 +13,10 @@
     align-items: center;
     justify-content: @a;
 }
+ .scroll(@h: 0vh){
+    overflow-y: scroll;
+    height: calc(100vh - @h);
+  }
 .mode(@w:100%, @h:25%, @c:@white){
     top: 0;
     left: 0;

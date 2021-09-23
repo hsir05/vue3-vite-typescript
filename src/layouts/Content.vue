@@ -1,7 +1,10 @@
 <template>
   <div :class="`${getLayoutMode}-content`">
     <LayoutMultipleHeader />
-    <a-layout-content class="h-layout-content" :class="{ 'h-layout-content-scroll': isActive }">
+    <a-layout-content
+      class="h-layout-content"
+      :class="{ 'h-layout-content-sidebar': isActive, 'h-layout-content-mix': isActive }"
+    >
       <router-view :key="routerViewKey" v-slot="{ Component }">
         <transition :name="getBasicTransition" mode="out-in" :appear="true">
           <keep-alive v-if="openCache" :include="getCaches">
@@ -31,7 +34,7 @@
       const { getLayoutMode, getHeaderFixed } = useHeaderSetting()
       const { getBasicTransition } = useTransitionSetting()
 
-      const isActive = computed(() => getLayoutMode.value === 'sidebar' && getHeaderFixed.value)
+      const isActive = computed(() => getHeaderFixed.value)
 
       return {
         getLayoutMode,
@@ -47,18 +50,21 @@
 <style lang="less">
   .mix-sidebar-content {
     width: 100%;
-    overflow-y: scroll;
-    height: 100vh;
+    .scroll(50px);
   }
   .h-layout-content {
     margin: 15px 10px 0;
     text-align: left;
     padding: 10px;
     background: var(--main-bg-color);
-    min-height: calc(100vh - 160px);
+    min-height: calc(100vh - 140px);
   }
-  .h-layout-content-scroll {
+  .h-layout-content-sidebar {
     height: calc(100vh - 160px);
     overflow-y: scroll;
+  }
+  .h-layout-content-mix {
+    overflow-y: scroll;
+    .scroll(20vh);
   }
 </style>
