@@ -2,6 +2,7 @@
   <div class="p-4">
     <GrowCard :loading="loading" class="enter-y" />
     <LineChart :loading="loading" />
+    <LineChart :loading="loading" />
   </div>
 </template>
 <script lang="ts">

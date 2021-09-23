@@ -3,7 +3,7 @@
     <LayoutSider v-if="getLayoutMode === 'sidebar'" />
     <LayoutHeader v-if="getLayoutMode === 'mix-sidebar'" />
 
-    <Layout>
+    <Layout :class="`${getLayoutMode}-layout`">
       <LayoutHeader v-if="getLayoutMode !== 'mix-sidebar' && getShowFold" />
 
       <LayoutContent v-if="getLayoutMode === 'mix' && getShowFold" />
@@ -51,6 +51,14 @@
   })
 </script>
 <style lang="less" scoped>
+  .sidebar-layout {
+    overflow-y: scroll;
+    height: 100vh;
+  }
+  .mix-layout {
+    overflow-y: scroll;
+    height: 100vh;
+  }
   .site-layout {
     .site-layout-background {
       background: @white;

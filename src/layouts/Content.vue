@@ -1,5 +1,5 @@
 <template>
-  <div class style="width: 100%">
+  <div :class="`${getLayoutMode}-content`">
     <LayoutMultipleHeader />
     <a-layout-content class="h-layout-content">
       <router-view :key="routerViewKey" v-slot="{ Component }">
@@ -30,18 +30,25 @@
     setup() {
       const { getLayoutMode } = useHeaderSetting()
       const { getBasicTransition } = useTransitionSetting()
+      const prefixCls = `${getLayoutMode.value}-content`
 
       return {
         getLayoutMode,
         routerViewKey: new Date().getTime(),
         openCache: true,
         getBasicTransition,
+        prefixCls,
         getCaches: []
       }
     }
   })
 </script>
 <style lang="less">
+  .mix-sidebar-content {
+    width: 100%;
+    overflow-y: scroll;
+    height: 100vh;
+  }
   .h-layout-content {
     margin: 15px 10px 0;
     text-align: left;
