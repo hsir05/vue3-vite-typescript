@@ -10,6 +10,9 @@ export default {
         role: '角色管理', 
         users: '用户管理',
         menus: '菜单管理',
+        account: '个人页',
+        accountCenter: '个人中心',
+        accountSetting: '个人设置',
 
         configuration: '项目配置',
         darkMode: '主题',

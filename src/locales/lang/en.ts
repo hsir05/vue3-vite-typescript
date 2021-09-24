@@ -10,6 +10,9 @@ export default {
         role: 'Role',
         users: 'Users',
         menus: 'Menus',
+        account: 'Personal',
+        accountCenter: 'Personal Center',
+        accountSetting: 'Personal Settings',
 
         configuration: 'Configuration',
         darkMode: 'Dark mode',

@@ -51,6 +51,22 @@ export const asyncRouterMap: AppRouteModule = {
                 },
             ]
         },
+        {
+            path: '/account',
+            name: 'account',
+            icon: 'icon-setting',
+            redirect: '/exception/403',
+            component: Wrap,
+            meta: { title: 'account', },
+            children: [
+                {
+                    path: '/account/setting',
+                    name: 'accountSetting',
+                    component: () => import(/* webpackChunkName: "setting" */ '/@/views/account/setting.vue'),
+                    meta: { title: 'accountSetting' }
+                },
+            ]
+        },
         // Exception
         {
             path: '/exception',

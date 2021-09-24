@@ -132,9 +132,7 @@ export default {
     resultSuccess: 'Success',
     resultFail: 'Failed',
 
-    account: 'Personal',
-    accountCenter: 'Personal Center',
-    accountSetting: 'Personal Settings',
+   
 
     exception: 'Exception',
     netWorkError: 'Network Error',

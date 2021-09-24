@@ -128,9 +128,7 @@ export default {
     resultSuccess: '成功页',
     resultFail: '失败页',
 
-    account: '个人页',
-    accountCenter: '个人中心',
-    accountSetting: '个人设置',
+    
 
     exception: '异常页',
     netWorkError: '网络错误',
