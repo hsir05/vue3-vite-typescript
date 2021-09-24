@@ -81,7 +81,7 @@ export function darken(color: string, amount: number) {
  */
 export function lighten(color: string, amount: number) {
     if (color === '#fffffe' || color === '#ffffff'){
-        return '#f0f2f5'
+        return '#f0f2f5' 
     }
   color = color.indexOf('#') >= 0 ? color.substring(1, color.length) : color;
   amount = Math.trunc((255 * amount) / 100);
