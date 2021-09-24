@@ -1,6 +1,6 @@
 <template>
   <div :class="`${getLayoutMode}-content`">
-    <LayoutMultipleHeader />
+    <LayoutMultipleHeader v-if="getMultiTabs" />
     <a-layout-content
       class="h-layout-content"
       :class="{ 'h-layout-content-sidebar': isActive, 'h-layout-content-mix': isActive }"
@@ -22,6 +22,7 @@
   import { defineComponent, computed } from 'vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
+  import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
   import LayoutMultipleHeader from './tabs/index.vue'
   import LayoutFooter from './Footer.vue'
   export default defineComponent({
@@ -33,11 +34,13 @@
     setup() {
       const { getLayoutMode, getHeaderFixed } = useHeaderSetting()
       const { getBasicTransition } = useTransitionSetting()
+      const { getMultiTabs } = useMultipleTabSetting()
 
       const isActive = computed(() => getHeaderFixed.value)
 
       return {
         getLayoutMode,
+        getMultiTabs,
         routerViewKey: new Date().getTime(),
         openCache: true,
         getBasicTransition,

@@ -20,7 +20,7 @@ export function useHeaderSetting(){
     const getLayoutMode = computed(() => appStore.getLayoutMode);
     
 
-    function setHeaderTheme(headerSetting: Partial<HeaderSetting>){
+    function setHeaderSetting(headerSetting: Partial<HeaderSetting>){
         appStore.setProjectConfig({ headerSetting });
         updateHeaderBgColor(headerSetting.bgColor as string)
     }                       
@@ -39,6 +39,6 @@ export function useHeaderSetting(){
         getHeaderFixed,
         getLayoutMode,
         updateHeaderBgColor,
-        setHeaderTheme,
+        setHeaderSetting,
     }  
 }

@@ -23,7 +23,8 @@ export default {
     },
     multiTabsSetting: {
         cache:true,
-        showFold: true
+        showFold: true,
+        show: true,
     },
     headerSetting: {
         bgColor: '#fffffe',
@@ -45,6 +46,7 @@ export default {
     layout: 'sidemenu',
     contentWidth: 'Fluid', 
     colorWeak: false,
+    grayMode: false,
     menu: {
         locale: true
     },

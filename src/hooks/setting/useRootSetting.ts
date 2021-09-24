@@ -3,6 +3,8 @@ import { computed } from 'vue';
 import { useAppStore } from '/@/store/modules/app';
 import type { ProjectConfig } from '/#/config';
 import defaultSettings from '/@/config/defaultSettings'
+import { toggleClass } from './util';
+
 type RootSetting = Omit<
     ProjectConfig,
     'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
@@ -11,10 +13,21 @@ type RootSetting = Omit<
 export function useRootSetting() {
     const appStore = useAppStore();
     const getThemeColor = computed(() => appStore.getProjectConfig.themeColor);
+    const getColorWeak = computed(() => appStore.getProjectConfig.colorWeak);
+    const getGrayMode = computed(() => appStore.getProjectConfig.grayMode);
 
     function setRootSetting(setting: Partial<RootSetting>) {
         appStore.setProjectConfig(setting);
-    }   
+    }    
+    function updateColorWeak(colorWeak: boolean) {
+        appStore.setProjectConfig({ colorWeak })
+        toggleClass(colorWeak, 'color-weak', document.documentElement);
+    }
+
+    function updateGrayMode(grayMode: boolean) {
+        appStore.setProjectConfig({ grayMode })
+        toggleClass(grayMode, 'gray-mode', document.documentElement);
+    }
 
     const darkTheme = {
         '@border-color-base': '#E9EEF7', 
@@ -44,8 +57,7 @@ export function useRootSetting() {
             ...darkTheme
         }).then(() => {
             console.log('暗黑主题切换成功');
-        })
-        .catch(error => {
+        }) .catch(error => {
             console.log(error);
         });
     }
@@ -63,8 +75,12 @@ export function useRootSetting() {
 
     return {
         getThemeColor,
+        getColorWeak,
+        getGrayMode,
         setRootSetting,
         changeThemeColor,
-        changeDarkTheme
+        changeDarkTheme,
+        updateColorWeak,
+        updateGrayMode
     }
 }

@@ -8,6 +8,7 @@
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
   const props = {
     prefixCls: { type: String, default: prefixCls }
   }
@@ -19,13 +20,28 @@
       const appStore = useAppStore()
 
       handleRestoreState()
-      const { changeThemeColor, getThemeColor } = useRootSetting()
-      const { getHeaderBgColor, updateHeaderBgColor } = useHeaderSetting()
+      const {
+        changeThemeColor,
+        updateColorWeak,
+        updateGrayMode,
+        getThemeColor,
+        getColorWeak,
+        getGrayMode
+      } = useRootSetting()
+      const { getHeaderBgColor, getHeaderFixed, updateHeaderBgColor, setHeaderSetting } =
+        useHeaderSetting()
       const { getMenuBgColor, updateSidebarBgColor } = useMenuSetting()
+      const { getMultiTabs, setMultiTabsSetting } = useMultipleTabSetting()
 
       changeThemeColor(unref(getThemeColor))
       updateHeaderBgColor(getHeaderBgColor.value)
       updateSidebarBgColor(getMenuBgColor.value)
+
+      setHeaderSetting({ fixed: getHeaderFixed.value })
+      setMultiTabsSetting({ show: getMultiTabs.value })
+
+      updateColorWeak(getColorWeak.value)
+      updateGrayMode(getGrayMode.value)
 
       const { prefixCls } = toRefs(props)
       console.log(prefixCls.value)

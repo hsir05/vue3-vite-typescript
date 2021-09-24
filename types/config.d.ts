@@ -69,7 +69,7 @@ export interface ProjectConfig {
     showFooter: boolean; 
     headerSetting: HeaderSetting;
     menuSetting: MenuSetting;
-    multiTabsSetting: MultiTabsSetting;
+    multiTabsSetting: MultiTabsSetting; 
     transitionSetting: TransitionSetting;
     openKeepAlive: boolean;
     showBreadCrumb: boolean;

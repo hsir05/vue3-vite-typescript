@@ -6,13 +6,15 @@ export function useMultipleTabSetting() {
     const appStore = useAppStore();
 
     const getShowFold = computed(() => appStore.getMultiTabsSetting.showFold);
+    const getMultiTabs = computed(() => appStore.getMultiTabsSetting.show);
 
-    function setShowFold(multiTabsSetting: Partial<MultiTabsSetting>) {
+    function setMultiTabsSetting(multiTabsSetting: Partial<MultiTabsSetting>) {
         appStore.setProjectConfig({ multiTabsSetting })
     } 
- 
+  
     return{
         getShowFold,
-        setShowFold
+        getMultiTabs,
+        setMultiTabsSetting
     }
 }

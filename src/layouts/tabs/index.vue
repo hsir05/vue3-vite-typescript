@@ -85,12 +85,12 @@
         }
         tabStore.closeTabByKey(targetKey, router)
       }
-      const { getShowFold, setShowFold } = useMultipleTabSetting()
+      const { getShowFold, setMultiTabsSetting } = useMultipleTabSetting()
       const { setLayoutMode } = useMenuSetting()
 
       function hanldleShowFold() {
         setLayoutMode({ layoutMode: MenuTypeEnum.MIX })
-        setShowFold({ showFold: !unref(getShowFold) })
+        setMultiTabsSetting({ showFold: !unref(getShowFold) })
       }
 
       const handleRedo = () => {

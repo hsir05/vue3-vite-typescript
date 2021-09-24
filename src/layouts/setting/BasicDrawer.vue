@@ -3,6 +3,8 @@
     :title="t('configuration')"
     :closable="true"
     width="340"
+    :drawerStyle="{ overflow: 'hidden' }"
+    :bodyStyle="{ overflowY: 'scroll', height: '92%' }"
     :destroyOnClose="true"
     @close="close"
     v-model:visible="visibleRef"
@@ -57,6 +59,26 @@
         @handeSetting="handleMenuTheme"
       />
 
+      <Divider orientation="center" plain>{{ t('setting.interfaceDisplay') }}</Divider>
+      <SettingSelect
+        class="pt0"
+        :title="t('setting.colorWeak')"
+        :checked="getColorWeak"
+        @handeSetting="handleColorWeak"
+      />
+
+      <SettingSelect
+        :title="t('setting.grayMode')"
+        :checked="getGrayMode"
+        @handeSetting="handleGrayMode"
+      />
+
+      <SettingSelect
+        :title="t('setting.tabs')"
+        :checked="getMultiTabs"
+        @handeSetting="handleMultiTabs"
+      />
+
       <SettingSelect
         :title="t('setting.menuCollapse')"
         :checked="getCollapsed"
@@ -69,7 +91,9 @@
         @handeSetting="handleFixedHeader"
       />
 
+      <Divider orientation="center" plain>{{ t('setting.animation') }}</Divider>
       <SettingSelect
+        class="pt0"
         :title="t('setting.progress')"
         :checked="getOpenNProgress"
         @handeSetting="handleprogress"
@@ -90,7 +114,7 @@
         </Select>
       </div>
 
-      <Button type="primary" class="mt20" style="width: 100%" @click="handleClearAll">{{
+      <Button type="primary" class="mt20 mb10" style="width: 100%" @click="handleClearAll">{{
         t('setting.clearBtn')
       }}</Button>
     </div>
@@ -105,6 +129,7 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
+  import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
 
   import { useI18n } from '/@/hooks/web/useI18n'
   import { menuTypeList } from '../enum'
@@ -141,21 +166,30 @@
     emits: ['handleClose'],
     setup(props, { emit }) {
       const router = useRouter()
-      //   const { isLoading } = useNProgress()
-      //    isLoading.value = true
       const { setTransitionSetting, getBasicTransition, getOpenNProgress } = useTransitionSetting()
+      const { getMultiTabs, setMultiTabsSetting } = useMultipleTabSetting()
 
       const visibleRef = ref<boolean>(false)
       const checked = ref<boolean>(false)
       const animation = ref(getBasicTransition.value)
       const { t } = useI18n()
-      const { getThemeColor, setRootSetting, changeThemeColor, changeDarkTheme } = useRootSetting()
+      const {
+        getThemeColor,
+        getColorWeak,
+        getGrayMode,
+        setRootSetting,
+        changeThemeColor,
+        updateColorWeak,
+        updateGrayMode,
+        changeDarkTheme
+      } = useRootSetting()
+
       const {
         getLayoutMode,
         getHeaderBgColor,
         updateHeaderBgColor,
         getHeaderTheme,
-        setHeaderTheme,
+        setHeaderSetting,
         getHeaderFixed
       } = useHeaderSetting()
 
@@ -183,8 +217,9 @@
         changeThemeColor(color)
         close()
       }
+
       const handleHeaderTheme = (color: string): void => {
-        setHeaderTheme({ bgColor: color })
+        setHeaderSetting({ bgColor: color })
         close()
       }
       const handleMenuTheme = (color: string): void => {
@@ -197,11 +232,20 @@
         close()
       }
 
+      const handleColorWeak = (bool: boolean) => {
+        updateColorWeak(bool)
+      }
+
+      const handleGrayMode = (bool: boolean) => {
+        updateGrayMode(bool)
+      }
+
       const handleMenuCollapse = (bool: boolean) => {
         setMenuSetting({ collapsed: bool })
       }
+
       const handleFixedHeader = (bool: boolean) => {
-        setHeaderTheme({ fixed: bool })
+        setHeaderSetting({ fixed: bool })
       }
 
       const handleprogress = (bool: boolean) => {
@@ -209,6 +253,10 @@
       }
       const handleAnimation = (animation: string) => {
         setTransitionSetting({ basicTransition: animation })
+      }
+
+      const handleMultiTabs = (bool: boolean) => {
+        setMultiTabsSetting({ show: bool })
       }
 
       const handleClearAll = () => {
@@ -230,6 +278,9 @@
         getCollapsed,
         getMenuBgColor,
         getBasicTransition,
+        getColorWeak,
+        getGrayMode,
+        getMultiTabs,
         visibleRef,
         checked,
         animation,
@@ -253,6 +304,9 @@
         routerTransitionOptions,
         getOpenNProgress,
         handleprogress,
+        handleMultiTabs,
+        handleColorWeak,
+        handleGrayMode,
         t
       }
     }

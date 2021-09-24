@@ -24,6 +24,22 @@
     height: @h;
     background-color: @c; 
 }
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: visible !important;
+  overflow-x: hidden !important;
+
+  &.color-weak {
+    filter: invert(80%);
+  }
+
+  &.gray-mode {
+    filter: grayscale(100%);
+    filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
+  }
+}
 #app{
     height: 100vh;
     overflow: hidden;
@@ -70,6 +86,9 @@
 }
 .mb10{
     margin-bottom: 10px;
+}
+.pt0{
+    padding-top: 0;
 }
 .pt5{
     padding-top: 5px;
