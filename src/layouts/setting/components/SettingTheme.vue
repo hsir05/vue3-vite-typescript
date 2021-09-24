@@ -3,9 +3,9 @@
   <div class="clearfix flex">
     <div
       :class="['theme-color', value === color ? 'theme-color-active' : '']"
-      v-for="(color, index) in colorList"
+      v-for="(color, index) in data"
       :key="index"
-      :style="`backgroundColor:${color}`"
+      :style="{ backgroundColor: color }"
       @click="handeSetting(color)"
     >
       <MyIcon type="icon-gou" v-if="value === color" style="font-size: 18px" />
@@ -40,6 +40,7 @@
     emits: ['handeSetting'],
     setup(props, { emit }) {
       const value = ref<String>(props.theme)
+      const data: string[] = props.colorList as string[]
       const { t } = useI18n()
 
       const handeSetting = (color) => {
@@ -49,7 +50,7 @@
       return {
         value,
         themeTitle: props.title,
-        // data: props.colorList || [],
+        data,
         handeSetting,
         t
       }
