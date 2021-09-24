@@ -117,8 +117,8 @@
 
       const { t } = useI18n()
       const formState: UnwrapRef<FormState> = reactive({
-        account: '',
-        password: ''
+        account: 'admin',
+        password: '123456'
       })
       const handleFinish = (values: FormState) => {
         console.log(values, formState)
