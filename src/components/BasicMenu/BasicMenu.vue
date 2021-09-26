@@ -18,13 +18,14 @@
       <a-sub-menu v-else :key="menu.name">
         <template #title>
           <span>
-            <MyIcon :type="menu.icon" /> <span calss="menu-text">{{ t(menu.name) }}</span>
+            <MyIcon :type="menu.icon" />
+            <span calss="menu-text">{{ t(menu.name) }}</span>
           </span>
         </template>
         <a-menu-item :key="item.path" v-for="item in menu.children">
-          <router-link :to="item.path" @click="handleMenu(item.path)" calss="menu-text">
-            {{ t(item.name) }}
-          </router-link>
+          <router-link :to="item.path" @click="handleMenu(item.path)" calss="menu-text">{{
+            t(item.name)
+          }}</router-link>
         </a-menu-item>
       </a-sub-menu>
     </template>
