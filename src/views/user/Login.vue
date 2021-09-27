@@ -8,7 +8,7 @@
     <Form
       class="user-layout-login"
       :model="formState"
-      :rules="rules"
+      :rules="loginRules"
       @finish="handleFinish"
       @finishFailed="handleFinishFailed"
     >
@@ -22,19 +22,7 @@
             </Input>
           </FormItem>
           <FormItem name="password">
-            <Input
-              v-model:value="formState.password"
-              size="large"
-              :type="isShow ? 'text' : 'password'"
-              placeholder="请输入密码"
-            >
-              <template #prefix>
-                <MyIcon type="icon-mima1" />
-              </template>
-              <template #suffix>
-                <MyIcon :type="isShow ? 'icon-eye1' : 'icon-eye'" @click="handlePass" />
-              </template>
-            </Input>
+            <InputPassword v-model:value="formState.password" placeholder="请输入密码" />
           </FormItem>
         </TabPane>
 
@@ -85,7 +73,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { Form, Input, Checkbox, Tabs, InputSearch } from 'ant-design-vue'
+  import { Form, Input, Checkbox, Tabs, InputSearch, InputPassword } from 'ant-design-vue'
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
   import { defineComponent, reactive, ref, UnwrapRef } from 'vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
@@ -93,7 +81,7 @@
   import { useRouter } from 'vue-router'
   import { useI18n } from '/@/hooks/web/useI18n'
   import { defaultHomePath } from '/@/config/router.config'
-  import { rules } from '/@/utils/validator'
+  import { loginRules } from '/@/utils/validator'
   import { FormState } from './typing'
   export default defineComponent({
     name: 'Login',
@@ -106,12 +94,12 @@
       Tabs,
       TabPane: Tabs.TabPane,
       InputSearch,
+      InputPassword,
       OtherLogin
     },
     setup() {
       const router = useRouter()
       const loading = ref(false)
-      const isShow = ref(false)
       const checked = ref(false)
       const activeKey = ref('1')
 
@@ -130,9 +118,6 @@
       const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
         console.log(errors)
       }
-      const handlePass = () => {
-        isShow.value = !isShow.value
-      }
       const handleTabs = (tab: string) => {
         console.log(tab)
       }
@@ -140,13 +125,11 @@
         formState,
         loading,
         checked,
-        isShow,
         t,
-        handlePass,
         handleFinish,
         handleFinishFailed,
         activeKey,
-        rules,
+        loginRules,
         handleTabs
       }
     }

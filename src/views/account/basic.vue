@@ -5,39 +5,48 @@
       class="user-layout-login"
       :labelCol="{ span: 3, offset: 0 }"
       :model="formState"
-      :rules="rules"
+      :rules="basicRules"
       @finish="handleFinish"
       @finishFailed="handleFinishFailed"
     >
-      <FormItem name="account" label="邮箱">
+      <FormItem name="email" label="邮箱">
         <Input
-          v-model:value.trim="formState.account"
+          v-model:value.trim="formState.email"
           placeholder="请输入邮箱"
+          allow-clear
           style="width: 300px"
         />
       </FormItem>
 
-      <FormItem name="account" label="昵称">
+      <FormItem name="nickname" label="昵称">
         <Input
-          v-model:value.trim="formState.account"
+          v-model:value.trim="formState.nickname"
           placeholder="请输入昵称"
+          allow-clear
+          :maxlength="20"
           style="width: 300px"
         />
       </FormItem>
 
-      <FormItem name="account" label="联系电话">
+      <FormItem name="phone" label="联系电话">
         <Input
-          v-model:value.trim="formState.account"
-          placeholder="请输入昵称"
+          v-model:value.trim="formState.phone"
+          :maxlength="11"
+          placeholder="请输入联系电话"
+          allow-clear
           style="width: 300px"
         />
       </FormItem>
 
-      <FormItem name="account" label="个人简介">
-        <Input
-          v-model:value.trim="formState.account"
+      <FormItem name="introduce" label="个人简介">
+        <Textarea
+          v-model:value.trim="formState.introduce"
           placeholder="请输入个人简介"
+          allow-clear
           style="width: 300px"
+          showCount
+          :maxlength="500"
+          :rows="4"
         />
       </FormItem>
 
@@ -53,21 +62,24 @@
   import { defineComponent, reactive, ref, UnwrapRef } from 'vue'
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
   import { Form, Input, Button } from 'ant-design-vue'
-  import { rules } from '/@/utils/validator'
+  import { basicRules } from '/@/utils/validator'
   import { FormState } from './typing'
   export default defineComponent({
     name: 'Basic',
     components: {
       Form,
       Input,
+      Textarea: Input.TextArea,
       Button,
       FormItem: Form.Item
     },
     setup() {
       const loading = ref(false)
       const formState: UnwrapRef<FormState> = reactive({
-        account: 'admin',
-        password: '123456'
+        email: '',
+        nickname: '',
+        phone: '',
+        introduce: ''
       })
 
       const handleFinish = (values: FormState) => {
@@ -80,7 +92,7 @@
 
       return {
         formState,
-        rules,
+        basicRules,
         handleFinish,
         handleFinishFailed,
         loading
