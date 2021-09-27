@@ -16,28 +16,35 @@
         @click="handleCollapsed"
         style="font-size: 22px"
       />
-      <HBreadcrumb />
+      <!-- <HBreadcrumb /> -->
     </div>
+    <SimpleMenu v-if="getLayoutMode === 'mix-sidebar'" :items="menuData" />
+
     <HMenu :isHorizontal="true" v-if="getLayoutMode === 'mix'" />
+    <!-- <HMenu :isHorizontal="true" v-if="getLayoutMode !== 'sidebar'" /> -->
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, unref } from 'vue'
   import AppLogo from '/@/layouts/AppLogo.vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
-  import HBreadcrumb from '/@/components/HBreadcrumb/index.vue'
+  //   import HBreadcrumb from '/@/components/HBreadcrumb/index.vue'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import HMenu from '../../HMenu.vue'
+  import { SimpleMenu } from '/@/components/SimpleMenu'
+  import { getMenus } from '/@/router/index'
   export default defineComponent({
     name: 'ToggleButton',
     components: {
       AppLogo,
-      HBreadcrumb,
       HMenu,
-      MyIcon
+      MyIcon,
+      SimpleMenu
     },
     setup() {
+      const menuData = getMenus()
+
       const { getLayoutMode } = useHeaderSetting()
       const { getCollapsed, setMenuSetting } = useMenuSetting()
       const handleCollapsed = () => {
@@ -47,6 +54,7 @@
       return {
         getCollapsed,
         handleCollapsed,
+        menuData,
         getLayoutMode
       }
     }
