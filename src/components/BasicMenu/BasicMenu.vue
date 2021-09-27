@@ -55,6 +55,10 @@
       items: {
         type: Array as PropType<MenuType[]>,
         default: () => []
+      },
+      spliteMenu: {
+        type: Boolean,
+        default: () => false
       }
     },
     setup() {
@@ -68,7 +72,7 @@
 
       const { getMenuTheme } = useMenuSetting()
 
-      const onOpenChange = (openKeys) => {
+      const onOpenChange = (openKeys: string[]) => {
         menuState.openKeys = []
         if (openKeys.length === 0 || openKeys.length === 1) {
           menuState.openKeys = openKeys

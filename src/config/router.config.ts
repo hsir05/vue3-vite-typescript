@@ -54,7 +54,7 @@ export const asyncRouterMap: AppRouteModule = {
         {
             path: '/account',
             name: 'account',
-            icon: 'icon-setting',
+            icon: 'icon-geren',
             redirect: '/exception/403',
             component: Wrap,
             meta: { title: 'account', },

@@ -50,6 +50,8 @@
         />
       </FormItem>
 
+      <HCopper />
+
       <FormItem>
         <Button class="submit-btn" type="primary" html-type="submit" :loading="loading"
           >更新基本信息</Button
@@ -64,6 +66,7 @@
   import { Form, Input, Button } from 'ant-design-vue'
   import { basicRules } from '/@/utils/validator'
   import { FormState } from './typing'
+  import HCopper from './HCropper.vue'
   export default defineComponent({
     name: 'Basic',
     components: {
@@ -71,7 +74,8 @@
       Input,
       Textarea: Input.TextArea,
       Button,
-      FormItem: Form.Item
+      FormItem: Form.Item,
+      HCopper
     },
     setup() {
       const loading = ref(false)

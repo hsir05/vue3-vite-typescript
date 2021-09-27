@@ -6,26 +6,40 @@
     mode="horizontal"
     class="horizontal-menu"
   >
-    <template v-for="menu in items">
-      <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
-        <router-link :to="menu.path" @click="handleMenu(menu.path)">
+    <template v-if="spliteMenu">
+      <a-menu-item :key="menu.path" v-for="menu in items">
+        <router-link :to="menu.path" v-if="!menu.children" @click="handleMenu(menu.path)">
           <MyIcon :type="menu.icon" />
           <span>{{ t(menu.name) }}</span>
         </router-link>
+        <span v-else @click="handleMenu(menu.path)">
+          <MyIcon :type="menu.icon" />
+          <span>{{ t(menu.name) }}</span>
+        </span>
       </a-menu-item>
-      <a-sub-menu :key="menu.path + 1" v-else>
-        <template #title>
-          <span>
+    </template>
+    <template v-else>
+      <template v-for="menu in items">
+        <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
+          <router-link :to="menu.path" @click="handleMenu(menu.path)">
             <MyIcon :type="menu.icon" />
             <span>{{ t(menu.name) }}</span>
-          </span>
-        </template>
-        <a-menu-item :key="item.path" v-for="item in menu.children">
-          <router-link :to="item.path" @click="handleMenu(item.path)">{{
-            t(item.name)
-          }}</router-link>
+          </router-link>
         </a-menu-item>
-      </a-sub-menu>
+        <a-sub-menu :key="menu.path + 1" v-else>
+          <template #title>
+            <span>
+              <MyIcon :type="menu.icon" />
+              <span>{{ t(menu.name) }}</span>
+            </span>
+          </template>
+          <a-menu-item :key="item.path" v-for="item in menu.children">
+            <router-link :to="item.path" @click="handleMenu(item.path)">
+              {{ t(item.name) }}
+            </router-link>
+          </a-menu-item>
+        </a-sub-menu>
+      </template>
     </template>
   </a-menu>
 </template>
@@ -38,6 +52,9 @@
   import { REDIRECT_NAME } from '/@/router/constant'
   import { listenerRouteChange } from '/@/router/routeChange'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import { useRouter } from 'vue-router'
+  import mitt from '/@/utils/mitt'
+  // import type { RouteRecordRaw,  } from 'vue-router';
   export default defineComponent({
     name: 'SimpleMenu',
     components: {
@@ -47,25 +64,60 @@
       items: {
         type: Array as PropType<MenuType[]>,
         default: () => []
+      },
+      spliteMenu: {
+        type: Boolean,
+        default: () => false
       }
     },
-    setup() {
+    setup(props) {
       const { t } = useI18n()
+      const router = useRouter()
+
+      const subMenuEmitter = mitt()
+      console.log(subMenuEmitter)
+
       const menuState = reactive({
         defaultSelectedKeys: ['/dashboard'],
         selectedKeys: ['/dashboard']
       })
       const { getHeaderBgColor } = useHeaderSetting()
 
+      const getChildrenMenu = (menu: MenuType[], path: String) => {
+        let menuArr: MenuType[] = []
+        for (let key of menu) {
+          if (key.children && key.children.length > 0) {
+            if (key.path === path) {
+              menuArr = key.children
+              break
+            } else {
+              menuArr = getChildrenMenu(key.children, path)
+            }
+          }
+        }
+        return menuArr
+      }
+
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
         menuState.selectedKeys = [route.path]
       })
-
+      // 待优化
       const theme = computed(() => (unref(getHeaderBgColor) === '#fffffe' ? 'light' : 'dark'))
 
       function handleMenu(path: string) {
         menuState.selectedKeys = [path]
+        // 分割菜单模式下
+        if (props.spliteMenu) {
+          let childrenMenuData = getChildrenMenu(props.items, path)
+          if (childrenMenuData.length > 0) {
+            router.push(childrenMenuData[0].path)
+            // subMenuEmitter.emit('submenu:mouse-enter-child');
+          } else {
+            router.push(path)
+            // subMenuEmitter.emit('submenu:mouse-enter-child');
+          }
+        }
       }
       return {
         t,

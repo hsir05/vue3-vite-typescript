@@ -6,16 +6,20 @@
   export default defineComponent({
     name: 'HMenu',
     props: {
-      isHorizontal: Boolean
+      isHorizontal: Boolean,
+      spliteMenu: {
+        type: Boolean,
+        default: () => false
+      }
     },
     setup(props) {
       const menuData = getMenus()
 
       function renderMenu() {
         return !props.isHorizontal ? (
-          <BasicMenu items={menuData} />
+          <BasicMenu items={menuData} spliteMenu={props.spliteMenu} />
         ) : (
-          <SimpleMenu items={menuData} />
+          <SimpleMenu items={menuData} spliteMenu={props.spliteMenu} />
         )
       }
 

@@ -18,7 +18,7 @@
       />
       <!-- <HBreadcrumb /> -->
     </div>
-    <SimpleMenu v-if="getLayoutMode === 'mix-sidebar'" :items="menuData" />
+    <HMenu :isHorizontal="true" v-if="getLayoutMode === 'mix-sidebar'" :spliteMenu="true" />
 
     <HMenu :isHorizontal="true" v-if="getLayoutMode === 'mix'" />
     <!-- <HMenu :isHorizontal="true" v-if="getLayoutMode !== 'sidebar'" /> -->
@@ -32,15 +32,13 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
   import HMenu from '../../HMenu.vue'
-  import { SimpleMenu } from '/@/components/SimpleMenu'
   import { getMenus } from '/@/router/index'
   export default defineComponent({
     name: 'ToggleButton',
     components: {
       AppLogo,
       HMenu,
-      MyIcon,
-      SimpleMenu
+      MyIcon
     },
     setup() {
       const menuData = getMenus()
