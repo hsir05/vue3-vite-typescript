@@ -2,7 +2,7 @@
   <div class="basic">
     <h4 class="basic-title">基本设置</h4>
     <Form
-      class="user-layout-login"
+      class="basic-form"
       :labelCol="{ span: 3, offset: 0 }"
       :model="formState"
       :rules="basicRules"
@@ -50,7 +50,16 @@
         />
       </FormItem>
 
-      <HCopper />
+      <div class="avatar-wrap">
+        <Avatar
+          :size="{ xs: 24, sm: 32, md: 40, lg: 64, xl: 100, xxl: 120 }"
+          class="avatar"
+          src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+        />
+        <Button class="mt20" type="primary">
+          <template #icon> <MyIcon type="icon-upload2" /> </template>更换头像
+        </Button>
+      </div>
 
       <FormItem>
         <Button class="submit-btn" type="primary" html-type="submit" :loading="loading"
@@ -63,10 +72,11 @@
 <script lang="ts">
   import { defineComponent, reactive, ref, UnwrapRef } from 'vue'
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
-  import { Form, Input, Button } from 'ant-design-vue'
+  import { Form, Input, Button, Avatar } from 'ant-design-vue'
   import { basicRules } from '/@/utils/validator'
   import { FormState } from './typing'
-  import HCopper from './HCropper.vue'
+  // import HCopper from './HCropper.vue'
+  import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
     name: 'Basic',
     components: {
@@ -75,7 +85,8 @@
       Textarea: Input.TextArea,
       Button,
       FormItem: Form.Item,
-      HCopper
+      Avatar,
+      MyIcon
     },
     setup() {
       const loading = ref(false)
@@ -112,6 +123,18 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #f0f2f5;
+    }
+    .basic-form {
+      position: relative;
+    }
+    .avatar-wrap {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      text-align: center;
+    }
+    .avatar {
+      display: block;
     }
   }
 </style>
