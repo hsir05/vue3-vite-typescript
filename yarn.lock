@@ -5179,10 +5179,10 @@ vscode-vue-languageservice@^0.27.0:
     vscode-pug-languageservice "^0.27.7"
     vscode-typescript-languageservice "^0.27.7"
 
-vue-cropper@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/vue-cropper/-/vue-cropper-0.5.6.tgz#a38c98d402da1421bd5e7535e16b9723f103cafd"
-  integrity sha512-54Z/AipXDBcE5nzJweTM+BryzSAcC0FCTMQLvLt6f4XanP4AWB3mPkQw3PG3NRICo7knljHO+N+pjZxYAKoTLQ==
+vue-cropper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-cropper/-/vue-cropper-1.0.1.tgz#24fc077609bef147c8765306f4cdec6d85f46cfe"
+  integrity sha512-lor1NN6Xv9gP6ivF4/bBLOwQLqG+/5xtVPU/HYIklfTv0iehSSW+0uKlyfd83ttsgUW5PDOt+5vSpQK86CLE0w==
 
 vue-demi@*:
   version "0.11.2"

@@ -52,11 +52,11 @@
 
       <div class="avatar-wrap">
         <Avatar
-          :size="{ xs: 24, sm: 32, md: 40, lg: 64, xl: 100, xxl: 120 }"
+          :size="{ xs: 22, sm: 30, md: 40, lg: 64, xl: 100, xxl: 120 }"
           class="avatar"
           src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
         />
-        <Button class="mt20" type="primary">
+        <Button class="mt20" type="primary" @click="handleAdatar">
           <template #icon> <MyIcon type="icon-upload2" /> </template>更换头像
         </Button>
       </div>
@@ -67,6 +67,8 @@
         >
       </FormItem>
     </Form>
+
+    <HCropperModal ref="hCropperModalRef" />
   </div>
 </template>
 <script lang="ts">
@@ -75,7 +77,7 @@
   import { Form, Input, Button, Avatar } from 'ant-design-vue'
   import { basicRules } from '/@/utils/validator'
   import { FormState } from './typing'
-  // import HCopper from './HCropper.vue'
+  import HCropperModal from '/@/components/HCropper/HCropperModal.vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
     name: 'Basic',
@@ -86,10 +88,12 @@
       Button,
       FormItem: Form.Item,
       Avatar,
-      MyIcon
+      MyIcon,
+      HCropperModal
     },
     setup() {
       const loading = ref(false)
+      const hCropperModalRef = ref()
       const formState: UnwrapRef<FormState> = reactive({
         email: '',
         nickname: '',
@@ -105,12 +109,18 @@
         console.log(errors)
       }
 
+      const handleAdatar = () => {
+        hCropperModalRef.value.visible = true
+      }
+
       return {
         formState,
+        hCropperModalRef,
+        loading,
         basicRules,
         handleFinish,
         handleFinishFailed,
-        loading
+        handleAdatar
       }
     }
   })
