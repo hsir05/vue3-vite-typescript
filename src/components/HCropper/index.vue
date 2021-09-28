@@ -1,22 +1,49 @@
 <template>
-  <vueCropper
-    class="h-cropper"
-    ref="hCropper"
-    :img="option.img"
-    :outputSize="option.size"
-    :outputType="option.outputType"
-    :info="true"
-    :full="option.full"
-    :canMove="option.canMove"
-    :canMoveBox="option.canMoveBox"
-    :original="option.original"
-    :autoCrop="option.autoCrop"
-    :fixed="option.fixed"
-    :fixedNumber="option.fixedNumber"
-    :centerBox="option.centerBox"
-    :fixedBox="option.fixedBox"
-  />
-  <div class="test-button">
+  <div class="h-cropper">
+    <div style="width: 330px; height: 200px; margin-right: 80px">
+      <vueCropper
+        ref="hCropper"
+        :img="option.img"
+        :outputSize="option.size"
+        :outputType="option.outputType"
+        :info="true"
+        :full="option.full"
+        :canMove="option.canMove"
+        :canMoveBox="option.canMoveBox"
+        :fixedBox="option.fixedBox"
+        :original="option.original"
+        :autoCrop="option.autoCrop"
+        :autoCropWidth="option.autoCropWidth"
+        :autoCropHeight="option.autoCropHeight"
+        :centerBox="option.centerBox"
+        :high="option.high"
+        :infoTrue="option.infoTrue"
+        :maxImgSize="option.maxImgSize"
+        @realTime="handleRealTime"
+        @imgLoad="imgLoad"
+        :enlarge="option.enlarge"
+        :mode="option.mode"
+        :limitMinSize="option.limitMinSize"
+      />
+    </div>
+    <section class="pre-item">
+      <div
+        class="show-preview"
+        :style="{
+          width: statePreviews.previews.w + 'px',
+          height: statePreviews.previews.h + 'px',
+          overflow: 'hidden',
+          margin: '5px'
+        }"
+      >
+        <div :style="statePreviews.previews.div">
+          <img :src="statePreviews.previews.url" :style="statePreviews.previews.img" />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="h-cropper-button">
     <Button type="primary" class="mr10 mt10" @click="changeImg">changeImg</Button>
     <label class="btn" for="uploads">upload</label>
     <input
@@ -43,6 +70,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, reactive } from 'vue'
+  import 'vue-cropper/dist/index.css'
   import { VueCropper } from 'vue-cropper'
   import { Button } from 'ant-design-vue'
   // interface imgInterface{
@@ -59,41 +87,44 @@
       const crap = ref(false)
       const model = ref(false)
       const modelSrc = ref(' ')
-      let previews = reactive({
-        w: '',
-        h: '',
-        img: '',
-        url: '',
-        div: {}
+      let statePreviews = reactive({
+        previews: {
+          w: '',
+          h: '',
+          img: {
+            transform: '',
+            width: '',
+            heigth: ''
+          },
+          url: '',
+          html: '',
+          div: {
+            width: '',
+            heigth: ''
+          }
+        }
       })
       // const lists:Ref<imgInterface[]> = ref([])
       const option = reactive({
         img: 'https://avatars2.githubusercontent.com/u/15681693?s=460&v=4',
-        size: 0.8, // 裁剪生成图片的质量
-        full: false, // 裁剪生成图片的格式
+        size: 1,
+        full: false,
         outputType: 'png',
         canMove: true,
+        fixedBox: false,
         original: false,
         canMoveBox: true,
-        autoCrop: true, // 是否默认生成截图框
-        // 只有自动截图开启 宽度高度才生效
-        autoCropWidth: 160,
+        autoCrop: true,
+        autoCropWidth: 200,
         autoCropHeight: 150,
         centerBox: false,
-        high: true,
-        fixedBox: true, // 固定截图框大小 不允许改变
-        fixed: true, // 是否开启截图框宽高固定比例
-        fixedNumber: [7, 5], // 截图框的宽高比例
-        max: 99999
-        // canScale: false, // 图片是否允许滚轮缩放
-        // autoCropWidth: 200, // 默认生成截图框宽度
-        // autoCropHeight: 100, // 默认生成截图框高度
-        // full: true, // 是否输出原图比例的截图
-        // // canMove: false,
-        // canMoveBox: false, // 截图框能否拖动
-        // original: false, // 上传图片按照原始比例渲染
-        // centerBox: false, // 截图框是否被限制在图片里面
-        // infoTrue: true // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
+        high: false,
+        cropData: {},
+        enlarge: 1,
+        mode: 'contain',
+        maxImgSize: 3000,
+        limitMinSize: [100, 120],
+        infoTrue: true
       })
 
       function changeImg() {
@@ -105,7 +136,6 @@
         hCropper.value.startCrop()
       }
       function stopCrop() {
-        //  stop
         crap.value = false
         hCropper.value.stopCrop()
       }
@@ -146,26 +176,10 @@
         }
       }
       // 实时预览函数
-      function realTime(data) {
-        previews = data
-        console.log(data)
+      function handleRealTime(data) {
+        statePreviews.previews = data
       }
 
-      function finish2(type) {
-        console.log(type)
-
-        //   hCropper.value2.getCropData((data) => {
-        //     model.value = true
-        //     modelSrc.value = data
-        //   })
-      }
-      function finish3(type) {
-        console.log(type)
-        //   hCropper.value3.getCropData((data) => {
-        //     model.value = true
-        //     modelSrc.value = data
-        //   })
-      }
       function down(type) {
         // event.preventDefault()
         var aLink = document.createElement('a')
@@ -221,15 +235,12 @@
       function imgLoad(msg) {
         console.log(msg)
       }
-      function cropMoving(data) {
-        console.log(data, '截图框当前坐标')
-      }
 
       return {
         option,
         hCropper,
         crap,
-        previews,
+        statePreviews,
 
         changeImg,
         startCrop,
@@ -240,46 +251,47 @@
         rotateLeft,
         rotateRight,
         finish,
-        realTime,
-        finish2,
-        finish3,
+        handleRealTime,
         down,
         uploadImg,
-        imgLoad,
-        cropMoving
+        imgLoad
       }
     }
   })
 </script>
 <style lang="less">
   .h-cropper {
-    width: 250px;
-    height: 230px;
+    width: 100%;
+    height: 250px;
     margin: 10px;
     display: flex;
+    align-items: center;
   }
-  .cropper-box {
-    width: 320px;
+  .show-preview {
+    width: 180px;
+    height: 120px;
   }
-  .btn {
-    display: inline-block;
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-    border: 1px solid #c0ccda;
-    color: #1f2d3d;
-    text-align: center;
-    box-sizing: border-box;
-    outline: none;
-    margin: 20px 10px 0px 0px;
-    padding: 9px 15px;
-    font-size: 14px;
-    border-radius: 4px;
-    color: #fff;
-    background-color: @primary-color;
-    border-color: @primary-color;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    user-select: none;
+  .h-cropper-button {
+    .btn {
+      display: inline-block;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid #c0ccda;
+      color: #1f2d3d;
+      text-align: center;
+      box-sizing: border-box;
+      outline: none;
+      margin: 20px 10px 0px 0px;
+      padding: 9px 15px;
+      font-size: 14px;
+      border-radius: 4px;
+      color: #fff;
+      background-color: @primary-color;
+      border-color: @primary-color;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      user-select: none;
+    }
   }
 </style>
