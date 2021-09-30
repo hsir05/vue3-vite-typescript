@@ -35,6 +35,4 @@
       }
     }
   })
-
-  // <MyIcon icon-name="icon-jiazaishibai" />
 </script>

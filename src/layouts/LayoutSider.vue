@@ -5,7 +5,7 @@
   </Sider>
 </template>
 <script lang="ts">
-  import { defineComponent, unref } from 'vue'
+  import { defineComponent } from 'vue'
   import { Layout } from 'ant-design-vue'
   import AppLogo from './AppLogo.vue'
   import HMenu from './HMenu.vue'
@@ -20,17 +20,12 @@
       Sider: Layout.Sider
     },
     setup() {
-      const { getCollapsed, getMenuBgColor, setMenuSetting } = useMenuSetting()
+      const { getCollapsed } = useMenuSetting()
       const { getLayoutMode } = useHeaderSetting()
 
-      const handleCollapsed = () => {
-        setMenuSetting({ collapsed: !unref(getCollapsed) })
-      }
       return {
         getCollapsed,
-        handleCollapsed,
-        getLayoutMode,
-        getMenuBgColor
+        getLayoutMode
       }
     }
   })

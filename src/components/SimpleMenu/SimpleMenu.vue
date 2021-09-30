@@ -9,11 +9,11 @@
     <template v-if="spliteMenu">
       <a-menu-item :key="menu.path" v-for="menu in items">
         <router-link :to="menu.path" v-if="!menu.children" @click="handleMenu(menu.path)">
-          <MyIcon :type="menu.icon" />
+          <MyIcon :type="menu.icon" v-if="menu.icon" />
           <span>{{ t(menu.name) }}</span>
         </router-link>
         <span v-else @click="handleMenu(menu.path)">
-          <MyIcon :type="menu.icon" />
+          <MyIcon :type="menu.icon" v-if="menu.icon" />
           <span>{{ t(menu.name) }}</span>
         </span>
       </a-menu-item>
@@ -22,14 +22,14 @@
       <template v-for="menu in items">
         <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
           <router-link :to="menu.path" @click="handleMenu(menu.path)">
-            <MyIcon :type="menu.icon" />
+            <MyIcon :type="menu.icon" v-if="menu.icon" />
             <span>{{ t(menu.name) }}</span>
           </router-link>
         </a-menu-item>
         <a-sub-menu :key="menu.path + 1" v-else>
           <template #title>
             <span>
-              <MyIcon :type="menu.icon" />
+              <MyIcon :type="menu.icon" v-if="menu.icon" />
               <span>{{ t(menu.name) }}</span>
             </span>
           </template>
@@ -53,7 +53,7 @@
   import { listenerRouteChange } from '/@/router/routeChange'
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useRouter } from 'vue-router'
-  import mitt from '/@/utils/mitt'
+  import { subMenuEmitter } from '/@/layouts/menuChange'
   // import type { RouteRecordRaw,  } from 'vue-router';
   export default defineComponent({
     name: 'SimpleMenu',
@@ -73,9 +73,6 @@
     setup(props) {
       const { t } = useI18n()
       const router = useRouter()
-
-      const subMenuEmitter = mitt()
-      console.log(subMenuEmitter)
 
       const menuState = reactive({
         defaultSelectedKeys: ['/dashboard'],
@@ -110,12 +107,11 @@
         // 分割菜单模式下
         if (props.spliteMenu) {
           let childrenMenuData = getChildrenMenu(props.items, path)
+          subMenuEmitter.emit('listenMenuData', childrenMenuData)
           if (childrenMenuData.length > 0) {
             router.push(childrenMenuData[0].path)
-            // subMenuEmitter.emit('submenu:mouse-enter-child');
           } else {
             router.push(path)
-            // subMenuEmitter.emit('submenu:mouse-enter-child');
           }
         }
       }
