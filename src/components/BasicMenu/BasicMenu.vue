@@ -71,12 +71,9 @@
         selectedKeys: ['/dashboard']
       })
 
-      //   menuData = computed(() => props.items)
-
       subMenuEmitter.on('listenMenuData', (childrenMenuData) => {
-        console.log('childrenMenuData')
-        console.log(childrenMenuData)
         menuData.value = childrenMenuData
+        console.log(333333)
       })
 
       const { getMenuTheme } = useMenuSetting()

@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, toRefs, reactive, unref, computed, PropType } from 'vue'
+  import { defineComponent, toRefs, reactive, unref, computed, PropType, onMounted } from 'vue'
   import type { Menu as MenuType } from '/@/router/types'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
@@ -54,7 +54,6 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useRouter } from 'vue-router'
   import { subMenuEmitter } from '/@/layouts/menuChange'
-  // import type { RouteRecordRaw,  } from 'vue-router';
   export default defineComponent({
     name: 'SimpleMenu',
     components: {
@@ -73,6 +72,7 @@
     setup(props) {
       const { t } = useI18n()
       const router = useRouter()
+      const { currentRoute } = useRouter()
 
       const menuState = reactive({
         defaultSelectedKeys: ['/dashboard'],
@@ -115,6 +115,9 @@
           }
         }
       }
+      onMounted(() => {
+        handleMenu(currentRoute.value.path)
+      })
       return {
         t,
         theme,
