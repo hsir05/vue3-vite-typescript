@@ -1,2 +1,2 @@
 
-export const iconScriptUrl = '//at.alicdn.com/t/font_2769259_5osrk7fnu25.js';
+export const iconScriptUrl = '//at.alicdn.com/t/font_2769259_jscip9f752j.js';

@@ -126,7 +126,7 @@ export default {
 
     desc: 'Details',
     descBasic: 'Basic Details',
-    descHigh: 'Advanced Details',
+    descHigh: 'Advanced Details', 
 
     result: 'Result',
     resultSuccess: 'Success',
@@ -160,18 +160,18 @@ export default {
   setup: {
     page: 'Intro page',
   },
-  system: {
-    moduleName: 'System management',
+//   system: {
+//     moduleName: 'System management',
 
-    account: 'Account management',
-    account_detail: 'Account detail',
-    password: 'Change password',
+//     account: 'Account management',
+//     account_detail: 'Account detail',
+//     password: 'Change password',
 
-    dept: 'Department management',
+//     dept: 'Department management',
 
-    menu: 'Menu management',
-    role: 'Role management',
-  },
+//     menu: 'Menu management',
+//     role: 'Role management',
+//   },
   table: {
     table: 'Table',
 

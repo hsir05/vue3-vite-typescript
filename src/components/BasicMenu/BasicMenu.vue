@@ -73,7 +73,6 @@
 
       subMenuEmitter.on('listenMenuData', (childrenMenuData) => {
         menuData.value = childrenMenuData
-        console.log(333333)
       })
 
       const { getMenuTheme } = useMenuSetting()

@@ -1,5 +1,7 @@
 import antdLocale from 'ant-design-vue/es/locale/zh_CN';
 import common from './zh-CN/common'
+import component from './zh-CN/component'
+import demo from './zh-CN/routes/demo'
 import layout from './zh-CN/layout'
 
 export default {
@@ -31,6 +33,8 @@ export default {
         tooltipExitFull: '退出全屏',
 
         ...common,
+        ...component,
+        ...demo,
         ...layout,
         antdLocale,
     },

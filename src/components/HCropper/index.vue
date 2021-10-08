@@ -1,6 +1,6 @@
 <template>
   <div class="h-cropper">
-    <div style="width: 330px; height: 200px; margin-right: 80px">
+    <div style="width: 380px; height: 250px; margin-right: 80px">
       <vueCropper
         ref="hCropper"
         :img="option.img"
@@ -44,8 +44,9 @@
   </div>
 
   <div class="h-cropper-button">
-    <Button type="primary" class="mr10 mt10" @click="changeImg">changeImg</Button>
-    <label class="btn" for="uploads">upload</label>
+    <label class="btn mr10" for="uploads">
+      <MyIcon type="icon-upload" />
+    </label>
     <input
       type="file"
       id="uploads"
@@ -53,19 +54,51 @@
       accept="image/png, image/jpeg, image/gif, image/jpg"
       @change="uploadImg($event, 1)"
     />
-    <Button type="primary" class="mr10 mt10" @click="startCrop" v-if="!crap">start</Button>
-    <Button type="primary" class="mr10 mt10" @click="stopCrop" v-else>stop</Button>
-    <Button type="primary" class="mr10 mt10" @click="clearCrop">clear</Button>
-    <Button type="primary" class="mr10 mt10" @click="refreshCrop">refresh</Button>
-    <Button type="primary" class="mr10 mt10" @click="changeScale(1)">+</Button>
-    <Button type="primary" class="mr10 mt10" @click="changeScale(-1)">-</Button>
-    <Button type="primary" class="mr10 mt10" @click="rotateLeft">rotateLeft</Button>
-    <Button type="primary" class="mr10 mt10" @click="rotateRight">rotateRight</Button>
-    <Button type="primary" class="mr10 mt10" @click="finish('base64')">preview(base64)</Button>
-    <Button type="primary" class="mr10 mt10" @click="finish('blob')">preview(blob)</Button>
-    <a @click="down('base64')" class="btn">download(base64)</a>
-    <a @click="down('blob')" class="btn">download(blob)</a>
-    <!-- <a :href="downImg" download="demo.png" ref="downloadDom"></a> -->
+    <Button
+      type="primary"
+      size="small"
+      :disabled="option.img ? false : true"
+      class="mr10"
+      @click="refreshCrop"
+    >
+      <MyIcon type="icon-refresh" />
+    </Button>
+    <Button
+      type="primary"
+      size="small"
+      :disabled="option.img ? false : true"
+      class="mr10"
+      @click="changeScale(1)"
+    >
+      <MyIcon type="icon-sousuofangda" />
+    </Button>
+    <Button
+      type="primary"
+      size="small"
+      :disabled="option.img ? false : true"
+      class="mr10"
+      @click="changeScale(-1)"
+    >
+      <MyIcon type="icon-suoxiao" />
+    </Button>
+    <Button
+      type="primary"
+      size="small"
+      :disabled="option.img ? false : true"
+      class="mr10"
+      @click="rotateLeft"
+    >
+      <MyIcon type="icon-rotate-left" />
+    </Button>
+    <Button
+      type="primary"
+      size="small"
+      :disabled="option.img ? false : true"
+      class="mr10"
+      @click="rotateRight"
+    >
+      <MyIcon type="icon-rotate-right" />
+    </Button>
   </div>
 </template>
 <script lang="ts">
@@ -73,17 +106,19 @@
   import 'vue-cropper/dist/index.css'
   import { VueCropper } from 'vue-cropper'
   import { Button } from 'ant-design-vue'
-  // interface imgInterface{
-  //     img:string
-  // }
+  import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({
     name: 'HCroppe',
     components: {
       VueCropper,
-      Button
+      Button,
+      MyIcon
     },
-    setup() {
+    emits: ['handleCropper'],
+    setup(props, { emit }) {
       const hCropper = ref()
+      console.log(props)
+
       const crap = ref(false)
       const model = ref(false)
       const modelSrc = ref(' ')
@@ -104,17 +139,18 @@
           }
         }
       })
-      // const lists:Ref<imgInterface[]> = ref([])
       const option = reactive({
-        img: 'https://avatars2.githubusercontent.com/u/15681693?s=460&v=4',
+        img: '',
         size: 1,
         full: false,
         outputType: 'png',
         canMove: true,
-        fixedBox: false,
         original: false,
         canMoveBox: true,
         autoCrop: true,
+        fixedBox: false, // 固定截图框大小 不允许改变
+        fixed: true, // 是否开启截图框宽高固定比例
+        fixedNumber: [7, 5], // 截图框的宽高比例
         autoCropWidth: 200,
         autoCropHeight: 150,
         centerBox: false,
@@ -127,9 +163,6 @@
         infoTrue: true
       })
 
-      function changeImg() {
-        //   option.img = lists[~~(Math.random() * lists.length)].img
-      }
       function startCrop() {
         // start
         crap.value = true
@@ -157,21 +190,19 @@
       function rotateRight() {
         hCropper.value.rotateRight()
       }
-      function finish(type) {
-        // 输出
-        // var test = window.open('about:blank')
-        // test.document.body.innerHTML = '图片生成中..'
+      function finish(type: string) {
         if (type === 'blob') {
           hCropper.value.getCropBlob((data) => {
-            console.log(data)
             var img = window.URL.createObjectURL(data)
             model.value = true
             modelSrc.value = img
+            emit('handleCropper', false)
           })
         } else {
           hCropper.value.getCropData((data) => {
             model.value = true
             modelSrc.value = data
+            emit('handleCropper', false)
           })
         }
       }
@@ -201,31 +232,25 @@
       }
 
       function uploadImg(e, num: number) {
-        //上传图片
-        // option.img
-        console.log(num)
-
-        var file = e.target.files[0]
+        let file = e.target.files[0]
         if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
           alert('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
           return false
         }
-        var reader = new FileReader()
-        reader.onload = (e: Event) => {
-          console.log(e.target)
-
-          // let data
-          // if (typeof e.target.result === 'object') {
-          //   // 把Array Buffer转化为blob 如果是base64不需要
-          //   data = window.URL.createObjectURL(new Blob([e.target.result]))
-          // } else {
-          //   data = e.target.result
-          // }
-          // if (num === 1) {
-          //   option.img = data
-          // } else if (num === 2) {
-          // //   this.example2.img = data
-          // }
+        let reader = new FileReader()
+        reader.onload = (e) => {
+          let data
+          if (e.target && e.target.result && typeof e.target.result === 'object') {
+            // 把Array Buffer转化为blob 如果是base64不需要
+            data = window.URL.createObjectURL(new Blob([e.target.result]))
+          } else {
+            data = e.target?.result
+          }
+          if (num === 1) {
+            option.img = data
+          } else if (num === 2) {
+            //   this.example2.img = data
+          }
         }
         // 转化为base64
         // reader.readAsDataURL(file)
@@ -242,7 +267,6 @@
         crap,
         statePreviews,
 
-        changeImg,
         startCrop,
         stopCrop,
         clearCrop,
@@ -263,7 +287,7 @@
   .h-cropper {
     width: 100%;
     height: 250px;
-    margin: 10px;
+    margin: 0 0 10px 0;
     display: flex;
     align-items: center;
   }
@@ -274,7 +298,7 @@
   .h-cropper-button {
     .btn {
       display: inline-block;
-      line-height: 1;
+
       white-space: nowrap;
       cursor: pointer;
       border: 1px solid #c0ccda;
@@ -282,8 +306,9 @@
       text-align: center;
       box-sizing: border-box;
       outline: none;
-      margin: 20px 10px 0px 0px;
-      padding: 9px 15px;
+      padding: 0px 7px;
+      height: 24px;
+      line-height: 24px;
       font-size: 14px;
       border-radius: 4px;
       color: #fff;

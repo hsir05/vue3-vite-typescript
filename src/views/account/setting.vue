@@ -7,7 +7,7 @@
     :hideAdd="true"
     :tabBarGutter="3"
     :tabBarStyle="{ width: '200px' }"
-    :activeKey="activeKeyRef"
+    :activeKey="activeKey"
     @change="handleChange"
     @edit="handleEdit"
   >
@@ -34,10 +34,10 @@
       Basic
     },
     setup() {
-      const activeKeyRef = ref('1')
+      const activeKey = ref('1')
 
       function handleChange(activeKey: any) {
-        activeKeyRef.value = activeKey
+        activeKey.value = activeKey
       }
 
       function handleEdit(targetKey: string) {
@@ -45,7 +45,7 @@
       }
 
       return {
-        activeKeyRef,
+        activeKey,
         handleChange,
         handleEdit
       }
