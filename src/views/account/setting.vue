@@ -6,7 +6,7 @@
     class="pt10 account-setting"
     :hideAdd="true"
     :tabBarGutter="3"
-    :tabBarStyle="{ width: '200px' }"
+    :tabBarStyle="{ width: '160px' }"
     :activeKey="activeKey"
     @change="handleChange"
     @edit="handleEdit"

@@ -4,8 +4,8 @@
     <section class="flex">
       <Form
         class="basic-form"
-        :labelCol="{ style: { width: '150px' } }"
-        style="width: 600px"
+        :labelCol="{ style: { width: '130px' } }"
+        style="width: 550px"
         :model="formState"
         :rules="basicRules"
         @finish="handleFinish"
