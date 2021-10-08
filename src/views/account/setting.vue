@@ -36,8 +36,8 @@
     setup() {
       const activeKey = ref('1')
 
-      function handleChange(activeKey: any) {
-        activeKey.value = activeKey
+      function handleChange(value: string) {
+        activeKey.value = value
       }
 
       function handleEdit(targetKey: string) {

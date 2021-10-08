@@ -119,13 +119,6 @@
 </script>
 <style lang="less" scoped>
   .basic {
-    .basic-title {
-      display: flex;
-      height: 32px;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #f0f2f5;
-    }
     .basic-form {
       position: relative;
     }
