@@ -298,7 +298,6 @@
   .h-cropper-button {
     .btn {
       display: inline-block;
-
       white-space: nowrap;
       cursor: pointer;
       border: 1px solid #c0ccda;
