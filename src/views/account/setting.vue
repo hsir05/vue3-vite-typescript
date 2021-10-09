@@ -15,10 +15,10 @@
       <Basic />
     </TabPane>
     <TabPane tab="安全设置" key="2">
-      <div class="">安全设置</div>
+      <Security />
     </TabPane>
     <TabPane tab="账号绑定" key="3">
-      <div class="">账号绑定</div>
+      <div class>账号绑定</div>
     </TabPane>
   </Tabs>
 </template>
@@ -26,12 +26,14 @@
   import { defineComponent, ref } from 'vue'
   import { Tabs } from 'ant-design-vue'
   import Basic from './basic.vue'
+  import Security from './security.vue'
   export default defineComponent({
     name: 'AccountSetting',
     components: {
       Tabs,
       TabPane: Tabs.TabPane,
-      Basic
+      Basic,
+      Security
     },
     setup() {
       const activeKey = ref('1')

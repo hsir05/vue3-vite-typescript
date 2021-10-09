@@ -53,7 +53,7 @@
 
       <div class="avatar-wrap">
         <div class="h-avatar">
-          <img src="https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640" alt />
+          <img src="https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640" alt="更换头像" />
         </div>
         <Button class="mt20" type="primary" @click="handleAdatar">
           <template #icon> <MyIcon type="icon-upload2" /> </template>更换头像
