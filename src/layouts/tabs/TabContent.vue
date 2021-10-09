@@ -16,7 +16,7 @@
       <Menu style="width: 160px">
         <template v-for="item in getDropMenuList" :key="item.text">
           <MenuItem :disabled="item.disabled" @click="handleClickMenu(item)">
-            <MyIcon :type="item.icon" />
+            <MyIcon :iconName="item.icon" />
             {{ item.text }}
           </MenuItem>
           <MenuDivider v-if="item.divider" />

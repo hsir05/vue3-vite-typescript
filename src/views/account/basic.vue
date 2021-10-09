@@ -44,7 +44,7 @@
           />
         </FormItem>
 
-        <FormItem>
+        <FormItem style="text-align: center">
           <Button class="submit-btn" type="primary" html-type="submit" :loading="loading"
             >更新基本信息</Button
           >

@@ -12,7 +12,7 @@
               <a href="https://www.antdv.com/">{{ item.title }}</a>
             </template>
             <template #avatar>
-              <MyIcon :type="item.icon" style="font-size: 24px" />
+              <MyIcon :iconName="item.icon" style="font-size: 24px" />
             </template>
           </ListItemMeta>
         </ListItem>

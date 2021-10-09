@@ -9,34 +9,36 @@
     <template v-if="spliteMenu">
       <a-menu-item :key="menu.path" v-for="menu in items">
         <router-link :to="menu.path" v-if="!menu.children" @click="handleMenu(menu.path)">
-          <MyIcon :type="menu.icon" v-if="menu.icon" />
+          <MyIcon :iconName="menu.icon" v-if="menu.icon" />
           <span>{{ t(menu.name) }}</span>
         </router-link>
+
         <span v-else @click="handleMenu(menu.path)">
-          <MyIcon :type="menu.icon" v-if="menu.icon" />
+          <MyIcon :iconName="menu.icon" v-if="menu.icon" />
           <span>{{ t(menu.name) }}</span>
         </span>
       </a-menu-item>
     </template>
+
     <template v-else>
       <template v-for="menu in items">
         <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
           <router-link :to="menu.path" @click="handleMenu(menu.path)">
-            <MyIcon :type="menu.icon" v-if="menu.icon" />
+            <MyIcon :iconName="menu.icon" v-if="menu.icon" />
             <span>{{ t(menu.name) }}</span>
           </router-link>
         </a-menu-item>
         <a-sub-menu :key="menu.path + 1" v-else>
           <template #title>
             <span>
-              <MyIcon :type="menu.icon" v-if="menu.icon" />
+              <MyIcon :iconName="menu.icon" v-if="menu.icon" />
               <span>{{ t(menu.name) }}</span>
             </span>
           </template>
           <a-menu-item :key="item.path" v-for="item in menu.children">
-            <router-link :to="item.path" @click="handleMenu(item.path)">
-              {{ t(item.name) }}
-            </router-link>
+            <router-link :to="item.path" @click="handleMenu(item.path)">{{
+              t(item.name)
+            }}</router-link>
           </a-menu-item>
         </a-sub-menu>
       </template>
@@ -108,6 +110,7 @@
         if (props.spliteMenu) {
           let childrenMenuData = getChildrenMenu(props.items, path)
           subMenuEmitter.emit('listenMenuData', childrenMenuData)
+
           if (childrenMenuData.length > 0) {
             router.push(childrenMenuData[0].path)
           } else {
@@ -115,8 +118,32 @@
           }
         }
       }
+      function getParentPath(menu: MenuType[], path: string): string {
+        let parentPath = ''
+        for (let key of menu) {
+          if (key.children && key.children.length > 0) {
+            for (let val of key.children) {
+              if (val.path === path) {
+                parentPath = key.path
+              }
+            }
+          } else if (key.path === path) {
+            parentPath = path
+          }
+        }
+        return parentPath
+      }
       onMounted(() => {
-        handleMenu(currentRoute.value.path)
+        let currentParentPath = getParentPath(props.items, currentRoute.value.path)
+        if (props.spliteMenu) {
+          menuState.selectedKeys = [currentParentPath]
+        }
+
+        let childrenMenuData = getChildrenMenu(
+          props.items,
+          getParentPath(props.items, currentRoute.value.path)
+        )
+        subMenuEmitter.emit('listenMenuData', childrenMenuData)
       })
       return {
         t,
