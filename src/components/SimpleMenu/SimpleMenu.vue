@@ -9,27 +9,29 @@
     <template v-if="spliteMenu">
       <a-menu-item :key="menu.path" v-for="menu in items">
         <router-link :to="menu.path" v-if="!menu.children" @click="handleMenu(menu.path)">
-          <MyIcon :type="menu.icon" v-if="menu.icon" />
+          <MyIcon :iconName="menu.icon" v-if="menu.icon" />
           <span>{{ t(menu.name) }}</span>
         </router-link>
+
         <span v-else @click="handleMenu(menu.path)">
-          <MyIcon :type="menu.icon" v-if="menu.icon" />
+          <MyIcon :iconName="menu.icon" v-if="menu.icon" />
           <span>{{ t(menu.name) }}</span>
         </span>
       </a-menu-item>
     </template>
+
     <template v-else>
       <template v-for="menu in items">
         <a-menu-item :key="menu.path" v-if="!menu.children || menu.children.length === 0">
           <router-link :to="menu.path" @click="handleMenu(menu.path)">
-            <MyIcon :type="menu.icon" v-if="menu.icon" />
+            <MyIcon :iconName="menu.icon" v-if="menu.icon" />
             <span>{{ t(menu.name) }}</span>
           </router-link>
         </a-menu-item>
         <a-sub-menu :key="menu.path + 1" v-else>
           <template #title>
             <span>
-              <MyIcon :type="menu.icon" v-if="menu.icon" />
+              <MyIcon :iconName="menu.icon" v-if="menu.icon" />
               <span>{{ t(menu.name) }}</span>
             </span>
           </template>
@@ -54,6 +56,7 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useRouter } from 'vue-router'
   import { subMenuEmitter } from '/@/layouts/menuChange'
+  import { getChildrenMenu, getParentPath } from '/@/utils/index'
   export default defineComponent({
     name: 'SimpleMenu',
     components: {
@@ -80,24 +83,14 @@
       })
       const { getHeaderBgColor } = useHeaderSetting()
 
-      const getChildrenMenu = (menu: MenuType[], path: String) => {
-        let menuArr: MenuType[] = []
-        for (let key of menu) {
-          if (key.children && key.children.length > 0) {
-            if (key.path === path) {
-              menuArr = key.children
-              break
-            } else {
-              menuArr = getChildrenMenu(key.children, path)
-            }
-          }
-        }
-        return menuArr
-      }
-
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
-        menuState.selectedKeys = [route.path]
+        if (props.spliteMenu) {
+          let selectKeyPath = getParentPath(props.items, route.path)
+          menuState.selectedKeys = [selectKeyPath]
+        } else {
+          menuState.selectedKeys = [route.path]
+        }
       })
       // 待优化
       const theme = computed(() => (unref(getHeaderBgColor) === '#fffffe' ? 'light' : 'dark'))
@@ -106,8 +99,12 @@
         menuState.selectedKeys = [path]
         // 分割菜单模式下
         if (props.spliteMenu) {
+          // if (judgePath(props.items, path)){
+          //     return false
+          // }
           let childrenMenuData = getChildrenMenu(props.items, path)
           subMenuEmitter.emit('listenMenuData', childrenMenuData)
+
           if (childrenMenuData.length > 0) {
             router.push(childrenMenuData[0].path)
           } else {
@@ -115,8 +112,18 @@
           }
         }
       }
+
       onMounted(() => {
-        handleMenu(currentRoute.value.path)
+        let currentParentPath = getParentPath(props.items, currentRoute.value.path)
+        if (props.spliteMenu) {
+          menuState.selectedKeys = [currentParentPath]
+        }
+
+        let childrenMenuData = getChildrenMenu(
+          props.items,
+          getParentPath(props.items, currentRoute.value.path)
+        )
+        subMenuEmitter.emit('listenMenuData', childrenMenuData)
       })
       return {
         t,

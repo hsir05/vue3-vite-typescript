@@ -1,8 +1,11 @@
 <template>
   <Dropdown :trigger="getTrigger">
-    <router-link :to="getPath" v-if="getIsTabs" class="tab-content" @contextmenu="handleContext">
+    <!-- <router-link :to="getPath" v-if="getIsTabs" class="tab-content" @contextmenu="handleContext">
       {{ getTitle }}
-    </router-link>
+    </router-link> -->
+    <span v-if="getIsTabs" class="tab-content" @contextmenu="handleContext" @click="handleMenuPath">
+      {{ getTitle }}
+    </span>
 
     <MyIcon
       type="icon-down-arrow-line"
@@ -16,7 +19,7 @@
       <Menu style="width: 160px">
         <template v-for="item in getDropMenuList" :key="item.text">
           <MenuItem :disabled="item.disabled" @click="handleClickMenu(item)">
-            <MyIcon :type="item.icon" />
+            <MyIcon :iconName="item.icon" />
             {{ item.text }}
           </MenuItem>
           <MenuDivider v-if="item.divider" />
@@ -28,14 +31,19 @@
 <script lang="ts">
   import { defineComponent, computed, unref } from 'vue'
   import type { PropType } from 'vue'
+  import type { Menu as MenuType } from '/@/router/types'
   import { Dropdown, Menu } from 'ant-design-vue'
-  import type { RouteLocationNormalized } from 'vue-router'
+  import type { RouteLocationNormalized, RouteLocationRaw } from 'vue-router'
   import { TabContentProps } from './types'
   import type { DropMenu } from './typing'
   import { useTabDropdown } from './useTabDropdown'
   import MyIcon from '/@/components/MyIcon/index.vue'
   import { useI18n } from '/@/hooks/web/useI18n'
   import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+  import { useRouter } from 'vue-router'
+  import { subMenuEmitter } from '/@/layouts/menuChange'
+  import { getChildrenMenu, getParentPath } from '/@/utils/index'
+  import { getMenus } from '/@/router/index'
   export default defineComponent({
     name: 'TabContent',
     components: {
@@ -54,6 +62,7 @@
     },
     setup(props) {
       const { t } = useI18n()
+      const router = useRouter()
       const getIsTabs = computed(() => !props.isExtra)
 
       const { getDropMenuList, handleContextMenu, handleMenuEvent } = useTabDropdown(
@@ -84,6 +93,17 @@
       function handleContext(e) {
         props.tabItem && handleContextMenu(props.tabItem)(e)
       }
+      // 函数待优化
+      function handleMenuPath() {
+        const menuData = getMenus()
+        let childrenMenuData = getChildrenMenu(
+          menuData as MenuType[],
+          getParentPath(menuData as MenuType[], getPath.value as string)
+        )
+
+        router.push(getPath.value as RouteLocationRaw)
+        subMenuEmitter.emit('listenMenuData', childrenMenuData)
+      }
 
       return {
         getTitle,
@@ -93,7 +113,8 @@
         getTrigger,
         getDropMenuList,
         handleContext,
-        handleClickMenu
+        handleClickMenu,
+        handleMenuPath
       }
     }
   })
