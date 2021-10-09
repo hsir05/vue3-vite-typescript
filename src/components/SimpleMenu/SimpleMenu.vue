@@ -36,9 +36,9 @@
             </span>
           </template>
           <a-menu-item :key="item.path" v-for="item in menu.children">
-            <router-link :to="item.path" @click="handleMenu(item.path)">{{
-              t(item.name)
-            }}</router-link>
+            <router-link :to="item.path" @click="handleMenu(item.path)">
+              {{ t(item.name) }}
+            </router-link>
           </a-menu-item>
         </a-sub-menu>
       </template>
@@ -56,6 +56,7 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
   import { useRouter } from 'vue-router'
   import { subMenuEmitter } from '/@/layouts/menuChange'
+  import { getChildrenMenu, getParentPath } from '/@/utils/index'
   export default defineComponent({
     name: 'SimpleMenu',
     components: {
@@ -82,24 +83,14 @@
       })
       const { getHeaderBgColor } = useHeaderSetting()
 
-      const getChildrenMenu = (menu: MenuType[], path: String) => {
-        let menuArr: MenuType[] = []
-        for (let key of menu) {
-          if (key.children && key.children.length > 0) {
-            if (key.path === path) {
-              menuArr = key.children
-              break
-            } else {
-              menuArr = getChildrenMenu(key.children, path)
-            }
-          }
-        }
-        return menuArr
-      }
-
       listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return
-        menuState.selectedKeys = [route.path]
+        if (props.spliteMenu) {
+          let selectKeyPath = getParentPath(props.items, route.path)
+          menuState.selectedKeys = [selectKeyPath]
+        } else {
+          menuState.selectedKeys = [route.path]
+        }
       })
       // 待优化
       const theme = computed(() => (unref(getHeaderBgColor) === '#fffffe' ? 'light' : 'dark'))
@@ -108,6 +99,9 @@
         menuState.selectedKeys = [path]
         // 分割菜单模式下
         if (props.spliteMenu) {
+          // if (judgePath(props.items, path)){
+          //     return false
+          // }
           let childrenMenuData = getChildrenMenu(props.items, path)
           subMenuEmitter.emit('listenMenuData', childrenMenuData)
 
@@ -118,21 +112,7 @@
           }
         }
       }
-      function getParentPath(menu: MenuType[], path: string): string {
-        let parentPath = ''
-        for (let key of menu) {
-          if (key.children && key.children.length > 0) {
-            for (let val of key.children) {
-              if (val.path === path) {
-                parentPath = key.path
-              }
-            }
-          } else if (key.path === path) {
-            parentPath = path
-          }
-        }
-        return parentPath
-      }
+
       onMounted(() => {
         let currentParentPath = getParentPath(props.items, currentRoute.value.path)
         if (props.spliteMenu) {

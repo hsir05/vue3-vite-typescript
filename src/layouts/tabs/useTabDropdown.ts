@@ -14,7 +14,7 @@ interface DropMenu {
     disabled?: boolean;
     divider?: boolean;
 }
-
+ 
 export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: ComputedRef<boolean>) {
     const tabStore = useMultipleTabStore();
     const router = useRouter();

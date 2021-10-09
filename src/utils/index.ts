@@ -1,7 +1,6 @@
 import type { App, Plugin } from 'vue';
 import { isObject } from '/@/utils/is';
-
-
+import type { Menu as MenuType } from '/@/router/types'
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 
 export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
@@ -36,4 +35,49 @@ export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormal
             }))
             : undefined) as RouteRecordNormalized[],
     };
+}
+
+export const getChildrenMenu = (menu: MenuType[], path: String) => {
+    let menuArr: MenuType[] = []
+    for (let key of menu) {
+        if (key.children && key.children.length > 0) {
+            if (key.path === path) {
+                menuArr = key.children
+                break
+            } else {
+                menuArr = getChildrenMenu(key.children, path)
+            }
+        }
+    }
+    return menuArr
+}
+export function getParentPath(menu: MenuType[], path: string): string {
+    let parentPath = ''
+    for (let key of menu) {
+        if (key.children && key.children.length > 0) {
+            for (let val of key.children) {
+                if (val.path === path) {
+                    parentPath = key.path
+                }
+            }
+        } else if (key.path === path) {
+            parentPath = path
+        }
+    }
+    return parentPath
+}
+export function judgePath(menu: MenuType[], path: string): boolean {
+    let flag = false
+    for (let key of menu) {
+        if (key.children && key.children.length > 0) {
+            for (let val of key.children) {
+                if (val.path === path) {
+                    flag = true
+                }
+            }
+        } else if (key.path === path) {
+            flag = true
+        }
+    }
+    return flag
 }
