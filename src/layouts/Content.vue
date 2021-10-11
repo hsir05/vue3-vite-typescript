@@ -58,8 +58,8 @@
   .h-layout-content {
     margin: 15px 10px 0;
     text-align: left;
-    padding: 10px;
-    background: var(--main-bg-color);
+    // padding: 10px;
+    // background: var(--main-bg-color);
     min-height: calc(100vh - 140px);
   }
   .h-layout-content-sidebar {

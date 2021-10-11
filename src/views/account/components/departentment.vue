@@ -1,14 +1,12 @@
 <template>
-  <div class="department">
+  <div class="department bgw mr10">
     <div class="department-header flex">
       <span class="title">部门列表</span>
       <div class="flex">
         <InputSearch v-model:value="searchValue" placeholder="搜索" allowClear />
 
         <Dropdown>
-          <span class="" @click.prevent
-            ><MyIcon iconName="icon-diandian" class="ant-dropdown-link"
-          /></span>
+          <span class="ant-dropdown-link" @click.prevent><MyIcon iconName="icon-diandian" /></span>
 
           <template #overlay>
             <Menu>
@@ -152,8 +150,11 @@
 </script>
 <style lang="less">
   .department {
-    .wh;
-    // background-color: @white;
+    // .wh;
+    width: 26%;
+  }
+  .ant-dropdown-link {
+    cursor: pointer;
   }
   .department-header {
     border-bottom: 1px solid @boderColor;

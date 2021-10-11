@@ -1,5 +1,5 @@
 <template>
-  <div class="department-content">
+  <div class="department-content bgw">
     <!-- 搜索 -->
     <Form
       layout="inline"
@@ -118,5 +118,6 @@
 <style lang="less">
   .department-content {
     .wh;
+    width: 73%;
   }
 </style>

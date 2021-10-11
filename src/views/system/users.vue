@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bgw">
     <!-- 搜索 -->
     <Form
       layout="inline"
