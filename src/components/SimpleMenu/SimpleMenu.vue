@@ -95,13 +95,27 @@
       // 待优化
       const theme = computed(() => (unref(getHeaderBgColor) === '#fffffe' ? 'light' : 'dark'))
 
+      function judegeMenu(menu: MenuType[], path: string) {
+        let flag = false
+        for (let key of menu) {
+          if (key.children && key.children.length > 0 && key.path === path) {
+            let result = key.children.some((item) => item.path === currentRoute.value.path)
+            if (result) {
+              flag = true
+              break
+            }
+          }
+        }
+        return flag
+      }
+
       function handleMenu(path: string) {
         menuState.selectedKeys = [path]
         // 分割菜单模式下
         if (props.spliteMenu) {
-          // if (judgePath(props.items, path)){
-          //     return false
-          // }
+          if (judegeMenu(props.items, path)) {
+            return false
+          }
           let childrenMenuData = getChildrenMenu(props.items, path)
           subMenuEmitter.emit('listenMenuData', childrenMenuData)
 

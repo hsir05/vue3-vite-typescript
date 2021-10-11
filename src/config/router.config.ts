@@ -46,18 +46,24 @@ export const asyncRouterMap: AppRouteModule = {
                 {
                     path: '/system/menus',
                     name: 'menus',
-                    component: () => import(/* webpackChunkName: "users" */ '/@/views/system/menus.vue'),
+                    component: () => import(/* webpackChunkName: "menus" */ '/@/views/system/menus.vue'),
                     meta: { title: 'menus' }
+                },
+                {
+                    path: '/system/account',
+                    name: 'account',
+                    component: () => import(/* webpackChunkName: "account" */ '/@/views/account/account.vue'),
+                    meta: { title: 'account' }
                 },
             ]
         },
         {
             path: '/account',
-            name: 'account',
+            name: 'personal',
             icon: 'icon-geren',
             redirect: '/exception/403',
             component: Wrap,
-            meta: { title: 'account', },
+            meta: { title: 'personal', },
             children: [
                 {
                     path: '/account/setting',

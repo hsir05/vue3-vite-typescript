@@ -43,6 +43,8 @@
   import { useRouter } from 'vue-router'
   import { subMenuEmitter } from '/@/layouts/menuChange'
   import { getChildrenMenu, getParentPath } from '/@/utils/index'
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+
   import { getMenus } from '/@/router/index'
   export default defineComponent({
     name: 'TabContent',
@@ -94,15 +96,19 @@
         props.tabItem && handleContextMenu(props.tabItem)(e)
       }
       // 函数待优化
+      const { getLayoutMode } = useHeaderSetting()
+
       function handleMenuPath() {
-        const menuData = getMenus()
-        let childrenMenuData = getChildrenMenu(
-          menuData as MenuType[],
-          getParentPath(menuData as MenuType[], getPath.value as string)
-        )
+        if (getLayoutMode.value === 'mix-sidebar') {
+          const menuData = getMenus()
+          let childrenMenuData = getChildrenMenu(
+            menuData as MenuType[],
+            getParentPath(menuData as MenuType[], getPath.value as string)
+          )
+          subMenuEmitter.emit('listenMenuData', childrenMenuData)
+        }
 
         router.push(getPath.value as RouteLocationRaw)
-        subMenuEmitter.emit('listenMenuData', childrenMenuData)
       }
 
       return {

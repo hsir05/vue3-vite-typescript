@@ -1,5 +1,5 @@
 <template>
-  <div class="bgw">
+  <div class="department-content bgw">
     <!-- 搜索 -->
     <Form
       layout="inline"
@@ -8,21 +8,14 @@
       @finish="handleFinish"
       @finishFailed="handleFinishFailed"
     >
-      <FormItem label="角色名称" name="roleName">
-        <Input
-          v-model:value="formState.roleName"
-          placeholder="请输入角色名称"
-          style="width: 150px"
-        />
+      <FormItem label="用户名" name="username">
+        <Input v-model:value="formState.username" placeholder="请输入用户名" style="width: 150px" />
       </FormItem>
 
-      <FormItem label="状态" name="status">
-        <Select v-model:value="formState.status" placeholder="请选择状态" style="width: 150px">
-          <SelectOption value="0">禁用</SelectOption>
-          <SelectOption value="1">启用</SelectOption>
-          <SelectOption value="">全部</SelectOption>
-        </Select>
+      <FormItem label="昵称" name="nickname">
+        <Input v-model:value="formState.nickname" placeholder="请输入昵称" style="width: 150px" />
       </FormItem>
+
       <FormItem>
         <a-button type="primary" html-type="submit">搜索</a-button>
         <a-button type="primary" @click="resetForm" class="ml10">重置</a-button>
@@ -43,17 +36,6 @@
       bordered
       :scroll="{ y: 400 }"
     >
-      <template #statusAction="{ index }">
-        <Switch
-          checked-children="已启用"
-          un-checked-children="已禁用"
-          unCheckedValue="1"
-          checkedValue="0"
-          @change="handleSwitch"
-          v-model:checked="tableData[index].status"
-        />
-      </template>
-
       <template #action>
         <a>编辑</a>
         <a class="ml10">删除</a>
@@ -63,22 +45,14 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, Ref, ref, UnwrapRef } from 'vue'
-  import { Table, Switch, Form, Input, Select } from 'ant-design-vue'
-  import { roleDataItem, FormState } from './typing'
+  import { Table, Form, Input } from 'ant-design-vue'
+  import { Department, DepFormState } from '../typing'
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
 
   const columns = [
-    { title: '角色名称', dataIndex: 'roleName', align: 'center', key: 'roleName' },
-    { title: '角色值', dataIndex: 'code', align: 'center', key: 'code' },
+    { title: '用户名称', dataIndex: 'username', align: 'center', key: 'username' },
+    { title: '昵称', dataIndex: 'nickname', align: 'center', key: 'nickname' },
     { title: '创建时间', dataIndex: 'createTime', align: 'center', key: '3' },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      align: 'center',
-      width: 130,
-      key: '2',
-      slots: { customRender: 'statusAction' }
-    },
     { title: '备注', dataIndex: 'remark', align: 'center', width: 100, key: '2' },
     {
       title: '操作',
@@ -89,46 +63,35 @@
       slots: { customRender: 'action' }
     }
   ]
-
   export default defineComponent({
-    name: 'Role',
+    name: 'DepartmentContent',
     components: {
       Table,
-      Switch,
       Form,
       Input,
-      Select,
-      SelectOption: Select.Option,
       FormItem: Form.Item
     },
     setup() {
-      const tableData: Ref<roleDataItem[]> = ref([
+      const tableData: Ref<Department[]> = ref([
         {
-          roleName: '超级管理员',
-          code: 'superAdmin',
-          status: '1',
+          username: '卫华',
+          nickname: '长空尽',
+          email: '1',
+          role: '',
           id: 1,
-          createTime: '2021/09/01',
-          remark: '测试'
-        },
-        {
-          roleName: '管理员',
-          code: 'admin',
-          status: '0',
-          id: 2,
           createTime: '2021/09/01',
           remark: '测试'
         }
       ])
       const formRef = ref()
-      const formState: UnwrapRef<FormState> = reactive({
-        roleName: '',
-        status: ''
+      const formState: UnwrapRef<DepFormState> = reactive({
+        nickname: '',
+        username: ''
       })
-      const handleFinish = (values: FormState) => {
+      const handleFinish = (values: DepFormState) => {
         console.log(values, formState)
       }
-      const handleFinishFailed = (errors: ValidateErrorEntity<FormState>) => {
+      const handleFinishFailed = (errors: ValidateErrorEntity<DepFormState>) => {
         console.log(errors)
       }
       const resetForm = () => {
@@ -152,3 +115,9 @@
     }
   })
 </script>
+<style lang="less">
+  .department-content {
+    .wh;
+    width: 73%;
+  }
+</style>
