@@ -1,7 +1,7 @@
 <template>
   <div class="h-header-app-logo">
     <AppLogo v-if="getLayoutMode !== 'sidebar'" />
-    <div class="h-header-top" v-if="getLayoutMode !== 'mix'" @click="handleCollapsed">
+    <div class="h-header-top" v-if="getLayoutMode === 'mix'" @click="handleCollapsed">
       <MyIcon type="icon-unfold" v-if="getCollapsed" class="trigger" style="font-size: 22px" />
       <MyIcon type="icon-fold1" v-else class="trigger" style="font-size: 22px" />
     </div>
