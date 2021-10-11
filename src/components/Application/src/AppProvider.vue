@@ -28,16 +28,15 @@
         getColorWeak,
         getGrayMode
       } = useRootSetting()
-      const { getHeaderBgColor, getHeaderFixed, updateHeaderBgColor, setHeaderSetting } =
-        useHeaderSetting()
+      const { getHeaderBgColor, getHeaderFixed, setHeaderSetting } = useHeaderSetting()
       const { getMenuBgColor, updateSidebarBgColor } = useMenuSetting()
       const { getMultiTabs, setMultiTabsSetting } = useMultipleTabSetting()
 
       changeThemeColor(unref(getThemeColor))
-      updateHeaderBgColor(getHeaderBgColor.value)
+      //   updateHeaderBgColor(getHeaderBgColor.value)
       updateSidebarBgColor(getMenuBgColor.value)
 
-      setHeaderSetting({ fixed: getHeaderFixed.value })
+      setHeaderSetting({ fixed: getHeaderFixed.value, bgColor: getHeaderBgColor.value })
       setMultiTabsSetting({ show: getMultiTabs.value })
 
       updateColorWeak(getColorWeak.value)
