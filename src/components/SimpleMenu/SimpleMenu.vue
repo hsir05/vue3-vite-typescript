@@ -106,8 +106,6 @@
             }
           }
         }
-        console.log(flag)
-
         return flag
       }
 

@@ -12,7 +12,8 @@ export default {
         role: '角色管理', 
         users: '用户管理',
         menus: '菜单管理',
-        account: '个人页',
+        personal: '个人页',
+        account: '账户管理',
         accountCenter: '个人中心',
         accountSetting: '个人设置',
 

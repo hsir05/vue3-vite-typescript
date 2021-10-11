@@ -16,3 +16,16 @@ export interface BindingDataItem {
     title: string;
     description: string;
 }
+export interface DepFormState{
+    username: string;
+    nickname: string;
+}
+export interface Department {
+    username: string;
+    nickname: string;
+    email: string;
+    role: string;
+    id: string | number;
+    createTime: string;
+    remark?: string;
+}

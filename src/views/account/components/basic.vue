@@ -69,7 +69,7 @@
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
   import { Form, Input, Button } from 'ant-design-vue'
   import { basicRules } from '/@/utils/validator'
-  import { FormState } from './typing'
+  import { FormState } from '../typing'
   import HCropperModal from '/@/components/HCropper/HCropperModal.vue'
   import MyIcon from '/@/components/MyIcon/index.vue'
   export default defineComponent({

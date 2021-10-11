@@ -25,9 +25,9 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
   import { Tabs } from 'ant-design-vue'
-  import Basic from './basic.vue'
-  import Security from './security.vue'
-  import Binding from './binding.vue'
+  import Basic from './components/basic.vue'
+  import Security from './components/security.vue'
+  import Binding from './components/binding.vue'
   export default defineComponent({
     name: 'AccountSetting',
     components: {
